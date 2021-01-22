@@ -15,4 +15,5 @@ I recommend:
 - Emacs (if you've used it before)
 - Vim (again, if you've used it before)
 
-I recommend forking the repository to your own one before checking it out to your laptop/pc to work on.
+Fork the repository to your own one before checking it out to your laptop/pc to work on.  
+That way you can use your own repository to keep control of versioning of your own code.
