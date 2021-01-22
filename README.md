@@ -15,4 +15,4 @@ I recommend:
 - Emacs (if you've used it before)
 - Vim (again, if you've used it before)
 
-I recommend forking the repository to your own one before checking it out to work on in on your laptop/pc
+I recommend forking the repository to your own one before checking it out to your laptop/pc to work on.
