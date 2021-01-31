@@ -6,7 +6,7 @@ Instructions on doing so can be found by simply searching for:
 [insert IDE name here] import Netbeans project
 ```
 I have successfully imported to:
-- Eclipse
+- Eclipse -- see videos on Canvas
 - IntelliJ
 
 Alternatively you can just checkout with Git and use any plain text editor.  
