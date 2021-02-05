@@ -4,11 +4,13 @@ package com.stir.cscu9t4practical1;
 import java.util.Calendar;
 public class Entry {
   private String name;
+  private String exercise;
   private Calendar dateAndTime;
   private float distance;
   
-  public Entry (String n, int d, int m, int y, int h, int min, int s, float dist) {
+  public Entry (String n, String ex, int d, int m, int y, int h, int min, int s, float dist) {
     name = n;
+    exercise = ex;
     Calendar inst = Calendar.getInstance();
     inst.set(y,m-1,d,h,min,s);
     dateAndTime = inst;
@@ -18,6 +20,10 @@ public class Entry {
   public String getName () {
     return name;
   } //getName
+  
+  public String getExercise() {
+	  return exercise;
+  } //getExercise
   
   public int getDay () {
     return dateAndTime.get(Calendar.DATE);
@@ -49,10 +55,12 @@ public class Entry {
   } //getYear
 
   public String getEntry () {
-   String result = getName()+" ran " + getDistance() + " km in "
+   String result = getName() + " " + getExercise() + getDistance() + " km in "
              +getHour()+":"+getMin()+":"+ getSec() + " on "
              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
    return result;
   } //getEntry
+
+  
    
 } // Entry

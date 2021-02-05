@@ -17,6 +17,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField mins = new JTextField(2);
     private JTextField secs = new JTextField(2);
     private JTextField dist = new JTextField(4);
+    private String[] exTypeList = {"Full exercise", "Cycling", "Running", "Swimming"};//Array for drop down box of exercises
+    private JComboBox exType = new JComboBox(exTypeList);//Drop down box
     private JLabel labn = new JLabel(" Name:");
     private JLabel labd = new JLabel(" Day:");
     private JLabel labm = new JLabel(" Month:");
@@ -27,6 +29,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labdist = new JLabel(" Distance (km):");
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    private JButton lookForAllByDate = new JButton("Look for All");
+    private JButton remove = new JButton("Remove record");
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -43,6 +47,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labn);
         add(name);
         name.setEditable(true);
+        add(exType);
         add(labd);
         add(day);
         day.setEditable(true);
@@ -68,6 +73,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        add(lookForAllByDate);
+        lookForAllByDate.addActionListener(this);
+        add(remove);
+        remove.addActionListener(this);
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -88,6 +97,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
         }
+        if (event.getSource() == lookForAllByDate) {
+        	message = findAllByDate();
+        }
+        if (event.getSource() == remove) {
+        	message = remove();
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
@@ -96,6 +111,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
         String n = name.getText();
+        String ex = (String) exType.getSelectedItem();
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
         int y = Integer.parseInt(year.getText());
@@ -103,7 +119,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int h = Integer.parseInt(hours.getText());
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
-        Entry e = new Entry(n, d, m, y, h, mm, s, km);
+        Entry e = new Entry(n, ex, d, m, y, h, mm, s, km);
         myAthletes.addEntry(e);
         return message;
     }
@@ -139,6 +155,31 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         secs.setText(String.valueOf(ent.getSec()));
         dist.setText(String.valueOf(ent.getDistance()));
     }
+    
+    public String findAllByDate() {
+    	int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        outputArea.setText("looking up record ...");
+        String message = myAthletes.lookupAllEntries(d, m, y);
+        return message;
+    }//Find all entries recorded and displays
+    
+    public String remove() {
+    	String message = "Record not found\n";
+    	String n = name.getText();
+    	int d = Integer.parseInt(day.getText());
+        int m = Integer.parseInt(month.getText());
+        int y = Integer.parseInt(year.getText());
+        if (n.isEmpty()) {
+        	return message;
+        }
+        else {
+        	myAthletes.removeEntry(n, d, m, y);
+        	message = "Record removed\n";
+        }
+    	return message;
+    }//Removes selected entry
 
 } // TrainingRecordGUI
 
