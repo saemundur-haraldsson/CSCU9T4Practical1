@@ -29,31 +29,33 @@ public class TrainingRecord {
 
     // look up all the entries of a given day and month
     public String lookupAllEntries (int d, int m, int y) {
-        ListIterator<Entry> iter = tr.listIterator();
+        ListIterator<Entry> itr = tr.listIterator();
         List<String> results = new ArrayList<>();
         String result = "No entries found";
-        while (iter.hasNext()) {
-            Entry current = iter.next();
+        while (itr.hasNext()) {
+            Entry current = itr.next();
             while (current.getDay()==d && current.getMonth()==m && current.getYear()==y){
                 //result = current.getEntry();
                 results.add(current.getEntry());
-                iter.next();
+                itr.next();
             }
         }
         return results.toString();
     } // lookupAllEntries
 
-/*    //remove an element
-    public void removeElement(String n, int d, int m, int y){
-    ListIterator<Entry> iter = tr.listIterator();
-    while (iter.hasNext()){
-        Entry current = iter.hasNext();
+    //remove an element
+    public String removeElement(String n, int d, int m, int y){
+        ListIterator<Entry> itr = tr.listIterator();
+        String result = "Specified entry has been removed";
+        while (itr.hasNext()){
+        Entry current = (Entry)itr.next();
         if(current.getName()==n && current.getDay()==d && current.getMonth()==m && current.getYear()==y){
-            tr.remove(current);
+            itr.remove();
         }
     }
+    return result;
     }//remove element
-*/
+
    // Count the number of entries
    public int getNumberOfEntries(){
        return tr.size();

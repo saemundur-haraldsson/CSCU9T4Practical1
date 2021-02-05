@@ -213,11 +213,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                 recovery.setEnabled(true);
             }
         }
+
+        if (event.getSource() == removeEntries){
+            message = removeElement();
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
 
-    /*public String addEntry(String what) {
+    public String addEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
         String n = name.getText();
@@ -231,7 +235,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         Entry e = new Entry(n, d, m, y, h, mm, s, km);
         myAthletes.addEntry(e);
         return message;
-    }//addEntry*/
+    }//addEntry
     public String addSwimEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
@@ -301,13 +305,14 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return message;
     } //lookupAllEntries
 
-    public void removeElement(){
+    public String removeElement(){
         String n = name.getText();
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
         int y = Integer.parseInt(year.getText());
         outputArea.setText("Removing record ...");
-        //myAthletes.removeElement(n,d,m,y);
+        String message = myAthletes.removeElement(n,d,m,y);
+        return message;
     } //removeElement
 
     public void blankDisplay() {
