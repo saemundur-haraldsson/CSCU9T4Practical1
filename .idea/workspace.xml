@@ -39,6 +39,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.excludes" />
   </component>
   <component name="RecentsManager">
@@ -85,38 +86,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="226" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1612543056225" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1612557058077">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612557058077" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1612557058077">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612557058077" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1612557058077">
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612557058077" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1612557058077">
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612557058077" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1612555870269">
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612555870269" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1612555870269">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612555870269" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1612555870269">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612555870269" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1612555870269">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1612567002203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612555870269" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612567002203" />
     <state x="0" y="94" key="SettingsEditor" timestamp="1612543058477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -130,20 +131,9 @@
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1612555019166" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/stir/cscu9t4practical1/InputChecker.java</url>
-          <line>90</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/stir/cscu9t4practical1/InputChecker.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CSCU9T4Practical1$TrainingRecordGUI.ic" NAME="TrainingRecordGUI Coverage Results" MODIFIED="1612566669679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.stir.cscu9t4practical1.*</FILTER>
+    </SUITE>
   </component>
 </project>

@@ -9,6 +9,7 @@ import java.lang.Number;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
+    private String[] exerciseOptions = {"Cycling", "Sprinting", "Swimming"};
     private JTextField name = new JTextField(30);
     private JTextField day = new JTextField(2);
     private JTextField month = new JTextField(2);
@@ -28,6 +29,22 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton findAllByDate = new JButton("Find All By Date");
+    private JComboBox typeOfExercise = new JComboBox(exerciseOptions);
+
+    private JLabel cyclingSurfaceLabel = new JLabel(" Surface type: ");
+    private JTextField cyclingSurfaceType = new JTextField(15);
+
+    private JLabel cyclingRouteLabel = new JLabel(" Route difficulty: ");
+    private JTextField cyclingRouteDifficulty = new JTextField(15);
+
+    private JLabel sprintingRepsLabel = new JLabel(" Repetitions: ");
+    private JTextField sprintingRepetitions = new JTextField(3);
+
+    private JLabel sprintingRecoveryLabel = new JLabel(" Recovery: ");
+    private JTextField sprintingRecovery = new JTextField(3);
+
+    private JLabel swimmingLocationLabel = new JLabel(" Location: ");
+    private JTextField swimmingLocation = new JTextField(15);
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -44,6 +61,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labn);
         add(name);
         name.setEditable(true);
+
+        add(typeOfExercise);
+        typeOfExercise.setSelectedIndex(0);
+        typeOfExercise.addActionListener(this);
+
         add(labd);
         add(day);
         day.setEditable(true);
@@ -67,10 +89,40 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         dist.setEditable(true);
         add(addR);
         addR.addActionListener(this);
+
+        add(cyclingSurfaceLabel);
+        add(cyclingSurfaceType);
+        cyclingSurfaceType.setEditable(true);
+        cyclingSurfaceType.setEnabled(true);
+
+        add(cyclingRouteLabel);
+        add(cyclingRouteDifficulty);
+        cyclingRouteDifficulty.setEditable(true);
+        cyclingRouteDifficulty.setEnabled(true);
+
+        add(sprintingRepsLabel);
+        add(sprintingRepetitions);
+        sprintingRepetitions.setEditable(true);
+        sprintingRepetitions.setEnabled(false);
+
+        add(sprintingRecoveryLabel);
+        add(sprintingRecovery);
+        sprintingRecovery.setEditable(true);
+        sprintingRecovery.setEnabled(false);
+
+        add(swimmingLocationLabel);
+        add(swimmingLocation);
+        swimmingLocation.setEditable(true);
+        swimmingLocation.setEnabled(false);
+
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        lookUpByDate.setEnabled(false);
+
         add(findAllByDate);
         findAllByDate.addActionListener(this);
+        findAllByDate.setEnabled(false);
+
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -95,9 +147,40 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         {
             message = findAllByDate();
         }
+        if (event.getSource() == typeOfExercise)
+        {
+            message = "";
+
+            setUpDisplayForDifferentExerciseTypes(typeOfExercise.getSelectedIndex());
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
+
+    private void setUpDisplayForDifferentExerciseTypes(int exerciseIndex)
+    {
+        if (exerciseIndex == 0)
+        {
+            setEnablingForGUIComponents(true, true, false, false, false);
+        }
+        else if (exerciseIndex == 1)
+        {
+            setEnablingForGUIComponents(false, false,true, true, false);
+        }
+        else
+        {
+            setEnablingForGUIComponents(false, false, false, false, true);
+        }
+    }
+
+    private void setEnablingForGUIComponents(boolean cyclingRouteDifficulty, boolean cyclingSurfaceType, boolean sprintingRepetitions, boolean sprintingRecovery, boolean swimmingLocation)
+    {
+        this.cyclingRouteDifficulty.setEnabled(cyclingRouteDifficulty);
+        this.cyclingSurfaceType.setEnabled(cyclingSurfaceType);
+        this.sprintingRepetitions.setEnabled(sprintingRepetitions);
+        this.sprintingRecovery.setEnabled(sprintingRecovery);
+        this.swimmingLocation.setEnabled(swimmingLocation);
+    }
 
     public String addEntry(String what)
     {
@@ -115,9 +198,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int h = Integer.parseInt(hours.getText());
             int mm = Integer.parseInt(mins.getText());
             int s = Integer.parseInt(secs.getText());
-            Entry e = new Entry(n, d, m, y, h, mm, s, km);
+            int sprRep = Integer.parseInt(sprintingRepetitions.getText());
+            int sprRec = Integer.parseInt(sprintingRecovery.getText());
+
+            Entry e = createAppropriateEntryType(typeOfExercise.getSelectedIndex(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
+
             myAthletes.addEntry(e);
             message = "Record added\n";
+
+            lookUpByDate.setEnabled(true);
+            findAllByDate.setEnabled(true);
         }
         else if (!inputErrorMessage.equals(""))
         {
@@ -129,6 +219,26 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
 
         return message;
+    }
+
+    private Entry createAppropriateEntryType(int typeOfExerciseSelected, String name, int day, int month, int year, int hour, int minute, int second, float distance, String cyclingSurface, String cyclingRouteDifficulty, int sprintingRepetitions, int sprintingRecovery, String swimmingLocation)
+    {
+        Entry entryToReturn;
+
+        if (typeOfExerciseSelected == 0)
+        {
+            entryToReturn = new CycleEntry(name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty);
+        }
+        else if (typeOfExerciseSelected == 1)
+        {
+            entryToReturn = new SprintEntry(name, day, month, year, hour, minute, second, distance, sprintingRepetitions, sprintingRecovery);
+        }
+        else
+        {
+            entryToReturn = new SwimEntry(name, day, month, year, hour, minute, second, distance, swimmingLocation);
+        }
+
+        return entryToReturn;
     }
 
     private boolean isThisADuplicateEntry()
@@ -152,7 +262,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public String lookupEntry()
     {
         String message;
-        String inputErrorMessage = isInputSafe();
+        String inputErrorMessage = isDateInputSafe();
 
         if (inputErrorMessage.equals("")) {
             int m = Integer.parseInt(month.getText());
@@ -171,7 +281,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public String findAllByDate()
     {
         String message;
-        String inputErrorMessages = isInputSafe();
+        String inputErrorMessages = isDateInputSafe();
 
         if (inputErrorMessages.equals(""))
         {
@@ -189,9 +299,32 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return message;
     }
 
+    private String isDateInputSafe()
+    {
+        InputChecker inputChecker = new InputChecker(typeOfExercise.getSelectedIndex());
+        String result = "";
+
+        if (!inputChecker.isDaySafe(day.getText()))
+        {
+            result += "Please check that you have put a valid number in the Day field.\n";
+        }
+
+        if (!inputChecker.isMonthSafe(month.getText()))
+        {
+            result += "Please check that you have put a valid number in the Month field.\n";
+        }
+
+        if (!inputChecker.isYearSafe(year.getText()))
+        {
+            result += "Please check that you have put a valid number in the Year field.\n";
+        }
+
+        return result;
+    }
+
     private String isInputSafe()
     {
-        InputChecker inputChecker = new InputChecker();
+        InputChecker inputChecker = new InputChecker(typeOfExercise.getSelectedIndex());
         String result = "";
 
         if (!inputChecker.isNameSafe(name.getText()))
@@ -234,6 +367,31 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             result += "Please check that you have put a valid number in the Distance field.\n";
         }
 
+        if (!inputChecker.isCyclingSurfaceTypeSafe(cyclingSurfaceType.getText()))
+        {
+            result += "Please check that you have put a valid number in the Surface Type field.\n";
+        }
+
+        if (!inputChecker.isCyclingRouteDifficultySafe(cyclingRouteDifficulty.getText()))
+        {
+            result += "Please check that you have put a valid number in the Route Difficulty field.\n";
+        }
+
+        if (!inputChecker.isSprintingRepetitionsSafe(sprintingRepetitions.getText()))
+        {
+            result += "Please check that you have put a valid number in the Repetitions field.\n";
+        }
+
+        if (!inputChecker.isSprintingRecoverySafe(sprintingRecovery.getText()))
+        {
+            result += "Please check that you have put a valid number in the Recovery field.\n";
+        }
+
+        if (!inputChecker.isSwimmingLocationSafe(swimmingLocation.getText()))
+        {
+            result += "Please check that you have put a valid number in the Location field.\n";
+        }
+
         return result;
     }   //isInputSafe
 
@@ -247,6 +405,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
+        cyclingSurfaceType.setText("");
+        cyclingRouteDifficulty.setText("");
+        sprintingRepetitions.setText("0");
+        sprintingRecovery.setText("0");
+        swimmingLocation.setText("");
     }// blankDisplay
 
     // Fills the input fields on the display for testing purposes only
