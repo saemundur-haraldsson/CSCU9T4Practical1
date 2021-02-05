@@ -2,18 +2,17 @@
 package com.stir.cscu9t4practical1;
 
 import java.util.Calendar;
-// Just testing
 public class Entry {
-  private String name;
-  private Calendar dateAndTime;
-  private float distance;
+  protected String name;
+  protected Calendar dateAndTime;
+  protected float distance;
   
   public Entry (String n, int d, int m, int y, int h, int min, int s, float dist) {
-    name = n;
+    this.name = n;
     Calendar inst = Calendar.getInstance();
     inst.set(y,m-1,d,h,min,s);
-    dateAndTime = inst;
-    distance = dist;
+    this.dateAndTime = inst;
+    this.distance = dist;
   } //constructor
   
   public String getName () {
@@ -50,7 +49,7 @@ public class Entry {
   } //getYear
 
   public String getEntry () {
-   String result = getName()+" ran " + getDistance() + " km in "
+   String result = getName()+" went " + getDistance() + " km in "
              +getHour()+":"+getMin()+":"+ getSec() + " on "
              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
    return result;
