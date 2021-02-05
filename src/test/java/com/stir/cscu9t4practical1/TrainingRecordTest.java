@@ -17,24 +17,35 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author saemundur
  */
-public class TrainingRecordTest {
-    public TrainingRecordTest() {
+public class TrainingRecordTest
+{
+    public TrainingRecordTest()
+    {
+    	
     }
     
     @BeforeAll
-    public void setUpClass() {
+    public void setUpClass()
+    {
+    	
     }
     
     @AfterAll
-    public void tearDownClass() {
+    public void tearDownClass()
+    {
+    	
     }
     
     @BeforeEach
-    public void setUp() {
+    public void setUp()
+    {
+    	
     }
     
     @AfterEach
-    public void tearDown() {
+    public void tearDown()
+    {
+    	
     }
 
     /**
@@ -43,11 +54,12 @@ public class TrainingRecordTest {
      * Entry types
      */
     @Test
-    public void testAddEntry() {
+    public void testAddRunEntry()
+    {
         System.out.println("addEntry");
-        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        RunEntry a = new RunEntry("Alice", 1, 2, 2003, 0, 16, 7, 3);
         TrainingRecord instance = new TrainingRecord();
-        instance.addEntry(a);
+        instance.addRunEntry(a);
         assertEquals(instance.getNumberOfEntries(),1);
     }
     
@@ -56,13 +68,14 @@ public class TrainingRecordTest {
      * Adding another entry for the same person on the same day should fail
      */
     @Test
-    public void testAddEntryUnique() {
+    public void testAddEntryUnique()
+    {
         System.out.println("addEntry -- fail");
-        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
-        Entry b = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        RunEntry a = new RunEntry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        RunEntry b = new RunEntry("Alice", 1, 2, 2003, 0, 16, 7, 3);
         TrainingRecord instance = new TrainingRecord();
-        instance.addEntry(a);
-        instance.addEntry(b);
+        instance.addRunEntry(a);
+        instance.addRunEntry(b);
         assertEquals(instance.getNumberOfEntries(),1);
         // You might also consider using assertThrows() and let
         // TrainingRecord instance take care of when you're trying to add
@@ -72,8 +85,9 @@ public class TrainingRecordTest {
     /**
      * Test of lookupEntry method, of class TrainingRecord.
      */
-    @Test
-    public void testLookupEntry() {
+    
+    /*public void testLookupEntry()
+    {
         System.out.println("lookupEntry");
         TrainingRecord instance = new TrainingRecord();
         String expResult = "No entries found";
@@ -88,31 +102,32 @@ public class TrainingRecordTest {
         int d = 7;
         int m = 3;
         int y = 2010;
-        String result = instance.lookupEntry(d, m, y);
+        String result = instance.lookupAllEntriesForGivenName(d, m, y);
         assertNotEquals(expResult, result, "expecting to find the entry");
-        result = instance.lookupEntry(1, 2, 1999);
+        result = instance.lookupAllEntriesForGivenName(1, 2, 1999);
         assertEquals(expResult, result, "expecting to not find the entry");
-    }
+    }*/
     
     /**
      * Test of getNumberOfEntries, of class TrainingRecord
      */
     @Test
-    public void testGetNumberOfEntries() {
+    public void testGetNumberOfEntries()
+    {
         System.out.println("GetNumberOfEntries");
         TrainingRecord instance = new TrainingRecord();
-        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
-        Entry b = new Entry("Bob", 1, 2, 2003, 0, 14, 15, 3);
-        Entry c1 = new Entry("Claire", 7, 3, 2010, 0, 26, 20, 7);
-        Entry c2 = new Entry("Claire", 11, 3, 2010, 0, 24, 55, 7);
+        RunEntry a = new RunEntry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        RunEntry b = new RunEntry("Bob", 1, 2, 2003, 0, 14, 15, 3);
+        RunEntry c1 = new RunEntry("Claire", 7, 3, 2010, 0, 26, 20, 7);
+        RunEntry c2 = new RunEntry("Claire", 11, 3, 2010, 0, 24, 55, 7);
         assertEquals(instance.getNumberOfEntries(),0);
-        instance.addEntry(a);
+        instance.addRunEntry(a);
         assertEquals(instance.getNumberOfEntries(),1);
-        instance.addEntry(b);
+        instance.addRunEntry(b);
         assertEquals(instance.getNumberOfEntries(),2);
-        instance.addEntry(c1);
+        instance.addRunEntry(c1);
         assertEquals(instance.getNumberOfEntries(),3);
-        instance.addEntry(c2);
+        instance.addRunEntry(c2);
         assertEquals(instance.getNumberOfEntries(),4);
     }
     
@@ -122,16 +137,17 @@ public class TrainingRecordTest {
      * un-comment call to the method and the assertion line
      */
     @Test
-    public void testLookupEntries() {
+    public void testLookupEntries()
+    {
         System.out.println("lookupEntries");
         String expectResultsNone = "Sorry couldn't find anything for this date";
         String expectResults = "Alice ran 3.0 km in 0:16:7 on 1/2/2003\n" + 
                                 "Bob ran 3.0 km in 0:14:15 on 1/2/2003\n";
         TrainingRecord instance = new TrainingRecord();
-        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
-        Entry b = new Entry("Bob", 1, 2, 2003, 0, 14, 15, 3);
-        instance.addEntry(a);
-        instance.addEntry(b);
+        RunEntry a = new RunEntry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        RunEntry b = new RunEntry("Bob", 1, 2, 2003, 0, 14, 15, 3);
+        instance.addRunEntry(a);
+        instance.addRunEntry(b);
         fail("This method cannot be tested as it does not exist yet");
         int d = 1;
         int m = 2;
