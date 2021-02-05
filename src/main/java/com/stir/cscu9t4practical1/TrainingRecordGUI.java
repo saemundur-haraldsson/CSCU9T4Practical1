@@ -104,9 +104,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message;
         String inputErrorMessage = isInputSafe();
 
-        if (inputErrorMessage.equals(""))
+        if (inputErrorMessage.equals("") && isThisADuplicateEntry() == false)
         {
-            message = "Record added\n";
             System.out.println("Adding "+what+" entry to the records");
             String n = name.getText();
             int m = Integer.parseInt(month.getText());
@@ -117,14 +116,38 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int mm = Integer.parseInt(mins.getText());
             int s = Integer.parseInt(secs.getText());
             Entry e = new Entry(n, d, m, y, h, mm, s, km);
-            myAthletes.addEntry(e);        }
-        else
+            myAthletes.addEntry(e);
+            message = "Record added\n";
+        }
+        else if (!inputErrorMessage.equals(""))
         {
             message = inputErrorMessage;
+        }
+        else
+        {
+            message = "Duplicate entries are not permitted.";
         }
 
         return message;
     }
+
+    private boolean isThisADuplicateEntry()
+    {
+        boolean result = false;
+        int month = Integer.parseInt(this.month.getText());
+        int day = Integer.parseInt(this.day.getText());
+        int year = Integer.parseInt(this.year.getText());
+        String name = this.name.getText();
+
+        String runsThatDay = myAthletes.findAllByDate(day, month, year);
+
+        if (runsThatDay.contains(name))
+        {
+            result = true;
+        }
+
+        return result;
+    }   //isThisADuplicateEntry
     
     public String lookupEntry()
     {
