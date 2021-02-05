@@ -25,7 +25,7 @@ public class TrainingRecord {
              result = current.getEntry();
             }
        return result;
-   } // lookupEntry
+   } // lookupEntry returns the last entry with the given date
 
     // look up all the entries of a given day and month
     public String lookupAllEntries (int d, int m, int y) {
@@ -34,10 +34,11 @@ public class TrainingRecord {
         String result = "No entries found";
         while (iter.hasNext()) {
             Entry current = iter.next();
-            if (current.getDay()==d && current.getMonth()==m && current.getYear()==y)
+            while (current.getDay()==d && current.getMonth()==m && current.getYear()==y){
                 //result = current.getEntry();
                 results.add(current.getEntry());
-                current = iter.next();
+                iter.next();
+            }
         }
         return results.toString();
     } // lookupAllEntries
