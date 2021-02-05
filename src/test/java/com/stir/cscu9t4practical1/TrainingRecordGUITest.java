@@ -28,25 +28,36 @@ import javax.swing.JButton;
  *
  * @author saemundur
  */
-public class TrainingRecordGUITest {
+public class TrainingRecordGUITest
+{
 
-    public TrainingRecordGUITest() {
+    public TrainingRecordGUITest()
+    {
+    	
     }
 
     @BeforeAll
-    public static void setUpClass() throws Exception {
+    public static void setUpClass() throws Exception
+    {
+    	
     }
 
     @AfterAll
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass() throws Exception
+    {
+    	
     }
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
+    	
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
+    	
     }
 
     /**
@@ -54,7 +65,8 @@ public class TrainingRecordGUITest {
      * just tests if the class can be initialised without errors
      */
     @Test
-    public void testMain() {
+    public void testMain()
+    {
         System.out.println("main");
         String[] args = null;
         TrainingRecordGUI.main(args);
@@ -65,7 +77,8 @@ public class TrainingRecordGUITest {
      * This doesn't test anything but might be used in evaluations
      */
     @Test
-    public void testActionPerformed() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void testActionPerformed() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
         System.out.println("Action not performed");
     }
 
@@ -74,7 +87,8 @@ public class TrainingRecordGUITest {
      * It just executes the method to see if it doesn't throw an exception
      */
     @Test
-    public void testBlankDisplay() {
+    public void testBlankDisplay()
+    {
         System.out.println("blankDisplay");
         TrainingRecordGUI instance = new TrainingRecordGUI();
         instance.blankDisplay();
@@ -85,12 +99,13 @@ public class TrainingRecordGUITest {
      * 
      */
     @Test
-    public void testAddEntry(){
+    public void testAddEntry()
+    {
         System.out.println("addEntry");
         TrainingRecordGUI instance = new TrainingRecordGUI();
         Entry entry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
         instance.fillDisplay(entry);
-        String message = instance.addEntry("generic");
+        String message = instance.addEntry();
         System.out.println(message);
         assertEquals(message,"Record added\n");
     }
@@ -99,15 +114,18 @@ public class TrainingRecordGUITest {
      * Test to see if all display requirements have been met
      */
     @Test
-    public void testButtonsPresentInGUI() throws IllegalAccessException, IllegalArgumentException{
+    public void testButtonsPresentInGUI() throws IllegalAccessException, IllegalArgumentException
+    {
         System.out.println("Check if you have added the buttons"); 
         TrainingRecordGUI instance = new TrainingRecordGUI();
         Class<?> instanceClass = instance.getClass();
         String[] expectedFields = {"findAllByDate","lookUpByDate"}; // add RemoveEntry when it is ready
         Field fields[] = instanceClass.getDeclaredFields();
         int found = 0;
-        for (Field field : fields) {
-            if (Arrays.asList(expectedFields).contains(field.getName())){
+        for (Field field : fields)
+        {
+            if (Arrays.asList(expectedFields).contains(field.getName()))
+            {
                 found += 1;
                 field.setAccessible(true);
                 assertTrue(field.get(instance) instanceof JButton);
