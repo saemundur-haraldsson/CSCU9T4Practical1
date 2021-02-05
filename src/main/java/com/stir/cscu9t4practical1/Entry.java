@@ -54,5 +54,12 @@ public class Entry {
              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
    return result;
   } //getEntry
+
+  public String getTempo ()
+  {
+    return "Not Implemented Yet!";
+  } //getTempo
+
+
    
 } // Entry

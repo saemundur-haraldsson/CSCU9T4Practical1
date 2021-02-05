@@ -7,6 +7,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -28,11 +35,19 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/lib/junit-4.12.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/stir/cscu9t4practical1" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.excludes" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.stir.cscu9t4practical1" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hughm\Desktop\Uni Work\CSCU9T4\CSCU9T4Practical1\src\main\java\com\stir\cscu9t4practical1" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="TrainingRecordGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -66,17 +81,69 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="226" y="261" key="FileChooserDialogImpl" timestamp="1612540295643">
+    <state x="226" y="261" key="FileChooserDialogImpl" timestamp="1612543056225">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="226" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1612540295643" />
-    <state x="0" y="94" key="SettingsEditor" timestamp="1612540300208">
+    <state x="226" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1612543056225" />
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1612555464212">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="0" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1612540300208" />
-    <state x="191" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1612540339834">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612555464212" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1612555464212">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="191" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1612540339834" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612555464212" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1612555464212">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612555464212" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1612555464212">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612555464212" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1612555473646">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612555473646" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1612555473646">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612555473646" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1612555473646">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612555473646" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1612555473646">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612555473646" />
+    <state x="0" y="94" key="SettingsEditor" timestamp="1612543058477">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1612543058477" />
+    <state x="191" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1612542677144">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="191" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1612542677144" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1612555019166">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1612555019166" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/stir/cscu9t4practical1/TrainingRecordGUI.java</url>
+          <line>178</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/stir/cscu9t4practical1/InputChecker.java</url>
+          <line>78</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

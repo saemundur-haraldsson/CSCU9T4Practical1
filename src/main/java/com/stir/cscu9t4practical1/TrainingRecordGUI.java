@@ -27,6 +27,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labdist = new JLabel(" Distance (km):");
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    private JButton findAllByDate = new JButton("Find All By Date");
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -68,6 +69,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        add(findAllByDate);
+        findAllByDate.addActionListener(this);
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -88,34 +91,129 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
         }
+        if (event.getSource() == findAllByDate)
+        {
+            message = findAllByDate();
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
 
-    public String addEntry(String what) {
-        String message = "Record added\n";
-        System.out.println("Adding "+what+" entry to the records");
-        String n = name.getText();
-        int m = Integer.parseInt(month.getText());
-        int d = Integer.parseInt(day.getText());
-        int y = Integer.parseInt(year.getText());
-        float km = java.lang.Float.parseFloat(dist.getText());
-        int h = Integer.parseInt(hours.getText());
-        int mm = Integer.parseInt(mins.getText());
-        int s = Integer.parseInt(secs.getText());
-        Entry e = new Entry(n, d, m, y, h, mm, s, km);
-        myAthletes.addEntry(e);
+    public String addEntry(String what)
+    {
+        String message;
+        String inputErrorMessage = isInputSafe();
+
+        if (inputErrorMessage.equals(""))
+        {
+            message = "Record added\n";
+            System.out.println("Adding "+what+" entry to the records");
+            String n = name.getText();
+            int m = Integer.parseInt(month.getText());
+            int d = Integer.parseInt(day.getText());
+            int y = Integer.parseInt(year.getText());
+            float km = java.lang.Float.parseFloat(dist.getText());
+            int h = Integer.parseInt(hours.getText());
+            int mm = Integer.parseInt(mins.getText());
+            int s = Integer.parseInt(secs.getText());
+            Entry e = new Entry(n, d, m, y, h, mm, s, km);
+            myAthletes.addEntry(e);        }
+        else
+        {
+            message = inputErrorMessage;
+        }
+
         return message;
     }
     
-    public String lookupEntry() {
-        int m = Integer.parseInt(month.getText());
-        int d = Integer.parseInt(day.getText());
-        int y = Integer.parseInt(year.getText());
-        outputArea.setText("looking up record ...");
-        String message = myAthletes.lookupEntry(d, m, y);
+    public String lookupEntry()
+    {
+        String message;
+        String inputErrorMessage = isInputSafe();
+
+        if (inputErrorMessage.equals("")) {
+            int m = Integer.parseInt(month.getText());
+            int d = Integer.parseInt(day.getText());
+            int y = Integer.parseInt(year.getText());
+            outputArea.setText("looking up record ...");
+            message = myAthletes.lookupEntry(d, m, y);
+        }
+        else
+        {
+            message = inputErrorMessage;
+        }
         return message;
     }
+
+    public String findAllByDate()
+    {
+        String message;
+        String inputErrorMessages = isInputSafe();
+
+        if (inputErrorMessages.equals(""))
+        {
+            int m = Integer.parseInt(month.getText());
+            int d = Integer.parseInt(day.getText());
+            int y = Integer.parseInt(year.getText());
+            outputArea.setText("looking up record ...");
+            message = myAthletes.findAllByDate(d, m, y);
+        }
+        else
+        {
+            message = inputErrorMessages;
+        }
+
+        return message;
+    }
+
+    private String isInputSafe()
+    {
+        InputChecker inputChecker = new InputChecker();
+        String result = "";
+
+        if (!inputChecker.isNameSafe(name.getText()))
+        {
+            result += "Please check that you have put a valid entry in the day field.\n";
+        }
+
+        if (!inputChecker.isDaySafe(day.getText()))
+        {
+            result += "Please check that you have put a valid number in the Day field.\n";
+        }
+
+        if (!inputChecker.isMonthSafe(month.getText()))
+        {
+            result += "Please check that you have put a valid number in the Month field.\n";
+        }
+
+        if (!inputChecker.isYearSafe(year.getText()))
+        {
+            result += "Please check that you have put a valid number in the Year field.\n";
+        }
+
+        if (!inputChecker.isHourSafe(hours.getText()))
+        {
+            result += "Please check that you have put a valid number in the Hours field.\n";
+        }
+
+        if (!inputChecker.isMinuteSafe(mins.getText()))
+        {
+            result += "Please check that you have put a valid number in the Minutes field.\n";
+        }
+
+        if (!inputChecker.isSecondSafe(secs.getText()))
+        {
+            result += "Please check that you have put a valid number in the Seconds field.\n";
+        }
+
+        if (!inputChecker.isDistanceSafe(dist.getText()))
+        {
+            result += "Please check that you have put a valid number in the Distance field.\n";
+        }
+
+        return result;
+    }   //isInputSafe
+
 
     public void blankDisplay() {
         name.setText("");
@@ -126,8 +224,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
-
     }// blankDisplay
+
     // Fills the input fields on the display for testing purposes only
     public void fillDisplay(Entry ent) {
         name.setText(ent.getName());
