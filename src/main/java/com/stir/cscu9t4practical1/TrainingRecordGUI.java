@@ -139,7 +139,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String message = "";
         if (event.getSource() == addR) {
-            message = addEntry("generic");
+            if(rbswim.isSelected()){
+                message = addSwimEntry("swim");
+            }
+            if(rbcycle.isSelected()){
+                message = addCycleEntry("cycle");
+            }
+            if(rbsprint.isSelected()){
+                message = addSprintEntry("sprint");
+            }
+            //message = addEntry("generic");
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
@@ -149,11 +158,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             //message = ("Not implemented yet");
             message = lookupAllEntries();
         }
-
         if (event.getSource() == rbswim){
-            message = addSwimEntry("swim");
             if (rbswim.isSelected())
             {
+                labdist.setText("Distance (km):");
                 labrecovery.setEnabled(false);
                 recovery.setEnabled(false);
                 labtempo.setEnabled(false);
@@ -164,12 +172,14 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                 repetition.setEnabled(false);
                 labdist.setEnabled(true);
                 dist.setEnabled(true);
+                labwhere.setEnabled(true);
+                where.setEnabled(true);
             }
         }
         if (event.getSource() == rbcycle){
-            message = addCycleEntry("cycle");
             if(rbcycle.isSelected())
             {
+                labdist.setText("Distance (km):");
                 labrepetition.setEnabled(false);
                 repetition.setEnabled(false);
                 labrecovery.setEnabled(false);
@@ -185,10 +195,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             }
         }
         if (event.getSource() == rbsprint){
-            labdist.setText("Distance (m):");
-            message = addSprintEntry("sprint");
+            //labdist.setText("Distance (m):");
             if(rbsprint.isSelected());
             {
+                labdist.setText("Distance (m):");
                 labwhere.setEnabled(false);
                 where.setEnabled(false);
                 labtempo.setEnabled(false);
@@ -207,7 +217,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         blankDisplay();
     } // actionPerformed
 
-    public String addEntry(String what) {
+    /*public String addEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
         String n = name.getText();
@@ -221,7 +231,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         Entry e = new Entry(n, d, m, y, h, mm, s, km);
         myAthletes.addEntry(e);
         return message;
-    }//addEntry
+    }//addEntry*/
     public String addSwimEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
