@@ -61,12 +61,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public TrainingRecordGUI() {
         super("Training Record");
         setLayout(new FlowLayout());
+        //adding radio buttons to deal with the different types of record to be added
         bg.add(rbswim); //TASK 8
         bg.add(rbcycle); //TASK 8
         bg.add(rbsprint); //TASK 8
         add(rbswim); //TASK 8
+        rbswim.addActionListener(this);
         add(rbcycle); //TASK 8
+        rbcycle.addActionListener(this);
         add(rbsprint); //TASK 8
+        rbsprint.addActionListener(this);
 
         add(labn);
         add(name);
@@ -147,30 +151,57 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
 
         if (event.getSource() == rbswim){
-            labrecovery.setVisible(false);
-            recovery.setVisible(false);
-            labtempo.setVisible(false);
-            tempo.setVisible(false);
-            labterrain.setVisible(false);
-            terrain.setVisible(false);
-            labrepetition.setVisible(false);
-            repetition.setVisible(false);
+            message = addSwimEntry("swim");
+            if (rbswim.isSelected())
+            {
+                labrecovery.setEnabled(false);
+                recovery.setEnabled(false);
+                labtempo.setEnabled(false);
+                tempo.setEnabled(false);
+                labterrain.setEnabled(false);
+                terrain.setEnabled(false);
+                labrepetition.setEnabled(false);
+                repetition.setEnabled(false);
+                labdist.setEnabled(true);
+                dist.setEnabled(true);
+            }
         }
         if (event.getSource() == rbcycle){
-            labrepetition.setVisible(false);
-            repetition.setVisible(false);
-            labrecovery.setVisible(false);
-            recovery.setVisible(false);
-            labwhere.setVisible(false);
-            where.setVisible(false);
+            message = addCycleEntry("cycle");
+            if(rbcycle.isSelected())
+            {
+                labrepetition.setEnabled(false);
+                repetition.setEnabled(false);
+                labrecovery.setEnabled(false);
+                recovery.setEnabled(false);
+                labwhere.setEnabled(false);
+                where.setEnabled(false);
+                labdist.setEnabled(true);
+                dist.setEnabled(true);
+                labtempo.setEnabled(true);
+                tempo.setEnabled(true);
+                labterrain.setEnabled(true);
+                terrain.setEnabled(true);
+            }
         }
         if (event.getSource() == rbsprint){
-            labwhere.setVisible(false);
-            where.setVisible(false);
-            labtempo.setVisible(false);
-            tempo.setVisible(false);
-            labterrain.setVisible(false);
-            terrain.setVisible(false);
+            labdist.setText("Distance (m):");
+            message = addSprintEntry("sprint");
+            if(rbsprint.isSelected());
+            {
+                labwhere.setEnabled(false);
+                where.setEnabled(false);
+                labtempo.setEnabled(false);
+                tempo.setEnabled(false);
+                labterrain.setEnabled(false);
+                terrain.setEnabled(false);
+                labdist.setEnabled(true);
+                dist.setEnabled(true);
+                labrepetition.setEnabled(true);
+                repetition.setEnabled(true);
+                labrecovery.setEnabled(true);
+                recovery.setEnabled(true);
+            }
         }
         outputArea.setText(message);
         blankDisplay();
@@ -190,8 +221,58 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         Entry e = new Entry(n, d, m, y, h, mm, s, km);
         myAthletes.addEntry(e);
         return message;
-    }
-    
+    }//addEntry
+    public String addSwimEntry(String what) {
+        String message = "Record added\n";
+        System.out.println("Adding "+what+" entry to the records");
+        String n = name.getText();
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        float km = java.lang.Float.parseFloat(dist.getText());
+        int h = Integer.parseInt(hours.getText());
+        int mm = Integer.parseInt(mins.getText());
+        int s = Integer.parseInt(secs.getText());
+        String whr = where.getText();
+        Entry e = new SwimEntry(n, d, m, y, h, mm, s, km, whr);
+        myAthletes.addEntry(e);
+        return message;
+    }//addSwimEntry
+    public String addCycleEntry(String what) {
+        String message = "Record added\n";
+        System.out.println("Adding "+what+" entry to the records");
+        String n = name.getText();
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        float km = java.lang.Float.parseFloat(dist.getText());
+        int h = Integer.parseInt(hours.getText());
+        int mm = Integer.parseInt(mins.getText());
+        int s = Integer.parseInt(secs.getText());
+        String ter = terrain.getText();
+        String tmpo = tempo.getText();
+        Entry e = new CycleEntry(n, d, m, y, h, mm, s, km, ter, tmpo);
+        myAthletes.addEntry(e);
+        return message;
+    }//addCycleEntry
+    public String addSprintEntry(String what) {
+        String message = "Record added\n";
+        System.out.println("Adding "+what+" entry to the records");
+        String n = name.getText();
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        float km = java.lang.Float.parseFloat(dist.getText());
+        int h = Integer.parseInt(hours.getText());
+        int mm = Integer.parseInt(mins.getText());
+        int s = Integer.parseInt(secs.getText());
+        int recov = Integer.parseInt(recovery.getText());
+        int repetitions = Integer.parseInt(repetition.getText());
+        Entry e = new SprintEntry(n, d, m, y, h, mm, s, km, recov, repetitions);
+        myAthletes.addEntry(e);
+        return message;
+    }//addSprintEntry
+
     public String lookupEntry() {
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
@@ -199,7 +280,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("looking up record ...");
         String message = myAthletes.lookupEntry(d, m, y);
         return message;
-    }
+    } //lookupEntry
 
     public String lookupAllEntries() {
         int m = Integer.parseInt(month.getText());
@@ -208,7 +289,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("looking up records ...");
         String message = myAthletes.lookupAllEntries(d, m, y);
         return message;
-    }
+    } //lookupAllEntries
 
     public void removeElement(){
         String n = name.getText();
@@ -216,8 +297,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int d = Integer.parseInt(day.getText());
         int y = Integer.parseInt(year.getText());
         outputArea.setText("Removing record ...");
-        ///myAthletes.removeElement(n,d,m,y);
-    }
+        //myAthletes.removeElement(n,d,m,y);
+    } //removeElement
 
     public void blankDisplay() {
         name.setText("");
@@ -228,8 +309,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
-
+        terrain.setText("");
+        tempo.setText("");
+        repetition.setText("");
+        recovery.setText("");
+        where.setText("");
     }// blankDisplay
+
     // Fills the input fields on the display for testing purposes only
     public void fillDisplay(Entry ent) {
         name.setText(ent.getName());
@@ -240,6 +326,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText(String.valueOf(ent.getMin()));
         secs.setText(String.valueOf(ent.getSec()));
         dist.setText(String.valueOf(ent.getDistance()));
+        terrain.setText(String.valueOf(((CycleEntry)ent).getTerrain()));
+        tempo.setText(String.valueOf(((CycleEntry)ent).getTempo()));
+        repetition.setText(String.valueOf(((SprintEntry)ent).getRepetitions()));
+        recovery.setText(String.valueOf(((SprintEntry)ent).getRecovery()));
+        where.setText(String.valueOf(((SwimEntry)ent).getWhere()));
     }
 
 } // TrainingRecordGUI

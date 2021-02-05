@@ -30,7 +30,7 @@ public class TrainingRecord {
     // look up all the entries of a given day and month
     public String lookupAllEntries (int d, int m, int y) {
         ListIterator<Entry> iter = tr.listIterator();
-        List<String> results = new LinkedList<>();
+        List<String> results = new ArrayList<>();
         String result = "No entries found";
         while (iter.hasNext()) {
             Entry current = iter.next();
