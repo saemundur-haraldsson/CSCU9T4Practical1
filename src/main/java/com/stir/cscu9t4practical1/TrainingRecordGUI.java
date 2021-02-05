@@ -9,6 +9,11 @@ import java.lang.Number;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
+    private JRadioButton rbswim = new JRadioButton("Swim"); //TASK 8
+    private JRadioButton rbsprint = new JRadioButton("Sprint"); //TASK 8
+    private JRadioButton rbcycle = new JRadioButton("Cycle"); //TASK 8
+    private ButtonGroup bg = new ButtonGroup();
+
     private JTextField name = new JTextField(30);
     private JTextField day = new JTextField(2);
     private JTextField month = new JTextField(2);
@@ -17,6 +22,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField mins = new JTextField(2);
     private JTextField secs = new JTextField(2);
     private JTextField dist = new JTextField(4);
+
+    private JTextField where = new JTextField(10); //Task 8
+    private JTextField recovery = new JTextField(2); //Task 8
+    private JTextField repetition = new JTextField(2); //Task 8
+    private JTextField terrain = new JTextField(10); //Task 8
+    private JTextField tempo = new JTextField(10); //Task 8
+
     private JLabel labn = new JLabel(" Name:");
     private JLabel labd = new JLabel(" Day:");
     private JLabel labm = new JLabel(" Month:");
@@ -25,12 +37,21 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
     private JLabel labdist = new JLabel(" Distance (km):");
+
+    private JLabel labwhere = new JLabel("Where:"); //Task 8
+    private JLabel labrecovery = new JLabel("Recovery"); //Task 8
+    private JLabel labrepetition = new JLabel("Repetitions:"); //Task 8
+    private JLabel labterrain = new JLabel("Terrain:"); //Task 8
+    private JLabel labtempo = new JLabel("Tempo:"); //Task 8
+
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    private JButton findAllByDate = new JButton("Find All By Date"); //TASK 1
+    private JButton removeEntries = new JButton("Remove Entries"); //TASK 11
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
-    private JTextArea outputArea = new JTextArea(5, 50);
+    private JTextArea outputArea = new JTextArea(15, 50);
 
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
@@ -40,6 +61,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public TrainingRecordGUI() {
         super("Training Record");
         setLayout(new FlowLayout());
+        bg.add(rbswim); //TASK 8
+        bg.add(rbcycle); //TASK 8
+        bg.add(rbsprint); //TASK 8
+        add(rbswim); //TASK 8
+        add(rbcycle); //TASK 8
+        add(rbsprint); //TASK 8
+
         add(labn);
         add(name);
         name.setEditable(true);
@@ -64,13 +92,37 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
+
+        add(labwhere); //TASK 8
+        add(where); //TASK 8
+        where.setEditable(true); //TASK 8
+        add(labrecovery); //TASK 8
+        add(recovery); //TASK 8
+        recovery.setEditable(true); //TASK 8
+        add(labrepetition); //TASK 8
+        add(repetition); //TASK 8
+        repetition.setEditable(true); //TASK 8
+        add(labterrain); //TASK 8
+        add(terrain); //TASK 8
+        terrain.setEditable(true); //TASK 8
+        add(labtempo); //TASK 8
+        add(tempo); //TASK 8
+        tempo.setEditable(true); //TASK 8
+
         add(addR);
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+
+        add(findAllByDate); //TASK 1
+        findAllByDate.addActionListener(this); //TASK 1
+
+        add(removeEntries); //TASK 11
+        removeEntries.addActionListener(this); //TASK 11
+
         add(outputArea);
         outputArea.setEditable(false);
-        setSize(720, 200);
+        setSize(780, 400);
         setVisible(true);
         blankDisplay();
 
@@ -87,6 +139,38 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
+        }
+        //action performed method for TASK 1
+        if (event.getSource() == findAllByDate) {
+            //message = ("Not implemented yet");
+            message = lookupAllEntries();
+        }
+
+        if (event.getSource() == rbswim){
+            labrecovery.setVisible(false);
+            recovery.setVisible(false);
+            labtempo.setVisible(false);
+            tempo.setVisible(false);
+            labterrain.setVisible(false);
+            terrain.setVisible(false);
+            labrepetition.setVisible(false);
+            repetition.setVisible(false);
+        }
+        if (event.getSource() == rbcycle){
+            labrepetition.setVisible(false);
+            repetition.setVisible(false);
+            labrecovery.setVisible(false);
+            recovery.setVisible(false);
+            labwhere.setVisible(false);
+            where.setVisible(false);
+        }
+        if (event.getSource() == rbsprint){
+            labwhere.setVisible(false);
+            where.setVisible(false);
+            labtempo.setVisible(false);
+            tempo.setVisible(false);
+            labterrain.setVisible(false);
+            terrain.setVisible(false);
         }
         outputArea.setText(message);
         blankDisplay();
@@ -115,6 +199,24 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("looking up record ...");
         String message = myAthletes.lookupEntry(d, m, y);
         return message;
+    }
+
+    public String lookupAllEntries() {
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        outputArea.setText("looking up records ...");
+        String message = myAthletes.lookupAllEntries(d, m, y);
+        return message;
+    }
+
+    public void removeElement(){
+        String n = name.getText();
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        outputArea.setText("Removing record ...");
+        ///myAthletes.removeElement(n,d,m,y);
     }
 
     public void blankDisplay() {
