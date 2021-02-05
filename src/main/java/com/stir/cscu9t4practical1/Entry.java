@@ -1,4 +1,4 @@
-// This class holds information about a single training session
+// This class holds information about a single training session 1
 package com.stir.cscu9t4practical1;
 
 import java.util.Calendar;
