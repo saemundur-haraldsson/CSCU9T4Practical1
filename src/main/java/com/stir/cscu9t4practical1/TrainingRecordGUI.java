@@ -7,7 +7,6 @@ import javax.swing.*;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
-    //private String[] exerciseOptions = {String.valueOf(EnumExerciseType.Cycling), String.valueOf(EnumExerciseType.Running), String.valueOf(EnumExerciseType.Swimming)};
     private JTextField name = new JTextField(30);
     private JTextField day = new JTextField(2);
     private JTextField month = new JTextField(2);
@@ -185,9 +184,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message;
         String inputErrorMessage = isInputSafe();
 
-        if (inputErrorMessage.equals("") && isThisADuplicateEntry() == false)
+        if (inputErrorMessage.equals(""))
         {
             System.out.println("Adding "+what+" entry to the records");
+
+            int numberOfEntriesAtStart = myAthletes.getNumberOfEntries();
             String n = name.getText();
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
@@ -199,26 +200,29 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int sprRep = Integer.parseInt(sprintingRepetitions.getText());
             int sprRec = Integer.parseInt(sprintingRecovery.getText());
 
-
-
             Entry e = createAppropriateEntryType(getExerciseTypeFromDropDown(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
 
-            myAthletes.addEntry(e);
-            message = "Record added\n";
+            message = myAthletes.addEntry(e);
 
-            lookUpByDate.setEnabled(true);
-            findAllByDate.setEnabled(true);
-        }
-        else if (!inputErrorMessage.equals(""))
-        {
-            message = inputErrorMessage;
+            if ((numberOfEntriesAtStart != myAthletes.getNumberOfEntries()) && !lookUpByDate.isEnabled())  //Check to see if an entry has actually been added, and if the buttons for looking up entries are disabled.
+            {
+                lookUpByDate.setEnabled(true);  //Enable buttons for looking up entries.
+                findAllByDate.setEnabled(true);
+            }
         }
         else
         {
-            message = "Duplicate entries are not permitted.";
+            message = inputErrorMessage;
         }
 
         return message;
+    }
+
+    private String actuallyGetEntryDataAndAttemptToCreateNewEntry()
+    {
+        String result;
+
+
     }
 
     private EnumExerciseType getExerciseTypeFromDropDown()
@@ -246,24 +250,6 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
         return entryToReturn;
     }
-
-    private boolean isThisADuplicateEntry()
-    {
-        boolean result = false;
-        int month = Integer.parseInt(this.month.getText());
-        int day = Integer.parseInt(this.day.getText());
-        int year = Integer.parseInt(this.year.getText());
-        String name = this.name.getText();
-
-        String runsThatDay = myAthletes.findAllByDate(day, month, year);
-
-        if (runsThatDay.contains(name))
-        {
-            result = true;
-        }
-
-        return result;
-    }   //isThisADuplicateEntry
     
     public String lookupEntry()
     {

@@ -15,8 +15,31 @@ public class TrainingRecord {
     } //constructor
     
     // add a record to the list
-   public void addEntry(Entry e){
-       tr.add(e);    
+   public String addEntry(Entry newEntry)
+   {
+       String result;
+       boolean isThisADuplicateEntry = false;
+       String uniqueIdentifierOfNewEntry = newEntry.getUniqueIdentifier();
+
+       for (Entry e : this.tr)
+       {
+           if (e.getUniqueIdentifier().equals(uniqueIdentifierOfNewEntry))
+           {
+               isThisADuplicateEntry = true;
+           }
+       }
+
+       if (isThisADuplicateEntry)
+       {
+           result = "Duplicate entries are not permitted.\n";
+       }
+       else
+       {
+           tr.add(newEntry);
+           result = "Record added\n";
+       }
+
+       return result;
    } // addClass
    
    // look up the entry of a given day and month

@@ -6,6 +6,7 @@ public class Entry {
   private String name;
   private Calendar dateAndTime;
   private float distance;
+  private String uniqueIdentifier;
   
   public Entry (String n, int d, int m, int y, int h, int min, int s, float dist) {
     name = n;
@@ -13,6 +14,7 @@ public class Entry {
     inst.set(y,m-1,d,h,min,s);
     dateAndTime = inst;
     distance = dist;
+    uniqueIdentifier = n + dateAndTime.toString();
   } //constructor
   
   public String getName () {
@@ -54,6 +56,8 @@ public class Entry {
              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
    return result;
   } //getEntry
+
+  public String getUniqueIdentifier() { return uniqueIdentifier; }  //getUniqueIdentifier
 
   public String getTempo ()
   {
