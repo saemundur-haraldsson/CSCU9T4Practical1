@@ -2,11 +2,11 @@ package com.stir.cscu9t4practical1;
 
 public class InputChecker
 {
-    private int indexOfExerciseType;
-    public InputChecker (int indexOfExerciseType)
+    private EnumExerciseType exerciseType;
+    public InputChecker (EnumExerciseType exerciseType)
     {
-        this.indexOfExerciseType = indexOfExerciseType;
-    }
+        this.exerciseType = exerciseType;
+    }   //Constructor
 
     public boolean isNameSafe(String nameToCheck)
     {
@@ -47,7 +47,7 @@ public class InputChecker
 
     public boolean isCyclingSurfaceTypeSafe(String surfaceToCheck)
     {
-        if (indexOfExerciseType == 0)
+        if (exerciseType.equals(EnumExerciseType.Cycling))
         {
             return checkStringIsntEmpty(surfaceToCheck);
         }
@@ -59,7 +59,7 @@ public class InputChecker
 
     public boolean isCyclingRouteDifficultySafe(String routeToCheck)
     {
-        if (indexOfExerciseType == 0)
+        if (exerciseType.equals(EnumExerciseType.Cycling))
         {
             return checkStringIsntEmpty(routeToCheck);
         }
@@ -71,7 +71,7 @@ public class InputChecker
 
     public boolean isSprintingRepetitionsSafe(String repsToCheck)
     {
-        if (indexOfExerciseType == 1)
+        if (exerciseType.equals(EnumExerciseType.Running))
         {
             return checkStringIsntEmpty(repsToCheck);
         }
@@ -83,7 +83,7 @@ public class InputChecker
 
     public boolean isSprintingRecoverySafe(String recoveryToCheck)
     {
-        if (indexOfExerciseType == 1)
+        if (exerciseType.equals(EnumExerciseType.Running))
         {
             return checkStringIsntEmpty(recoveryToCheck);
         }
@@ -95,7 +95,7 @@ public class InputChecker
 
     public boolean isSwimmingLocationSafe(String swimmingLocationToCheck)
     {
-        if (indexOfExerciseType == 2)
+        if (exerciseType.equals(EnumExerciseType.Swimming))
         {
             return checkStringIsntEmpty(swimmingLocationToCheck);
         }

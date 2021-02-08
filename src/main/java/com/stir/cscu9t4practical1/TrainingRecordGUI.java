@@ -3,13 +3,11 @@ package com.stir.cscu9t4practical1;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
-import java.lang.Number;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
-    private String[] exerciseOptions = {"Cycling", "Sprinting", "Swimming"};
+    //private String[] exerciseOptions = {String.valueOf(EnumExerciseType.Cycling), String.valueOf(EnumExerciseType.Running), String.valueOf(EnumExerciseType.Swimming)};
     private JTextField name = new JTextField(30);
     private JTextField day = new JTextField(2);
     private JTextField month = new JTextField(2);
@@ -29,7 +27,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton findAllByDate = new JButton("Find All By Date");
-    private JComboBox typeOfExercise = new JComboBox(exerciseOptions);
+    private JComboBox typeOfExerciseDropDown = new JComboBox(EnumExerciseType.values());
 
     private JLabel cyclingSurfaceLabel = new JLabel(" Surface type: ");
     private JTextField cyclingSurfaceType = new JTextField(15);
@@ -62,9 +60,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(name);
         name.setEditable(true);
 
-        add(typeOfExercise);
-        typeOfExercise.setSelectedIndex(0);
-        typeOfExercise.addActionListener(this);
+        add(typeOfExerciseDropDown);
+        typeOfExerciseDropDown.setSelectedIndex(0);
+        typeOfExerciseDropDown.addActionListener(this);
 
         add(labd);
         add(day);
@@ -147,11 +145,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         {
             message = findAllByDate();
         }
-        if (event.getSource() == typeOfExercise)
+        if (event.getSource() == typeOfExerciseDropDown)
         {
             message = "";
 
-            setUpDisplayForDifferentExerciseTypes(typeOfExercise.getSelectedIndex());
+            setUpDisplayForDifferentExerciseTypes(typeOfExerciseDropDown.getSelectedIndex());
         }
         outputArea.setText(message);
         blankDisplay();
@@ -201,7 +199,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int sprRep = Integer.parseInt(sprintingRepetitions.getText());
             int sprRec = Integer.parseInt(sprintingRecovery.getText());
 
-            Entry e = createAppropriateEntryType(typeOfExercise.getSelectedIndex(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
+
+
+            Entry e = createAppropriateEntryType(getExerciseTypeFromDropDown(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
 
             myAthletes.addEntry(e);
             message = "Record added\n";
@@ -221,19 +221,25 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return message;
     }
 
-    private Entry createAppropriateEntryType(int typeOfExerciseSelected, String name, int day, int month, int year, int hour, int minute, int second, float distance, String cyclingSurface, String cyclingRouteDifficulty, int sprintingRepetitions, int sprintingRecovery, String swimmingLocation)
+    private EnumExerciseType getExerciseTypeFromDropDown()
+    {
+        return (EnumExerciseType) typeOfExerciseDropDown.getSelectedItem();
+    }
+
+
+    private Entry createAppropriateEntryType(EnumExerciseType typeOfExerciseSelected, String name, int day, int month, int year, int hour, int minute, int second, float distance, String cyclingSurface, String cyclingRouteDifficulty, int sprintingRepetitions, int sprintingRecovery, String swimmingLocation)
     {
         Entry entryToReturn;
 
-        if (typeOfExerciseSelected == 0)
+        if (typeOfExerciseSelected.equals(EnumExerciseType.Cycling))
         {
             entryToReturn = new CycleEntry(name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty);
         }
-        else if (typeOfExerciseSelected == 1)
+        else if (typeOfExerciseSelected.equals(EnumExerciseType.Running))
         {
             entryToReturn = new SprintEntry(name, day, month, year, hour, minute, second, distance, sprintingRepetitions, sprintingRecovery);
         }
-        else
+        else    //Not checking against EnumExerciseType.Swimming because of compiler error regards possibly not assigning a value to entryToReturn
         {
             entryToReturn = new SwimEntry(name, day, month, year, hour, minute, second, distance, swimmingLocation);
         }
@@ -301,7 +307,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     private String isDateInputSafe()
     {
-        InputChecker inputChecker = new InputChecker(typeOfExercise.getSelectedIndex());
+        InputChecker inputChecker = new InputChecker(getExerciseTypeFromDropDown());
         String result = "";
 
         if (!inputChecker.isDaySafe(day.getText()))
@@ -324,7 +330,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     private String isInputSafe()
     {
-        InputChecker inputChecker = new InputChecker(typeOfExercise.getSelectedIndex());
+        InputChecker inputChecker = new InputChecker(getExerciseTypeFromDropDown());
         String result = "";
 
         if (!inputChecker.isNameSafe(name.getText()))
@@ -332,20 +338,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             result += "Please check that you have put a valid entry in the day field.\n";
         }
 
-        if (!inputChecker.isDaySafe(day.getText()))
-        {
-            result += "Please check that you have put a valid number in the Day field.\n";
-        }
-
-        if (!inputChecker.isMonthSafe(month.getText()))
-        {
-            result += "Please check that you have put a valid number in the Month field.\n";
-        }
-
-        if (!inputChecker.isYearSafe(year.getText()))
-        {
-            result += "Please check that you have put a valid number in the Year field.\n";
-        }
+        result += isDateInputSafe();
 
         if (!inputChecker.isHourSafe(hours.getText()))
         {
