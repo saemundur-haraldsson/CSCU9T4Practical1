@@ -182,46 +182,19 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public String addEntry(String what)
     {
         String message;
-        String inputErrorMessage = isInputSafe();
         int numberOfEntriesAtStart = myAthletes.getNumberOfEntries();
 
-        if (inputErrorMessage.equals(""))
-        {
-            System.out.println("Adding "+what+" entry to the records");
-            message = actuallyGetEntryDataAndAttemptToCreateNewEntry();
+        System.out.println("Adding "+what+" entry to the records");
+        message = myAthletes.addEntry(getExerciseTypeFromDropDown(), name.getText(), day.getText(), month.getText(), year.getText(), hours.getText(), mins.getText(), secs.getText(), dist.getText(), cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprintingRepetitions.getText(), sprintingRecovery.getText(), swimmingLocation.getText());
 
-            if ((numberOfEntriesAtStart != myAthletes.getNumberOfEntries()) && !lookUpByDate.isEnabled())  //Check to see if an entry has actually been added, and if the buttons for looking up entries are disabled.
-            {
-                lookUpByDate.setEnabled(true);  //Enable buttons for looking up entries.
-                findAllByDate.setEnabled(true);
-            }
-        }
-        else
+        if ((numberOfEntriesAtStart != myAthletes.getNumberOfEntries()) && !lookUpByDate.isEnabled())  //Check to see if an entry has actually been added, and if the buttons for looking up entries are disabled.
         {
-            message = inputErrorMessage;
+            lookUpByDate.setEnabled(true);  //Enable buttons for looking up entries.
+            findAllByDate.setEnabled(true);
         }
 
         return message;
     }   //addEntry
-
-    private String actuallyGetEntryDataAndAttemptToCreateNewEntry()
-    {
-        String result;
-        String n = name.getText();
-        int d = Integer.parseInt(day.getText());
-        int m = Integer.parseInt(month.getText());
-        int y = Integer.parseInt(year.getText());
-        int h = Integer.parseInt(hours.getText());
-        int mm = Integer.parseInt(mins.getText());
-        int s = Integer.parseInt(secs.getText());
-        float km = java.lang.Float.parseFloat(dist.getText());
-        int sprRep = Integer.parseInt(sprintingRepetitions.getText());
-        int sprRec = Integer.parseInt(sprintingRecovery.getText());
-
-        result = myAthletes.addEntry(getExerciseTypeFromDropDown(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
-
-        return result;
-    }   //actuallyGetEntryDataAndAttemptToCreateNewEntry
 
     private EnumExerciseType getExerciseTypeFromDropDown()
     {
@@ -230,126 +203,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     public String lookupEntry()
     {
-        String message;
-        String inputErrorMessage = isDateInputSafe();
-
-        if (inputErrorMessage.equals("")) {
-            int m = Integer.parseInt(month.getText());
-            int d = Integer.parseInt(day.getText());
-            int y = Integer.parseInt(year.getText());
-            outputArea.setText("looking up record ...");
-            message = myAthletes.lookupEntry(d, m, y);
-        }
-        else
-        {
-            message = inputErrorMessage;
-        }
-        return message;
+        return myAthletes.lookupEntry(day.getText(), month.getText(), year.getText());
     }   //lookupEntry
 
     public String findAllByDate()
     {
-        String message;
-        String inputErrorMessages = isDateInputSafe();
-
-        if (inputErrorMessages.equals(""))
-        {
-            int m = Integer.parseInt(month.getText());
-            int d = Integer.parseInt(day.getText());
-            int y = Integer.parseInt(year.getText());
-            outputArea.setText("looking up record ...");
-            message = myAthletes.findAllByDate(d, m, y);
-        }
-        else
-        {
-            message = inputErrorMessages;
-        }
-
-        return message;
+        return myAthletes.findAllByDate(day.getText(), month.getText(), year.getText());
     }   //findAllByDate
-
-    private String isDateInputSafe()
-    {
-        InputChecker inputChecker = new InputChecker(getExerciseTypeFromDropDown());
-        String result = "";
-
-        if (!inputChecker.isDaySafe(day.getText()))
-        {
-            result += "Please check that you have put a valid number in the Day field.\n";
-        }
-
-        if (!inputChecker.isMonthSafe(month.getText()))
-        {
-            result += "Please check that you have put a valid number in the Month field.\n";
-        }
-
-        if (!inputChecker.isYearSafe(year.getText()))
-        {
-            result += "Please check that you have put a valid number in the Year field.\n";
-        }
-
-        return result;
-    }   //isDateInputSafe
-
-    private String isInputSafe()
-    {
-        InputChecker inputChecker = new InputChecker(getExerciseTypeFromDropDown());
-        String result = "";
-
-        if (!inputChecker.isNameSafe(name.getText()))
-        {
-            result += "Please check that you have put a valid entry in the day field.\n";
-        }
-
-        result += isDateInputSafe();
-
-        if (!inputChecker.isHourSafe(hours.getText()))
-        {
-            result += "Please check that you have put a valid number in the Hours field.\n";
-        }
-
-        if (!inputChecker.isMinuteSafe(mins.getText()))
-        {
-            result += "Please check that you have put a valid number in the Minutes field.\n";
-        }
-
-        if (!inputChecker.isSecondSafe(secs.getText()))
-        {
-            result += "Please check that you have put a valid number in the Seconds field.\n";
-        }
-
-        if (!inputChecker.isDistanceSafe(dist.getText()))
-        {
-            result += "Please check that you have put a valid number in the Distance field.\n";
-        }
-
-        if (!inputChecker.isCyclingSurfaceTypeSafe(cyclingSurfaceType.getText()))
-        {
-            result += "Please check that you have put a valid number in the Surface Type field.\n";
-        }
-
-        if (!inputChecker.isCyclingRouteDifficultySafe(cyclingRouteDifficulty.getText()))
-        {
-            result += "Please check that you have put a valid number in the Route Difficulty field.\n";
-        }
-
-        if (!inputChecker.isSprintingRepetitionsSafe(sprintingRepetitions.getText()))
-        {
-            result += "Please check that you have put a valid number in the Repetitions field.\n";
-        }
-
-        if (!inputChecker.isSprintingRecoverySafe(sprintingRecovery.getText()))
-        {
-            result += "Please check that you have put a valid number in the Recovery field.\n";
-        }
-
-        if (!inputChecker.isSwimmingLocationSafe(swimmingLocation.getText()))
-        {
-            result += "Please check that you have put a valid number in the Location field.\n";
-        }
-
-        return result;
-    }   //isInputSafe
 
     public void blankDisplay() {
         name.setText("");

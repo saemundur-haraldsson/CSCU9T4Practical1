@@ -2,50 +2,44 @@ package com.stir.cscu9t4practical1;
 
 public class InputChecker
 {
-    private EnumExerciseType exerciseType;
-    public InputChecker (EnumExerciseType exerciseType)
-    {
-        this.exerciseType = exerciseType;
-    }   //Constructor
-
-    public boolean isNameSafe(String nameToCheck)
+    private boolean isNameSafe(String nameToCheck)
     {
         return checkStringIsntEmpty(nameToCheck);
     }//isNameSafe
 
-    public boolean isDaySafe(String dayToCheck)
+    private boolean isDaySafe(String dayToCheck)
     {
         return isIntSafe(dayToCheck, 1, 31);
     }
 
-    public boolean isMonthSafe(String monthToCheck)
+    private boolean isMonthSafe(String monthToCheck)
     {
         return isIntSafe(monthToCheck, 1, 12);
     }
 
-    public boolean isYearSafe(String yearToCheck)
+    private boolean isYearSafe(String yearToCheck)
     {
         return isIntSafe(yearToCheck, 1, 9999);
     }
 
-    public boolean isHourSafe(String hourToCheck)
+    private boolean isHourSafe(String hourToCheck)
     {
         return isIntSafe(hourToCheck, 0, 23);
     }
 
-    public boolean isMinuteSafe(String minuteToCheck)
+    private boolean isMinuteSafe(String minuteToCheck)
     {
         return isIntSafe(minuteToCheck, 0, 59);
     }
 
-    public boolean isSecondSafe(String secondToCheck)
+    private boolean isSecondSafe(String secondToCheck)
     {
         return isIntSafe(secondToCheck, 0, 59);
     }
 
-    public boolean isDistanceSafe(String distanceToCheck) {return isStringAFloat(distanceToCheck); }
+    private boolean isDistanceSafe(String distanceToCheck) {return isStringAFloat(distanceToCheck); }
 
-    public boolean isCyclingSurfaceTypeSafe(String surfaceToCheck)
+    private boolean isCyclingSurfaceTypeSafe(EnumExerciseType exerciseType, String surfaceToCheck)
     {
         if (exerciseType.equals(EnumExerciseType.Cycling))
         {
@@ -57,7 +51,7 @@ public class InputChecker
         }
     }
 
-    public boolean isCyclingRouteDifficultySafe(String routeToCheck)
+    private boolean isCyclingRouteDifficultySafe(EnumExerciseType exerciseType, String routeToCheck)
     {
         if (exerciseType.equals(EnumExerciseType.Cycling))
         {
@@ -69,7 +63,7 @@ public class InputChecker
         }
     }
 
-    public boolean isSprintingRepetitionsSafe(String repsToCheck)
+    private boolean isSprintingRepetitionsSafe(EnumExerciseType exerciseType, String repsToCheck)
     {
         if (exerciseType.equals(EnumExerciseType.Running))
         {
@@ -81,7 +75,7 @@ public class InputChecker
         }
     }
 
-    public boolean isSprintingRecoverySafe(String recoveryToCheck)
+    private boolean isSprintingRecoverySafe(EnumExerciseType exerciseType, String recoveryToCheck)
     {
         if (exerciseType.equals(EnumExerciseType.Running))
         {
@@ -93,7 +87,7 @@ public class InputChecker
         }
     }
 
-    public boolean isSwimmingLocationSafe(String swimmingLocationToCheck)
+    private boolean isSwimmingLocationSafe(EnumExerciseType exerciseType, String swimmingLocationToCheck)
     {
         if (exerciseType.equals(EnumExerciseType.Swimming))
         {
@@ -104,6 +98,87 @@ public class InputChecker
             return true;
         }
     }
+
+    public String isDateInputSafe(String day, String month, String year)
+    {
+        String result = "";
+
+        if (!isDaySafe(day))
+        {
+            result += "Please check that you have put a valid number in the Day field.\n";
+        }
+
+        if (!isMonthSafe(month))
+        {
+            result += "Please check that you have put a valid number in the Month field.\n";
+        }
+
+        if (!isYearSafe(year))
+        {
+            result += "Please check that you have put a valid number in the Year field.\n";
+        }
+
+        return result;
+    }   //isDateInputSafe
+
+    public String isInputSafe(EnumExerciseType exerciseType, String name, String day, String month, String year, String hours, String minutes, String seconds, String distance, String cyclingSurfaceType, String cyclingRouteDifficulty, String sprintingRepetitions, String sprintingRecovery, String swimmingLocation)
+    {
+        String result = "";
+
+        if (!isNameSafe(name))
+        {
+            result += "Please check that you have put a valid entry in the day field.\n";
+        }
+
+        result += isDateInputSafe(day, month, year);
+
+        if (!isHourSafe(hours))
+        {
+            result += "Please check that you have put a valid number in the Hours field.\n";
+        }
+
+        if (!isMinuteSafe(minutes))
+        {
+            result += "Please check that you have put a valid number in the Minutes field.\n";
+        }
+
+        if (!isSecondSafe(seconds))
+        {
+            result += "Please check that you have put a valid number in the Seconds field.\n";
+        }
+
+        if (!isDistanceSafe(distance))
+        {
+            result += "Please check that you have put a valid number in the Distance field.\n";
+        }
+
+        if (!isCyclingSurfaceTypeSafe(exerciseType, cyclingSurfaceType))
+        {
+            result += "Please check that you have put a valid number in the Surface Type field.\n";
+        }
+
+        if (!isCyclingRouteDifficultySafe(exerciseType, cyclingRouteDifficulty))
+        {
+            result += "Please check that you have put a valid number in the Route Difficulty field.\n";
+        }
+
+        if (!isSprintingRepetitionsSafe(exerciseType, sprintingRepetitions))
+        {
+            result += "Please check that you have put a valid number in the Repetitions field.\n";
+        }
+
+        if (!isSprintingRecoverySafe(exerciseType, sprintingRepetitions))
+        {
+            result += "Please check that you have put a valid number in the Recovery field.\n";
+        }
+
+        if (!isSwimmingLocationSafe(exerciseType, swimmingLocation))
+        {
+            result += "Please check that you have put a valid number in the Location field.\n";
+        }
+
+        return result;
+    }   //isInputSafe
 
     private boolean isIntSafe(String intToCheck, int minIntValue, int maxIntValue)
     {
@@ -159,6 +234,7 @@ public class InputChecker
 
         return result;
     }   //isStringAllNumericalDigits
+
     private boolean checkStringIsntEmpty(String stringToCheck)
     {
         boolean result = true;

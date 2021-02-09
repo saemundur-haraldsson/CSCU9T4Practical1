@@ -1,17 +1,16 @@
 // An implementation of a Training Record as an ArrayList
 package com.stir.cscu9t4practical1;
 
-
-
-
 import java.util.*;
-
 
 public class TrainingRecord {
     private List<Entry> tr;
+    private InputChecker inputChecker;
     
-    public TrainingRecord() {
+    public TrainingRecord()
+    {
         tr = new ArrayList<Entry>();
+        inputChecker = new InputChecker();
     } //constructor
     
     // add a record to the list
@@ -19,8 +18,7 @@ public class TrainingRecord {
    {
        String result;
        boolean isThisADuplicateEntry = false;
-       InputChecker inputSanitiser = new InputChecker(typeOfExerciseSelected);
-       result = inputSanitiser.
+       result = "";
 
        Entry newEntry = createAppropriateEntryType(typeOfExerciseSelected, name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty, sprintingRepetitions, sprintingRecovery, swimmingLocation);
 
@@ -48,40 +46,51 @@ public class TrainingRecord {
    } // addClass
    
    // look up the entry of a given day and month
-   public String lookupEntry (int d, int m, int y)
+   public String lookupEntry (String day, String month, String year)
    {
-       ListIterator<Entry> iter = tr.listIterator();
-       String result = "No entries found.";
+       String result = inputChecker.isDateInputSafe(day, month, year);
 
-       while (iter.hasNext())
+       if (result.equals(""))   //check input is clean - no errors from input checker
        {
-           Entry current = iter.next();
-           if (current.getDay() == d && current.getMonth() == m && current.getYear() == y)     //Check if entry matches search terms
+           ListIterator<Entry> iter = tr.listIterator();
+           result = "No entries found.";
+
+           while (iter.hasNext())
            {
-               result = current.getEntry();  //Add first found matching entry
+               Entry current = iter.next();
+               if (current.getDay() == Integer.getInteger(day) && current.getMonth() == Integer.getInteger(month) && current.getYear() == Integer.getInteger(year))     //Check if entry matches search terms
+               {
+                   result = current.getEntry();  //Add first found matching entry
+               }
            }
        }
+
        return result;
    } // lookupEntry
 
-    public String findAllByDate (int day, int month, int year)
+    public String findAllByDate (String day, String month, String year)
     {
-        ListIterator<Entry> iter = tr.listIterator();
         String stringToReturnWhenNoEntriesFound = "No entries found.";
-        String result = stringToReturnWhenNoEntriesFound;
+        String result = inputChecker.isDateInputSafe(day, month, year);
 
-        while (iter.hasNext())
+        if (result.equals(""))   //check input is clean - no errors from input checker
         {
-            Entry current = iter.next();
-            if (current.getDay()==day && current.getMonth()==month && current.getYear()==year)     //Check if entry matches search terms
+            ListIterator<Entry> iter = tr.listIterator();
+            result = stringToReturnWhenNoEntriesFound;
+
+            while (iter.hasNext())
             {
-                if (result.equals(stringToReturnWhenNoEntriesFound))  //Check if no result has yet been found
+                Entry current = iter.next();
+                if (current.getDay()==Integer.getInteger(day) && current.getMonth()==Integer.getInteger(month) && current.getYear()==Integer.getInteger(year))     //Check if entry matches search terms
                 {
-                    result = current.getEntry();  //Add first found matching entry
-                }
-                else
-                {
-                    result += ("\r" + current.getEntry());  //Add any subsequent matching entries
+                    if (result.equals(stringToReturnWhenNoEntriesFound))  //Check if no result has yet been found
+                    {
+                        result = current.getEntry();  //Add first found matching entry
+                    }
+                    else
+                    {
+                        result += ("\r" + current.getEntry());  //Add any subsequent matching entries
+                    }
                 }
             }
         }
@@ -98,21 +107,21 @@ public class TrainingRecord {
        tr.clear();
    }
 
-   private Entry createAppropriateEntryType(EnumExerciseType typeOfExerciseSelected, String name, int day, int month, int year, int hour, int minute, int second, float distance, String cyclingSurface, String cyclingRouteDifficulty, int sprintingRepetitions, int sprintingRecovery, String swimmingLocation)
+   private Entry createAppropriateEntryType(EnumExerciseType typeOfExerciseSelected, String name, String day, String month, String year, String hour, String minute, String second, String distance, String cyclingSurface, String cyclingRouteDifficulty, String sprintingRepetitions, String sprintingRecovery, String swimmingLocation)
     {
         Entry entryToReturn;
 
         if (typeOfExerciseSelected.equals(EnumExerciseType.Cycling))
         {
-            entryToReturn = new CycleEntry(name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty);
+            entryToReturn = new CycleEntry(name, Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year), Integer.parseInt(hour), Integer.parseInt(minute), Integer.parseInt(second), Float.parseFloat(distance), cyclingSurface, cyclingRouteDifficulty);
         }
         else if (typeOfExerciseSelected.equals(EnumExerciseType.Running))
         {
-            entryToReturn = new SprintEntry(name, day, month, year, hour, minute, second, distance, sprintingRepetitions, sprintingRecovery);
+            entryToReturn = new SprintEntry(name, Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year), Integer.parseInt(hour), Integer.parseInt(minute), Integer.parseInt(second), Float.parseFloat(distance), Integer.parseInt(sprintingRepetitions), Integer.parseInt(sprintingRecovery));
         }
         else    //Not checking against EnumExerciseType.Swimming because of compiler error regards possibly not assigning a value to entryToReturn
         {
-            entryToReturn = new SwimEntry(name, day, month, year, hour, minute, second, distance, swimmingLocation);
+            entryToReturn = new SwimEntry(name, Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year), Integer.parseInt(hour), Integer.parseInt(minute), Integer.parseInt(second), Float.parseFloat(distance), swimmingLocation);
         }
 
         return entryToReturn;
