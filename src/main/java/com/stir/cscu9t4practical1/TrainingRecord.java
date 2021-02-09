@@ -15,13 +15,18 @@ public class TrainingRecord {
     } //constructor
     
     // add a record to the list
-   public String addEntry(Entry newEntry)
+   public String addEntry(EnumExerciseType typeOfExerciseSelected, String name, String day, String month, String year, String hour, String minute, String second, String distance, String cyclingSurface, String cyclingRouteDifficulty, String sprintingRepetitions, String sprintingRecovery, String swimmingLocation)
    {
        String result;
        boolean isThisADuplicateEntry = false;
+       InputChecker inputSanitiser = new InputChecker(typeOfExerciseSelected);
+       result = inputSanitiser.
+
+       Entry newEntry = createAppropriateEntryType(typeOfExerciseSelected, name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty, sprintingRepetitions, sprintingRecovery, swimmingLocation);
+
        String uniqueIdentifierOfNewEntry = newEntry.getUniqueIdentifier();
 
-       for (Entry e : this.tr)
+       for (Entry e : this.tr)  //Go through all existing entries and check if they match the new entry.
        {
            if (e.getUniqueIdentifier().equals(uniqueIdentifierOfNewEntry))
            {
@@ -92,5 +97,27 @@ public class TrainingRecord {
    public void clearAllEntries(){
        tr.clear();
    }
-   
+
+   private Entry createAppropriateEntryType(EnumExerciseType typeOfExerciseSelected, String name, int day, int month, int year, int hour, int minute, int second, float distance, String cyclingSurface, String cyclingRouteDifficulty, int sprintingRepetitions, int sprintingRecovery, String swimmingLocation)
+    {
+        Entry entryToReturn;
+
+        if (typeOfExerciseSelected.equals(EnumExerciseType.Cycling))
+        {
+            entryToReturn = new CycleEntry(name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty);
+        }
+        else if (typeOfExerciseSelected.equals(EnumExerciseType.Running))
+        {
+            entryToReturn = new SprintEntry(name, day, month, year, hour, minute, second, distance, sprintingRepetitions, sprintingRecovery);
+        }
+        else    //Not checking against EnumExerciseType.Swimming because of compiler error regards possibly not assigning a value to entryToReturn
+        {
+            entryToReturn = new SwimEntry(name, day, month, year, hour, minute, second, distance, swimmingLocation);
+        }
+
+        return entryToReturn;
+    }
+
+
+
 } // TrainingRecord

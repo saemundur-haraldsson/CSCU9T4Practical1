@@ -148,19 +148,19 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         {
             message = "";
 
-            setUpDisplayForDifferentExerciseTypes(typeOfExerciseDropDown.getSelectedIndex());
+            setUpDisplayForDifferentExerciseTypes();
         }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
 
-    private void setUpDisplayForDifferentExerciseTypes(int exerciseIndex)
+    private void setUpDisplayForDifferentExerciseTypes()
     {
-        if (exerciseIndex == 0)
+        if (typeOfExerciseDropDown.getSelectedItem().equals(EnumExerciseType.Cycling))
         {
             setEnablingForGUIComponents(true, true, false, false, false);
         }
-        else if (exerciseIndex == 1)
+        else if (typeOfExerciseDropDown.getSelectedItem().equals(EnumExerciseType.Running))
         {
             setEnablingForGUIComponents(false, false,true, true, false);
         }
@@ -183,26 +183,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     {
         String message;
         String inputErrorMessage = isInputSafe();
+        int numberOfEntriesAtStart = myAthletes.getNumberOfEntries();
 
         if (inputErrorMessage.equals(""))
         {
             System.out.println("Adding "+what+" entry to the records");
-
-            int numberOfEntriesAtStart = myAthletes.getNumberOfEntries();
-            String n = name.getText();
-            int m = Integer.parseInt(month.getText());
-            int d = Integer.parseInt(day.getText());
-            int y = Integer.parseInt(year.getText());
-            float km = java.lang.Float.parseFloat(dist.getText());
-            int h = Integer.parseInt(hours.getText());
-            int mm = Integer.parseInt(mins.getText());
-            int s = Integer.parseInt(secs.getText());
-            int sprRep = Integer.parseInt(sprintingRepetitions.getText());
-            int sprRec = Integer.parseInt(sprintingRecovery.getText());
-
-            Entry e = createAppropriateEntryType(getExerciseTypeFromDropDown(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
-
-            message = myAthletes.addEntry(e);
+            message = actuallyGetEntryDataAndAttemptToCreateNewEntry();
 
             if ((numberOfEntriesAtStart != myAthletes.getNumberOfEntries()) && !lookUpByDate.isEnabled())  //Check to see if an entry has actually been added, and if the buttons for looking up entries are disabled.
             {
@@ -216,41 +202,32 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
 
         return message;
-    }
+    }   //addEntry
 
     private String actuallyGetEntryDataAndAttemptToCreateNewEntry()
     {
         String result;
+        String n = name.getText();
+        int d = Integer.parseInt(day.getText());
+        int m = Integer.parseInt(month.getText());
+        int y = Integer.parseInt(year.getText());
+        int h = Integer.parseInt(hours.getText());
+        int mm = Integer.parseInt(mins.getText());
+        int s = Integer.parseInt(secs.getText());
+        float km = java.lang.Float.parseFloat(dist.getText());
+        int sprRep = Integer.parseInt(sprintingRepetitions.getText());
+        int sprRec = Integer.parseInt(sprintingRecovery.getText());
 
+        result = myAthletes.addEntry(getExerciseTypeFromDropDown(), n, d, m, y, h, mm, s, km, cyclingSurfaceType.getText(), cyclingRouteDifficulty.getText(), sprRep, sprRec, swimmingLocation.getText());
 
-    }
+        return result;
+    }   //actuallyGetEntryDataAndAttemptToCreateNewEntry
 
     private EnumExerciseType getExerciseTypeFromDropDown()
     {
         return (EnumExerciseType) typeOfExerciseDropDown.getSelectedItem();
     }
 
-
-    private Entry createAppropriateEntryType(EnumExerciseType typeOfExerciseSelected, String name, int day, int month, int year, int hour, int minute, int second, float distance, String cyclingSurface, String cyclingRouteDifficulty, int sprintingRepetitions, int sprintingRecovery, String swimmingLocation)
-    {
-        Entry entryToReturn;
-
-        if (typeOfExerciseSelected.equals(EnumExerciseType.Cycling))
-        {
-            entryToReturn = new CycleEntry(name, day, month, year, hour, minute, second, distance, cyclingSurface, cyclingRouteDifficulty);
-        }
-        else if (typeOfExerciseSelected.equals(EnumExerciseType.Running))
-        {
-            entryToReturn = new SprintEntry(name, day, month, year, hour, minute, second, distance, sprintingRepetitions, sprintingRecovery);
-        }
-        else    //Not checking against EnumExerciseType.Swimming because of compiler error regards possibly not assigning a value to entryToReturn
-        {
-            entryToReturn = new SwimEntry(name, day, month, year, hour, minute, second, distance, swimmingLocation);
-        }
-
-        return entryToReturn;
-    }
-    
     public String lookupEntry()
     {
         String message;
@@ -268,7 +245,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             message = inputErrorMessage;
         }
         return message;
-    }
+    }   //lookupEntry
 
     public String findAllByDate()
     {
@@ -289,7 +266,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
 
         return message;
-    }
+    }   //findAllByDate
 
     private String isDateInputSafe()
     {
@@ -312,7 +289,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
 
         return result;
-    }
+    }   //isDateInputSafe
 
     private String isInputSafe()
     {
@@ -373,7 +350,6 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
         return result;
     }   //isInputSafe
-
 
     public void blankDisplay() {
         name.setText("");
