@@ -30,29 +30,38 @@ public class TrainingRecord {
     // look up all the entries of a given day and month
     public String lookupAllEntries (int d, int m, int y) {
         ListIterator<Entry> itr = tr.listIterator();
-        List<String> results = new ArrayList<>();
-        String result = "No entries found";
+        //List<String> results = new ArrayList<>();
+        String result = "";
         while (itr.hasNext()) {
             Entry current = itr.next();
             while (current.getDay()==d && current.getMonth()==m && current.getYear()==y){
-                //result = current.getEntry();
-                results.add(current.getEntry());
-                itr.next();
+                result = result + current.getEntry();
+                //results.add(current.getEntry());
+                //itr.next();
             }
         }
-        return results.toString();
+        if (result.equals("")){
+            result = "There are no stored entries for this date";
+        }
+        return result;
     } // lookupAllEntries
 
     //remove an element
     public String removeElement(String n, int d, int m, int y){
         ListIterator<Entry> itr = tr.listIterator();
         String result = "Specified entry has been removed";
+        boolean entryPresent = false;
         while (itr.hasNext()){
-        Entry current = (Entry)itr.next();
-        if(current.getName()==n && current.getDay()==d && current.getMonth()==m && current.getYear()==y){
-            itr.remove();
+            Entry current = itr.next();
+            if(current.getName()==n && current.getDay()==d && current.getMonth()==m
+                    && current.getYear()==y) {
+                entryPresent = true;
+                itr.remove();
+            }
         }
-    }
+        if(!entryPresent){
+            return "Specified entry has not been found\n";
+        }
     return result;
     }//remove element
 

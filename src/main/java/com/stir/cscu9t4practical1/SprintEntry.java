@@ -3,8 +3,8 @@ package com.stir.cscu9t4practical1;
 import java.util.Calendar;
 
 public class SprintEntry extends Entry{
-    private int repetitions;
-    private int recovery;
+    private int repetitions; //subclass specific attribute
+    private int recovery; //subclass specific attribute
 
     public SprintEntry (String n, int d, int m, int y, int h, int min, int s, float dist, int repetitions, int recovery)
     {
@@ -30,5 +30,5 @@ public class SprintEntry extends Entry{
                 +getRecovery() + " minutes recovery on "
                 +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
         return result;
-    } //overridden getEntry method
+    } //overridden getEntry method from superclass to include the new attributes in the subclass
 }

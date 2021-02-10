@@ -3,8 +3,8 @@ package com.stir.cscu9t4practical1;
 import java.util.Calendar;
 
 public class CycleEntry extends Entry {
-    private String terrain;
-    private String tempo;
+    private String terrain; //subclass specific attribute
+    private String tempo; //subclass specific attribute
 
     public CycleEntry (String n, int d, int m, int y, int h, int min, int s, float dist, String terrain, String tempo)
     {
@@ -30,5 +30,5 @@ public class CycleEntry extends Entry {
                 +getDay()+"/"+getMonth()+"/"+getYear() + " on " + getTerrain()
                 + " at " + getTempo() + " tempo" + "\n";
         return result;
-    } //overridden getEntry method
+    } //overridden getEntry method from superclass to include the new attributes in the subclass
 }

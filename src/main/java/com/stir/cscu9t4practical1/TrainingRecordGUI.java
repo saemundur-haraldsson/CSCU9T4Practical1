@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.lang.Number;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
-
+    //creating radio buttons to separate the type of entry being added
     private JRadioButton rbswim = new JRadioButton("Swim"); //TASK 8
     private JRadioButton rbsprint = new JRadioButton("Sprint"); //TASK 8
     private JRadioButton rbcycle = new JRadioButton("Cycle"); //TASK 8
-    private ButtonGroup bg = new ButtonGroup();
+    private ButtonGroup bg = new ButtonGroup(); //TASK 8 - radio button group to group the radio buttons together
 
     private JTextField name = new JTextField(30);
     private JTextField day = new JTextField(2);
@@ -22,7 +22,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField mins = new JTextField(2);
     private JTextField secs = new JTextField(2);
     private JTextField dist = new JTextField(4);
-
+    //creating text field for the additional information for each type of entry
     private JTextField where = new JTextField(10); //Task 8
     private JTextField recovery = new JTextField(2); //Task 8
     private JTextField repetition = new JTextField(2); //Task 8
@@ -37,7 +37,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
     private JLabel labdist = new JLabel(" Distance (km):");
-
+    //creating labels for the new text fields needed
     private JLabel labwhere = new JLabel("Where:"); //Task 8
     private JLabel labrecovery = new JLabel("Recovery"); //Task 8
     private JLabel labrepetition = new JLabel("Repetitions:"); //Task 8
@@ -46,6 +46,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    //creating and naming new buttons
     private JButton findAllByDate = new JButton("Find All By Date"); //TASK 1
     private JButton removeEntries = new JButton("Remove Entries"); //TASK 11
 
@@ -96,7 +97,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
-
+        //adding labels and textfields to the GUI window
         add(labwhere); //TASK 8
         add(where); //TASK 8
         where.setEditable(true); //TASK 8
@@ -117,10 +118,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
-
+        //adding the new buttons to the GUI window
         add(findAllByDate); //TASK 1
         findAllByDate.addActionListener(this); //TASK 1
-
         add(removeEntries); //TASK 11
         removeEntries.addActionListener(this); //TASK 11
 
@@ -140,13 +140,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message = "";
         if (event.getSource() == addR) {
             if(rbswim.isSelected()){
-                message = addSwimEntry("swim");
+                message = addSwimEntry("swim"); //if swim radio button is pressed,a swim entry is added
             }
             if(rbcycle.isSelected()){
-                message = addCycleEntry("cycle");
+                message = addCycleEntry("cycle"); //if cycle radio button is pressed, a cycle entry is added
             }
             if(rbsprint.isSelected()){
-                message = addSprintEntry("sprint");
+                message = addSprintEntry("sprint"); //if sprint radio button is pressed, a sprint entry is added
             }
             //message = addEntry("generic");
         }
@@ -156,10 +156,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         //action performed method for TASK 1
         if (event.getSource() == findAllByDate) {
             //message = ("Not implemented yet");
-            message = lookupAllEntries();
+            message = lookupAllEntries(); //calls the method to look up multiple entries
         }
         if (event.getSource() == rbswim){
-            if (rbswim.isSelected())
+            if (rbswim.isSelected()) //'mutes' irrelevant fields/labels for this entry type
             {
                 labdist.setText("Distance (km):");
                 labrecovery.setEnabled(false);
@@ -177,7 +177,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             }
         }
         if (event.getSource() == rbcycle){
-            if(rbcycle.isSelected())
+            if(rbcycle.isSelected()) //'mutes' irrelevant fields/labels for this entry type
             {
                 labdist.setText("Distance (km):");
                 labrepetition.setEnabled(false);
@@ -195,8 +195,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             }
         }
         if (event.getSource() == rbsprint){
-            //labdist.setText("Distance (m):");
-            if(rbsprint.isSelected());
+            if(rbsprint.isSelected()); //'mutes' irrelevant fields/labels for this entry type
             {
                 labdist.setText("Distance (m):");
                 labwhere.setEnabled(false);
@@ -213,9 +212,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                 recovery.setEnabled(true);
             }
         }
-
         if (event.getSource() == removeEntries){
-            message = removeElement();
+            message = removeElement(); //calls the removeElement method when the button is pressed
         }
         outputArea.setText(message);
         blankDisplay();
@@ -236,6 +234,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         myAthletes.addEntry(e);
         return message;
     }//addEntry
+    //not the most efficient way of doing this, but the easiest way I thought of...
     public String addSwimEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
@@ -303,7 +302,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("looking up records ...");
         String message = myAthletes.lookupAllEntries(d, m, y);
         return message;
-    } //lookupAllEntries
+    } //lookupAllEntries on a given date
 
     public String removeElement(){
         String n = name.getText();
@@ -313,7 +312,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("Removing record ...");
         String message = myAthletes.removeElement(n,d,m,y);
         return message;
-    } //removeElement
+    } //removeElement when found
 
     public void blankDisplay() {
         name.setText("");

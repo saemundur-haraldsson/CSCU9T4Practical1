@@ -3,7 +3,7 @@ package com.stir.cscu9t4practical1;
 import java.util.Calendar;
 
 public class SwimEntry extends Entry{
-    private String where;
+    private String where; //subclass specific attribute
 
     public SwimEntry (String n, int d, int m, int y, int h, int min, int s, float dist, String where)
     {
@@ -22,5 +22,5 @@ public class SwimEntry extends Entry{
         +getWhere() + " in " +getHour()+":"+getMin()+":" + getSec()
         + " on " +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
         return result;
-    } //overridden getEntry method
+    } //overridden getEntry method from superclass to include the new attributes in the subclass
 }
