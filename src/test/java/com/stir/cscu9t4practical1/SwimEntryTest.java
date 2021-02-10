@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stir.cscu9t4practical1;
+package java.com.stir.cscu9t4practical1;
 
+import com.stir.cscu9t4practical1.Entry;
+import com.stir.cscu9t4practical1.SwimEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -140,13 +142,13 @@ public class SwimEntryTest {
         System.out.println("getWhere");
         Entry instanceA = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"outdoors");
         String expResultA = "outdoors";
-        String result = instanceA.getWhere();
-        assertEquals(expResultA, result);
+        String resultA = ((SwimEntry) instanceA).getWhere();
+        assertEquals(expResultA, resultA);
         
         Entry instanceB = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"pool");
         String expResultB = "in a pool";
-        String result = instanceB.getWhere();
-        assertEquals(expResultB, result);
+        String resultB = ((SwimEntry) instanceB).getWhere();
+        assertEquals(expResultB, resultB);
     }
     /**
      * Test of getEntry method, of class SwimEntry.

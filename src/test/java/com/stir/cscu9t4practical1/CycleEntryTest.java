@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stir.cscu9t4practical1;
+package java.com.stir.cscu9t4practical1;
 
+import com.stir.cscu9t4practical1.Entry;
+import com.stir.cscu9t4practical1.CycleEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author saemundur
  */
+
+
 public class CycleEntryTest {
     
     public CycleEntryTest() {
@@ -141,7 +145,7 @@ public class CycleEntryTest {
         System.out.println("getTerrain");
         Entry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
         String expResult = "asphalt";
-        String result = instance.getTerrain();
+        String result = ((CycleEntry) instance).getTerrain();
         assertEquals(expResult, result);
     }
 
@@ -168,5 +172,6 @@ public class CycleEntryTest {
         String result = instance.getEntry();
         assertEquals(expResult, result);
     }
+
     
 }
