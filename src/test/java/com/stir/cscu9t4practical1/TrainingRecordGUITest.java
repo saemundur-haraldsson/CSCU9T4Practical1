@@ -94,7 +94,52 @@ public class TrainingRecordGUITest {
         System.out.println(message);
         assertEquals(message,"Record added\n");
     }
-    
+
+    /**
+     * Test of addSwimEntry method, of class TrainingRecordGUI
+     *
+     */
+    @Test
+    public void testAddSwimEntry(){
+        System.out.println("addEntry");
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+        Entry entry = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"outdoors");
+        instance.fillDisplay(entry);
+        String message = instance.addSwimEntry("swim");
+        System.out.println(message);
+        assertEquals(message,"Record added\n");
+    }
+
+    /**
+     * Test of addCycleEntry method, of class TrainingRecordGUI
+     *
+     */
+    @Test
+    public void testAddCycleEntry(){
+        System.out.println("addEntry");
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+        Entry entry = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
+        instance.fillDisplay(entry);
+        String message = instance.addCycleEntry("cycle");
+        System.out.println(message);
+        assertEquals(message,"Record added\n");
+    }
+
+    /**
+     * Test of addSprintEntry method, of class TrainingRecordGUI
+     *
+     */
+    @Test
+    public void testAddSprintEntry(){
+        System.out.println("addEntry");
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+        Entry entry = new SprintEntry("Alice", 1, 2, 2003, 0, 16, 7, 300, 4, 2);
+        instance.fillDisplay(entry);
+        String message = instance.addSprintEntry("sprint");
+        System.out.println(message);
+        assertEquals(message,"Record added\n");
+    }
+
     /**
      * Test to see if all display requirements have been met
      */

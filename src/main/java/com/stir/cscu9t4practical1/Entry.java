@@ -46,7 +46,7 @@ public class Entry {
 
   public float getDistance () {
     return distance;
-  } //getYear
+  } //getDistance
 
   public String getEntry () {
    String result = getName()+" ran " + getDistance() + " km in "

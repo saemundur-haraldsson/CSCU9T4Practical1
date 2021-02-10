@@ -1,11 +1,7 @@
 // An implementation of a Training Record as an ArrayList
 package com.stir.cscu9t4practical1;
 
-
-
-
 import java.util.*;
-
 
 public class TrainingRecord {
     private List<Entry> tr;
@@ -29,8 +25,37 @@ public class TrainingRecord {
              result = current.getEntry();
             }
        return result;
-   } // lookupEntry
-   
+   } // lookupEntry returns the last entry with the given date
+
+    // look up all the entries of a given day and month
+    public String lookupAllEntries (int d, int m, int y) {
+        ListIterator<Entry> itr = tr.listIterator();
+        List<String> results = new ArrayList<>();
+        String result = "No entries found";
+        while (itr.hasNext()) {
+            Entry current = itr.next();
+            while (current.getDay()==d && current.getMonth()==m && current.getYear()==y){
+                //result = current.getEntry();
+                results.add(current.getEntry());
+                itr.next();
+            }
+        }
+        return results.toString();
+    } // lookupAllEntries
+
+    //remove an element
+    public String removeElement(String n, int d, int m, int y){
+        ListIterator<Entry> itr = tr.listIterator();
+        String result = "Specified entry has been removed";
+        while (itr.hasNext()){
+        Entry current = (Entry)itr.next();
+        if(current.getName()==n && current.getDay()==d && current.getMonth()==m && current.getYear()==y){
+            itr.remove();
+        }
+    }
+    return result;
+    }//remove element
+
    // Count the number of entries
    public int getNumberOfEntries(){
        return tr.size();
