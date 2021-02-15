@@ -141,11 +141,13 @@ public class SwimEntryTest {
         SwimEntry instanceA = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"outdoors");
         String expResultA = "outdoors";
         String result = instanceA.getWhere();
+        System.out.println(result);
         assertEquals(expResultA, result);
         
         SwimEntry instanceB = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"pool");
         String expResultB = "in a pool";
         String resultB = instanceB.getWhere();
+        System.out.println(resultB);
         assertEquals(expResultB, resultB);
     }
     /**

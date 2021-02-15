@@ -50,7 +50,34 @@ public class TrainingRecordTest {
         instance.addEntry(a);
         assertEquals(instance.getNumberOfEntries(),1);
     }
-    
+
+    /**
+     * Test of addEntry method, of class TrainingRecord
+     */
+    @Test
+    public void testNoEntry() {
+        System.out.println("noEntry");
+        Entry a = new Entry("",null,null,null,null,null,null,null);
+        TrainingRecord instance = new TrainingRecord();
+        instance.addEntry(a);
+        assertEquals(instance.getNumberOfEntries(), 0);
+
+
+    }
+
+    /**
+     * Test of RemoveEntry method, of class TrainingRecord
+     */
+    @Test
+    public void testRemoveEntry() {
+        System.out.println("removeEntry");
+        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        TrainingRecord instance = new TrainingRecord();
+        instance.addEntry(a);
+        TrainingRecord.RemoveEntry(1, 2, 2003, "Alice");
+        assertEquals(instance.getNumberOfEntries(), 0);
+    }
+
     /**
      * Test of addEntry with a repeat
      * Adding another entry for the same person on the same day should fail

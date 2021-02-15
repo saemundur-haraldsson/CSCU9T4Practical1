@@ -43,7 +43,7 @@ public class TrainingRecord {
     } // lookupEntry
 
     // look up the entry of a given day and month
-    public LinkedList<String> findAllEntries (int d, int m, int y) {
+    public LinkedList<String> lookUpEntries (int d, int m, int y) {
         ListIterator<Entry> iter = tr.listIterator();
         LinkedList<String> result = new LinkedList();
 //        result.set(i, "No entries found");

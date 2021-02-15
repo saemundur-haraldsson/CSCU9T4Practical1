@@ -9,7 +9,14 @@ public class SwimEntry extends Entry{
         this.where = where;
     }
 
-    public String getWhere() { return where; }
+    public String getWhere() {
+        if (where.equals("pool")) {
+            return "in a " + where;
+        }
+        else {
+            return where;
+        }
+    }
 
     @Override
     public String getEntry() {

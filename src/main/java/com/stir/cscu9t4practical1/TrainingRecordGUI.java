@@ -5,7 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.JButton;
 import java.lang.Number;
+
+import static java.awt.Color.*;
+
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
@@ -31,23 +35,37 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
     private JLabel labdist = new JLabel(" Distance (km):");
-    private JLabel labwhere = new JLabel(" Where(outdoor or pool):"); ///////////////
     private JLabel labterr = new JLabel(" Terrain:"); //////////////////////////////
     private JLabel labtempo = new JLabel(" Tempo:"); ////////////////////////////
     private JLabel labreps = new JLabel(" Repetitions:"); ////////////////////////////
     private JLabel labrecov = new JLabel(" Recovery:"); ///////////////////////
-
-    private JButton addR = new JButton("Add");
-    private JButton lookUpByDate = new JButton("Look Up");
-    private JButton removeEntry = new JButton("Remove Entry"); /////////////////////////
-
-    private JButton FindAllByDate = new JButton("Find by Date"); /////////////////////////////////
+    private JLabel labwhere = new JLabel(" Where(outdoor or pool):"); ///////////////
     String[] trainingType = {"Swim", "Sprint", "Cycle"};
     private JComboBox <String> TrainingType = new JComboBox(trainingType);
 
+    private JButton addR = new JButton("Add");
+    //addR.setBackground(00FF00);
+    private JButton lookUpByDate = new JButton("Look Up");
+    private JButton removeEntry = new JButton("Remove Entry"); /////////////////////////
+    //removeEntry.setBackground(FF0000);
+
+    private JButton findAllByDate = new JButton("Find by Date"); /////////////////////////////////
+
+
+
     private TrainingRecord myAthletes = new TrainingRecord();
 
-    private JTextArea outputArea = new JTextArea(5, 50);
+
+////////////////////////////////////////////////////////////
+    final ImageIcon imageIcon = new ImageIcon("https://live.staticflickr.com/3030/3069798182_255541cbcc_b.jpg");
+
+    private JTextArea outputArea = new JTextArea(5, 50)// {
+        //Image image = imageIcon.getImage();
+        //Image grayImage = GrayFilter.createDisabledImage(image);
+        //{
+        //    setOpaque(false);
+        //}
+    ;
 
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
@@ -104,8 +122,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(outputArea);
         outputArea.setEditable(false);
 
-        add(FindAllByDate); ///////////////////////////////////////////////////////////////////
-        FindAllByDate.addActionListener(this); /////////////////////////////////////////////
+        add(findAllByDate); ///////////////////////////////////////////////////////////////////
+        findAllByDate.addActionListener(this); /////////////////////////////////////////////
         add(TrainingType);
         TrainingType.addActionListener(this);
         add(removeEntry);
@@ -115,6 +133,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         setVisible(true);
         blankDisplay();
 
+        removeEntry.setBackground(RED);
+        addR.setBackground(GREEN);
+        outputArea = new JTextArea(5, 50) {
+            Image image = imageIcon.getImage();
+            //Image grayImage = GrayFilter.createDisabledImage(image);
+            //{
+            //    setOpaque(false);
+            //}
+        };
         // To save typing in new entries while testing, uncomment
         // the following lines (or add your own test cases)
         
@@ -146,8 +173,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             message = lookupEntry();
         }
 
-        if (event.getSource() == FindAllByDate) { //////////////////////////////////////////////////
-            message = findAllEntries().toString().replaceAll("\\[", "").replaceAll("\\]", "/n").replaceAll("\\, ", "");
+        if (event.getSource() == findAllByDate) { //////////////////////////////////////////////////
+            message = lookUpEntries().toString().replaceAll("\\[", "").replaceAll("\\]", "/n").replaceAll("\\, ", "");
         }
 
         if (event.getSource() == removeEntry) {
@@ -170,7 +197,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int h = Integer.parseInt(hours.getText());
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
-        String wh = where.getText();
+        String wh;
+        if (where.getText().equals("pool")) {
+            wh = "in a " + where.getText();
+        }
+        else {
+            wh = where.getText();
+        }
         SwimEntry e = new SwimEntry(n, d, m, y, h, mm, s, km, wh);
         myAthletes.addEntry(e);
         return message;
@@ -221,12 +254,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return message;
     }
 
-    public LinkedList<String> findAllEntries() { /////////////////////////////////////////////////////////////
+    public LinkedList<String> lookUpEntries() { /////////////////////////////////////////////////////////////
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
         int y = Integer.parseInt(year.getText());
         outputArea.setText("looking up records ...");
-        LinkedList<String> message = myAthletes.findAllEntries(d, m, y);
+        LinkedList<String> message = myAthletes.lookUpEntries(d, m, y);
         return message;
     }
 
