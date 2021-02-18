@@ -83,7 +83,7 @@ public class TrainingRecordGUITest {
     /**
      * Test of addEntry method, of class TrainingRecordGUI
      * 
-     */
+
     @Test
     public void testAddEntry(){
         System.out.println("addEntry");
@@ -94,7 +94,7 @@ public class TrainingRecordGUITest {
         System.out.println(message);
         assertEquals(message,"Record added\n");
     }
-    
+    */
     /**
      * Test to see if all display requirements have been met
      */
