@@ -140,13 +140,13 @@ public class SwimEntryTest {
         System.out.println("getWhere");
         Entry instanceA = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"outdoors");
         String expResultA = "outdoors";
-        String result = instanceA.getWhere();
+        String result = ((SwimEntry) instanceA).getWhere(); //cast the instance to be of the corresponding subclass type for the location of the method
         assertEquals(expResultA, result);
         
         Entry instanceB = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"pool");
         String expResultB = "in a pool";
-        String result = instanceB.getWhere();
-        assertEquals(expResultB, result);
+        String resultB = ((SwimEntry) instanceB).getWhere(); //cast the instance to be of the corresponding subclass type for the location of the method
+        assertEquals(expResultB, resultB);
     }
     /**
      * Test of getEntry method, of class SwimEntry.

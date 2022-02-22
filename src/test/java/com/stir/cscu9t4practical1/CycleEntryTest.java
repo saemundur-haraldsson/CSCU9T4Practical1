@@ -141,7 +141,7 @@ public class CycleEntryTest {
         System.out.println("getTerrain");
         Entry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
         String expResult = "asphalt";
-        String result = instance.getTerrain();
+        String result = ((CycleEntry) instance).getTerrain(); //cast the instance to be of the corresponding subclass type for the location of the method
         assertEquals(expResult, result);
     }
 
@@ -153,7 +153,7 @@ public class CycleEntryTest {
         System.out.println("getTempo");
         Entry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
         String expResult = "moderate";
-        String result = instance.getTempo();
+        String result =  ((CycleEntry) instance).getTempo(); //cast the instance to be of the corresponding subclass type for the location of the method
         assertEquals(expResult, result);
     }
     
