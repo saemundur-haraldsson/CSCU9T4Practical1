@@ -27,16 +27,22 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labdist = new JLabel(" Distance (km):");
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    private JButton findAllByDate = new JButton("Find All By Date");
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
     private JTextArea outputArea = new JTextArea(5, 50);
 
+    /*
+     * Main method; program entry-point.
+     */
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
-    } // main
+    }
 
-    // set up the GUI 
+    /*
+     * Constructor for the GUI; set up text areas, labels, buttons, etc.
+     */
     public TrainingRecordGUI() {
         super("Training Record");
         setLayout(new FlowLayout());
@@ -68,6 +74,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        add(findAllByDate);
+        findAllByDate.addActionListener(this);
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -77,9 +85,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         // To save typing in new entries while testing, uncomment
         // the following lines (or add your own test cases)
 
-    } // constructor
+    }
 
-    // listen for and respond to GUI events 
+    /*
+     * Listen for and respond to GUI events.
+     */
     public void actionPerformed(ActionEvent event) {
         String message = "";
         if (event.getSource() == addR) {
@@ -88,10 +98,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
         }
+        if (event.getSource() == findAllByDate) {
+            message = findAllByDate();
+        }
         outputArea.setText(message);
         blankDisplay();
-    } // actionPerformed
+    }
 
+    /*
+     * Adds a single entry to the record.
+     */
     public String addEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding " + what + " entry to the records");
@@ -108,15 +124,25 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return message;
     }
 
+    /*
+     * Looks up a single entry by date.
+     */
     public String lookupEntry() {
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
         int y = Integer.parseInt(year.getText());
-        outputArea.setText("looking up record ...");
+        outputArea.setText("Looking up record ...");
         String message = myAthletes.lookupEntry(d, m, y);
         return message;
     }
 
+    public String findAllByDate() {
+        return "Not implemented yet.";
+    }
+
+    /*
+     * Blanks all input fields.
+     */
     public void blankDisplay() {
         name.setText("");
         day.setText("");
@@ -126,9 +152,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
-    } // blankDisplay
+    }
 
-    // Fills the input fields on the display for testing purposes only
+    /*
+     * Fills the input fields on the display; for testing purposes only.
+     */
     public void fillDisplay(Entry ent) {
         name.setText(ent.getName());
         day.setText(String.valueOf(ent.getDay()));
@@ -139,6 +167,5 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         secs.setText(String.valueOf(ent.getSec()));
         dist.setText(String.valueOf(ent.getDistance()));
     }
-
-} // TrainingRecordGUI
+}
 
