@@ -109,8 +109,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
      * Adds a single entry to the record.
      */
     public String addEntry(String what) {
-        String message = "Record added\n";
-        System.out.println("Adding " + what + " entry to the records");
+        String message = "Record added.\n";
+        System.out.println("Attempting to add " + what + " entry to the records...");
         String n = name.getText();
         if (n.length() == 0) {
             message = "Error: Name cannot be empty.";
@@ -124,9 +124,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                 int mm = Integer.parseInt(mins.getText());
                 int s = Integer.parseInt(secs.getText());
                 Entry e = new Entry(n, d, m, y, h, mm, s, km);
-                myAthletes.addEntry(e);
+                if (!myAthletes.addEntry(e)) {
+                    message = "Could not add duplicate record.";
+                }
             } catch (NumberFormatException e) {
-                message = "Error: Please provide valid numbers in the numerical fields; they cannot be empty.";
+                message = "Error: Please provide valid, non-null numbers in the numerical fields.";
             }
         }
         return message;
@@ -140,14 +142,14 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
             int y = Integer.parseInt(year.getText());
-            outputArea.setText("Looking up record ...");
+            outputArea.setText("Looking up record(s)...");
             if (type.equals("all")) {
                 return myAthletes.findAllByDate(d, m, y);
             } else {
                 return myAthletes.lookupEntry(d, m, y);
             }
         } catch (NumberFormatException e) {
-            return "NumberFormatException: Could not parse a text field input to a number.";
+            return "Error: Please provide valid, non-null numbers in the numerical fields.";
         }
     }
 
