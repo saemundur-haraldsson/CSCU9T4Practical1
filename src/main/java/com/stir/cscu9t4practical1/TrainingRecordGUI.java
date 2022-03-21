@@ -76,7 +76,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
         // To save typing in new entries while testing, uncomment
         // the following lines (or add your own test cases)
-        
+
     } // constructor
 
     // listen for and respond to GUI events 
@@ -94,7 +94,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     public String addEntry(String what) {
         String message = "Record added\n";
-        System.out.println("Adding "+what+" entry to the records");
+        System.out.println("Adding " + what + " entry to the records");
         String n = name.getText();
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
@@ -107,7 +107,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         myAthletes.addEntry(e);
         return message;
     }
-    
+
     public String lookupEntry() {
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
@@ -126,8 +126,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
+    } // blankDisplay
 
-    }// blankDisplay
     // Fills the input fields on the display for testing purposes only
     public void fillDisplay(Entry ent) {
         name.setText(ent.getName());
