@@ -34,7 +34,7 @@ public class Entry {
     } //getYear
 
     public int getHour() {
-        return dateAndTime.get(Calendar.HOUR);
+        return dateAndTime.get(Calendar.HOUR_OF_DAY);
     } //getHour
 
     public int getMin() {
