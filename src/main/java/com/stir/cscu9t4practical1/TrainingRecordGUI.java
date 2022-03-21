@@ -33,14 +33,14 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     private JTextArea outputArea = new JTextArea(5, 50);
 
-    /*
+    /**
      * Main method; program entry-point.
      */
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
     }
 
-    /*
+    /**
      * Constructor for the GUI; set up text areas, labels, buttons, etc.
      */
     public TrainingRecordGUI() {
@@ -87,7 +87,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     }
 
-    /*
+    /**
      * Listen for and respond to GUI events.
      */
     public void actionPerformed(ActionEvent event) {
@@ -95,17 +95,21 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == addR) {
             message = addEntry("generic");
         }
-        if (event.getSource() == lookUpByDate) {
-            message = lookupEntry();
-        }
-        if (event.getSource() == findAllByDate) {
-            message = findAllByDate();
+        try {
+            if (event.getSource() == lookUpByDate) {
+                message = lookupEntry("single");
+            }
+            if (event.getSource() == findAllByDate) {
+                message = lookupEntry("all");
+            }
+        } catch (NumberFormatException e) {
+            message = "NumberFormatException: Could not parse a text field input to a number.";
         }
         outputArea.setText(message);
         blankDisplay();
     }
 
-    /*
+    /**
      * Adds a single entry to the record.
      */
     public String addEntry(String what) {
@@ -124,15 +128,23 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return message;
     }
 
-    /*
+    /**
      * Looks up a single entry by date.
      */
-    public String lookupEntry() {
-        int m = Integer.parseInt(month.getText());
-        int d = Integer.parseInt(day.getText());
-        int y = Integer.parseInt(year.getText());
-        outputArea.setText("Looking up record ...");
-        return myAthletes.lookupEntry(d, m, y);
+    public String lookupEntry(String type) {
+        try {
+            int m = Integer.parseInt(month.getText());
+            int d = Integer.parseInt(day.getText());
+            int y = Integer.parseInt(year.getText());
+            outputArea.setText("Looking up record ...");
+            if (type.equals("all")) {
+                return myAthletes.findAllByDate(d, m, y);
+            } else {
+                return myAthletes.lookupEntry(d, m, y);
+            }
+        } catch (NumberFormatException e) {
+            return "NumberFormatException: Could not parse a text field input to a number.";
+        }
     }
 
     public String findAllByDate() {
@@ -143,7 +155,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         return myAthletes.findAllByDate(d, m, y);
     }
 
-    /*
+    /**
      * Blanks all input fields.
      */
     public void blankDisplay() {
@@ -157,7 +169,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         dist.setText("");
     }
 
-    /*
+    /**
      * Fills the input fields on the display; for testing purposes only.
      */
     public void fillDisplay(Entry ent) {
