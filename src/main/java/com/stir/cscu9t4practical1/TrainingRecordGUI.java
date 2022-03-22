@@ -191,7 +191,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int y = Integer.parseInt(year.getText());
             outputArea.setText("Looking up record(s)...");
             if (type.equals("all")) {
-                return myAthletes.findAllByDate(d, m, y);
+                return myAthletes.lookupEntries(d, m, y);
             } else {
                 return myAthletes.lookupEntry(d, m, y);
             }

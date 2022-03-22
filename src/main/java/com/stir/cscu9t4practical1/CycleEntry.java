@@ -52,6 +52,6 @@ public class CycleEntry extends Entry {
         return getName() + " cycled " + getDistance() + " km in "
                 + getHour() + ":" + getMin() + ":" + getSec() + " on "
                 + getDay() + "/" + getMonth() + "/" + getYear() + " on "
-                + getTerrain() + " at a " + getTempo() + " tempo " + "\n";
+                + getTerrain() + " at " + getTempo() + " tempo\n";
     }
 }

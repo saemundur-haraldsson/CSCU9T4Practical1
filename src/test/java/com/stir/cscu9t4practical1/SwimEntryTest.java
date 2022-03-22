@@ -144,7 +144,7 @@ public class SwimEntryTest {
         assertEquals(expResultA, result);
 
         SwimEntry instanceB = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"pool");
-        String expResultB = "in a pool";
+        String expResultB = "pool";
         String result2 = instanceB.getWhere();
         assertEquals(expResultB, result2);
     }

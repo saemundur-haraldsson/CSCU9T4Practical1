@@ -37,9 +37,10 @@ public class SwimEntry extends Entry {
      * @return A text summary of the details of the entry.
      */
     public String getEntry() {
-        return getName() + " swam " + getDistance() + " km in "
+        return getName() + " swam " + getDistance() + " km " + (
+                    getWhere().equals("outdoors") ? getWhere() : "in a " + getWhere()
+                ) + " in "
                 + getHour() + ":" + getMin() + ":" + getSec() + " on "
-                + getDay() + "/" + getMonth() + "/" + getYear()
-                + " at a " + getWhere() + " location\n";
+                + getDay() + "/" + getMonth() + "/" + getYear() + "\n";
     }
 }

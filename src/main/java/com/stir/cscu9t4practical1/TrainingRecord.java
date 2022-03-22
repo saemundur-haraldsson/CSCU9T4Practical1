@@ -64,10 +64,10 @@ public class TrainingRecord {
      *
      * @return A string containing new-line-separated summaries of all entries found that match the date.
      */
-    public String findAllByDate(int d, int m, int y) {
+    public String lookupEntries(int d, int m, int y) {
         ListIterator<Entry> iter = tr.listIterator();
         StringBuilder builder = new StringBuilder();
-        String result = "No entries found.";
+        String result = "Could not find any entries for this date.";
         while (iter.hasNext()) {
             Entry current = iter.next();
             if (current.getDay() == d && current.getMonth() == m && current.getYear() == y) {

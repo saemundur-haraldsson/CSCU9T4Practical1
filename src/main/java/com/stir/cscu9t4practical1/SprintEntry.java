@@ -49,9 +49,9 @@ public class SprintEntry extends Entry {
      * @return A text summary of the details of the entry.
      */
     public String getEntry() {
-        return getName() + " sprinted " + getDistance() + " km " + getRepetitions()
-                + " times, with a recovery time of " + getRecovery() + ", in "
-                + getHour() + ":" + getMin() + ":" + getSec() + " on "
+        return getName() + " sprinted " + getRepetitions() + "x" + (int) getDistance() + "m in "
+                + getHour() + ":" + getMin() + ":" + getSec() + " with "
+                + getRecovery() + " minutes recovery on "
                 + getDay()  + "/" + getMonth() + "/" + getYear() + "\n";
     }
 }
