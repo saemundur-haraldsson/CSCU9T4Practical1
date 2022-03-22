@@ -6,13 +6,14 @@ import java.util.*;
 
 
 public class TrainingRecord {
+    
     private List<Entry> tr;
 
     /**
      * Constructor for TrainingRecord; initialises the list of entries.
      */
     public TrainingRecord() {
-        tr = new ArrayList<Entry>();
+        tr = new ArrayList<>();
     }
 
     /**

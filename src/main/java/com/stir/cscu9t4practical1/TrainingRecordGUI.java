@@ -17,6 +17,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField mins = new JTextField(2);
     private JTextField secs = new JTextField(2);
     private JTextField dist = new JTextField(4);
+    private JTextField terr = new JTextField(6);
+    private JTextField tem = new JTextField(6);
+    private JTextField rep = new JTextField(2);
+    private JTextField rec = new JTextField(2);
+    private JTextField loc = new JTextField(6);
     private JLabel labn = new JLabel(" Name:");
     private JLabel labd = new JLabel(" Day:");
     private JLabel labm = new JLabel(" Month:");
@@ -24,10 +29,18 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labh = new JLabel(" Hours:");
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
-    private JLabel labdist = new JLabel(" Distance (km):");
+    private JLabel labdist = new JLabel("Distance (km):");
+    private JLabel labterr = new JLabel(" Terrain (if cycle):");
+    private JLabel labtem = new JLabel(" Tempo (if cycle):");
+    private JLabel labrep = new JLabel(" Repetitions (if sprint):");
+    private JLabel labrec = new JLabel(" Recovery time (mins, if sprint):");
+    private JLabel labloc = new JLabel("Location (if swim):");
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton findAllByDate = new JButton("Find All By Date");
+
+    private String[] options = {"Cycle", "Generic", "Sprint", "Swim"};
+    private JComboBox<String> entryType = new JComboBox<>(options);
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -70,6 +83,22 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
+        add(labterr);
+        add(terr);
+        terr.setEditable(true);
+        add(labtem);
+        add(tem);
+        tem.setEditable(true);
+        add(labrep);
+        add(rep);
+        rep.setEditable(true);
+        add(labrec);
+        add(rec);
+        rec.setEditable(true);
+        add(labloc);
+        add(loc);
+        loc.setEditable(true);
+        add(entryType);
         add(addR);
         addR.addActionListener(this);
         add(lookUpByDate);
@@ -93,7 +122,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String message = "";
         if (event.getSource() == addR) {
-            message = addEntry("generic");
+            message = addEntry(entryType.getItemAt(entryType.getSelectedIndex()).toLowerCase());
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry("single");
@@ -123,7 +152,25 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                 int h = Integer.parseInt(hours.getText());
                 int mm = Integer.parseInt(mins.getText());
                 int s = Integer.parseInt(secs.getText());
-                Entry e = new Entry(n, d, m, y, h, mm, s, km);
+                Entry e;
+                switch (what) {
+                    case "cycle":
+                        String trn = terr.getText();
+                        String tpo = tem.getText();
+                        e = new CycleEntry(n, d, m, y, h, mm, s, km, trn, tpo);
+                        break;
+                    case "sprint":
+                        int rpt = Integer.parseInt(rep.getText());
+                        int rcv = Integer.parseInt(rec.getText());
+                        e = new SprintEntry(n, d, m, y, h, mm, s, km, rpt, rcv);
+                        break;
+                    case "swim":
+                        String lcn = loc.getText();
+                        e = new SwimEntry(n, d, m, y, h, mm, s, km, lcn);
+                        break;
+                    default:
+                        e = new Entry(n, d, m, y, h, mm, s, km);
+                }
                 if (!myAthletes.addEntry(e)) {
                     message = "Could not add duplicate record.";
                 }
@@ -165,6 +212,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
+        terr.setText("");
+        tem.setText("");
+        rep.setText("");
+        rec.setText("");
+        loc.setText("");
     }
 
     /**
