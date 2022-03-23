@@ -40,7 +40,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton findAllByDate = new JButton("Find All By Date");
     private JButton findAllByName = new JButton("Find All By Name");
 
-    private String[] options = {"Cycle", "Generic", "Sprint", "Swim"};
+    private String[] options = {"Generic", "Cycle", "Sprint", "Swim"};
     private JComboBox<String> entryType = new JComboBox<>(options);
 
     private TrainingRecord myAthletes = new TrainingRecord();
