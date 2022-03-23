@@ -38,6 +38,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton findAllByDate = new JButton("Find All By Date");
+    private JButton findAllByName = new JButton("Find All By Name");
 
     private String[] options = {"Cycle", "Generic", "Sprint", "Swim"};
     private JComboBox<String> entryType = new JComboBox<>(options);
@@ -105,6 +106,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         lookUpByDate.addActionListener(this);
         add(findAllByDate);
         findAllByDate.addActionListener(this);
+        add(findAllByName);
+        findAllByName.addActionListener(this);
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -123,12 +126,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message = "";
         if (event.getSource() == addR) {
             message = addEntry(entryType.getItemAt(entryType.getSelectedIndex()).toLowerCase());
-        }
-        if (event.getSource() == lookUpByDate) {
+        } else if (event.getSource() == lookUpByDate) {
             message = lookupEntry("single");
-        }
-        if (event.getSource() == findAllByDate) {
+        } else if (event.getSource() == findAllByDate) {
             message = lookupEntry("all");
+        } else if (event.getSource() == findAllByName) {
+            message = lookupEntry("name");
         }
         outputArea.setText(message);
         blankDisplay();
@@ -185,15 +188,24 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
      * Looks up a single entry by date.
      */
     public String lookupEntry(String type) {
+        outputArea.setText("Looking up record(s)...");
         try {
-            int m = Integer.parseInt(month.getText());
-            int d = Integer.parseInt(day.getText());
-            int y = Integer.parseInt(year.getText());
-            outputArea.setText("Looking up record(s)...");
-            if (type.equals("all")) {
-                return myAthletes.lookupEntries(d, m, y);
+            if (type.equals("all") || type.equals("single")) {
+                int m = Integer.parseInt(month.getText());
+                int d = Integer.parseInt(day.getText());
+                int y = Integer.parseInt(year.getText());
+                if (type.equals("all")) {
+                    return myAthletes.lookupEntries(d, m, y);
+                } else {
+                    return myAthletes.lookupEntry(d, m, y);
+                }
             } else {
-                return myAthletes.lookupEntry(d, m, y);
+                String nameToFind = name.getText();
+                if (nameToFind.length() == 0) {
+                    return "Error: Please provide a non-null value for the name.";  // avoid returning all records
+                } else {
+                    return myAthletes.lookupByName(nameToFind);
+                }
             }
         } catch (NumberFormatException e) {
             return "Error: Please provide valid, non-null numbers in the numerical fields.";

@@ -3,6 +3,8 @@ package com.stir.cscu9t4practical1;
 
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TrainingRecord {
@@ -71,6 +73,31 @@ public class TrainingRecord {
         while (iter.hasNext()) {
             Entry current = iter.next();
             if (current.getDay() == d && current.getMonth() == m && current.getYear() == y) {
+                builder.append(current.getEntry());
+            }
+        }
+        if (builder.length() > 0) {
+            result = builder.toString();
+        }
+        return result;
+    }
+
+    /**
+     * Looks up and returns the all entries matching a given name. The search is case-insensitive and will return a
+     * match if the given name is anywhere in the String returned by the entry's getName().
+     *
+     * @param name The name to search for.
+     *
+     * @return A string containing new-line-separated summaries of all entries found that match the name.
+     */
+    public String lookupByName(String name) {
+        ListIterator<Entry> iter = tr.listIterator();
+        StringBuilder builder = new StringBuilder();
+        String result = "Could not find any entries for this name.";
+        Pattern p = Pattern.compile(name, Pattern.CASE_INSENSITIVE);
+        while (iter.hasNext()) {
+            Entry current = iter.next();
+            if (p.matcher(current.getName()).find()) {
                 builder.append(current.getEntry());
             }
         }
