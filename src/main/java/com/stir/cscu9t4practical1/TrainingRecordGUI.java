@@ -9,43 +9,43 @@ import java.lang.Number;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
-    private JTextField name = new JTextField(30);
-    private JTextField day = new JTextField(2);
-    private JTextField month = new JTextField(2);
-    private JTextField year = new JTextField(4);
-    private JTextField hours = new JTextField(2);
-    private JTextField mins = new JTextField(2);
-    private JTextField secs = new JTextField(2);
-    private JTextField dist = new JTextField(4);
-    private JTextField terr = new JTextField(6);
-    private JTextField tem = new JTextField(6);
-    private JTextField rep = new JTextField(2);
-    private JTextField rec = new JTextField(2);
-    private JTextField loc = new JTextField(6);
-    private JLabel labn = new JLabel(" Name:");
-    private JLabel labd = new JLabel(" Day:");
-    private JLabel labm = new JLabel(" Month:");
-    private JLabel laby = new JLabel(" Year:");
-    private JLabel labh = new JLabel(" Hours:");
-    private JLabel labmm = new JLabel(" Mins:");
-    private JLabel labs = new JLabel(" Secs:");
-    private JLabel labdist = new JLabel("Distance (km):");
-    private JLabel labterr = new JLabel(" Terrain (if cycle):");
-    private JLabel labtem = new JLabel(" Tempo (if cycle):");
-    private JLabel labrep = new JLabel(" Repetitions (if sprint):");
-    private JLabel labrec = new JLabel(" Recovery time (mins, if sprint):");
-    private JLabel labloc = new JLabel("Location (if swim):");
-    private JButton addR = new JButton("Add");
-    private JButton lookUpByDate = new JButton("Look Up");
-    private JButton findAllByDate = new JButton("Find All By Date");
-    private JButton findAllByName = new JButton("Find All By Name");
+    private final JTextField name = new JTextField(30);
+    private final JTextField day = new JTextField(2);
+    private final JTextField month = new JTextField(2);
+    private final JTextField year = new JTextField(4);
+    private final JTextField hours = new JTextField(2);
+    private final JTextField mins = new JTextField(2);
+    private final JTextField secs = new JTextField(2);
+    private final JTextField dist = new JTextField(4);
+    private final JTextField terr = new JTextField(6);
+    private final JTextField tem = new JTextField(6);
+    private final JTextField rep = new JTextField(2);
+    private final JTextField rec = new JTextField(2);
+    private final JTextField loc = new JTextField(6);
+    private final JLabel labn = new JLabel(" Name:");
+    private final JLabel labd = new JLabel(" Day:");
+    private final JLabel labm = new JLabel(" Month:");
+    private final JLabel laby = new JLabel(" Year:");
+    private final JLabel labh = new JLabel(" Hours:");
+    private final JLabel labmm = new JLabel(" Mins:");
+    private final JLabel labs = new JLabel(" Secs:");
+    private final JLabel labdist = new JLabel("Distance (km):");
+    private final JLabel labterr = new JLabel(" Terrain (if cycle):");
+    private final JLabel labtem = new JLabel(" Tempo (if cycle):");
+    private final JLabel labrep = new JLabel(" Repetitions (if sprint):");
+    private final JLabel labrec = new JLabel(" Recovery time (mins, if sprint):");
+    private final JLabel labloc = new JLabel("Location (if swim):");
+    private final JButton addR = new JButton("Add");
+    private final JButton lookUpByDate = new JButton("Look Up");
+    private final JButton findAllByDate = new JButton("Find All By Date");
+    private final JButton findAllByName = new JButton("Find All By Name");
 
-    private String[] options = {"Generic", "Cycle", "Sprint", "Swim"};
-    private JComboBox<String> entryType = new JComboBox<>(options);
+    private final String[] options = {"Generic", "Cycle", "Sprint", "Swim"};
+    private final JComboBox<String> entryType = new JComboBox<>(options);
 
-    private TrainingRecord myAthletes = new TrainingRecord();
+    private final TrainingRecord myAthletes = new TrainingRecord();
 
-    private JTextArea outputArea = new JTextArea(5, 50);
+    private final JTextArea outputArea = new JTextArea(5, 50);
 
     /**
      * Main method; program entry-point.
