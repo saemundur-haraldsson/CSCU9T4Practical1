@@ -9,6 +9,7 @@ import java.util.*;
 
 public class TrainingRecord {
     private List<Entry> tr;
+    private String Test;
     
     public TrainingRecord() {
         tr = new ArrayList<Entry>();
