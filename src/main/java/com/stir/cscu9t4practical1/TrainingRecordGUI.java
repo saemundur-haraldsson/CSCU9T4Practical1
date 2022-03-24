@@ -36,6 +36,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private final JLabel labrec = new JLabel(" Recovery time (mins, if sprint):");
     private final JLabel labloc = new JLabel("Location (if swim):");
     private final JButton addR = new JButton("Add");
+    private final JButton remove = new JButton("Remove");
     private final JButton lookUpByDate = new JButton("Look Up");
     private final JButton findAllByDate = new JButton("Find All By Date");
     private final JButton findAllByName = new JButton("Find All By Name");
@@ -102,6 +103,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(entryType);
         add(addR);
         addR.addActionListener(this);
+        add(remove);
+        remove.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
         add(findAllByDate);
@@ -126,6 +129,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message = "";
         if (event.getSource() == addR) {
             message = addEntry(entryType.getItemAt(entryType.getSelectedIndex()).toLowerCase());
+        } else if (event.getSource() == remove) {
+            message = removeEntry();
         } else if (event.getSource() == lookUpByDate) {
             message = lookupEntry("single");
         } else if (event.getSource() == findAllByDate) {
@@ -139,6 +144,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     /**
      * Adds a single entry to the record.
+     *
+     * @param what The type of entry to be added.
+     *
+     * @return A status message.
      */
     public String addEntry(String what) {
         String message = "Record added.\n";
@@ -185,7 +194,37 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Looks up a single entry by date.
+     * Removes a single entry from the record.
+     *
+     * @return A status message.
+     */
+    public String removeEntry() {
+        String message = "Record removed.\n";
+        System.out.println("Attempting to remove entry from the records...");
+        String n = name.getText();
+        if (n.length() == 0) {
+            message = "Error: Name cannot be empty.";
+        } else {
+            try {
+                int m = Integer.parseInt(month.getText());
+                int d = Integer.parseInt(day.getText());
+                int y = Integer.parseInt(year.getText());
+                if (!myAthletes.removeEntry(n, m, d, y)) {
+                    message = "Could not remove; record may not exist.";
+                }
+            } catch (NumberFormatException e) {
+                message = "Error: Please provide valid, non-null numbers in the numerical fields.";
+            }
+        }
+        return message;
+    }
+
+    /**
+     * Looks up entries by date.
+     *
+     * @param type Either "all" or "single", determining whether to look up all entries or just one.
+     *
+     * @return A status message.
      */
     public String lookupEntry(String type) {
         outputArea.setText("Looking up record(s)...");
