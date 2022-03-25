@@ -124,6 +124,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     /**
      * Listen for and respond to GUI events.
+     *
+     * @param event The event that triggered the method.
      */
     public void actionPerformed(ActionEvent event) {
         String message = "";
@@ -145,18 +147,19 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     /**
      * Adds a single entry to the record.
      *
-     * @param what The type of entry to be added.
+     * @param type The type of entry to be added.
      *
      * @return A status message.
      */
-    public String addEntry(String what) {
+    public String addEntry(String type) {
         String message = "Record added.\n";
-        System.out.println("Attempting to add " + what + " entry to the records...");
+        System.out.println("Attempting to add " + type + " entry to the records...");
         String n = name.getText();
         if (n.length() == 0) {
             message = "Error: Name cannot be empty.";
         } else {
             try {
+                // get universal values
                 int m = Integer.parseInt(month.getText());
                 int d = Integer.parseInt(day.getText());
                 int y = Integer.parseInt(year.getText());
@@ -165,10 +168,14 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                 int mm = Integer.parseInt(mins.getText());
                 int s = Integer.parseInt(secs.getText());
                 Entry e;
-                switch (what) {
+                // get any type-specific values & instantiate entry
+                switch (type) {
                     case "cycle":
                         String trn = terr.getText();
                         String tpo = tem.getText();
+                        if (trn.length() + tpo.length() == 0) {
+                            message = "Error: Terrain/Tempo cannot be empty.";
+                        }
                         e = new CycleEntry(n, d, m, y, h, mm, s, km, trn, tpo);
                         break;
                     case "sprint":
@@ -178,6 +185,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                         break;
                     case "swim":
                         String lcn = loc.getText();
+                        if (lcn.length() == 0) {
+                            message = "Error: Location cannot be empty.";
+                        }
                         e = new SwimEntry(n, d, m, y, h, mm, s, km, lcn);
                         break;
                     default:
@@ -220,24 +230,27 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Looks up entries by date.
+     * Looks up entries by date or name.
      *
-     * @param type Either "all" or "single", determining whether to look up all entries or just one.
+     * @param mode One of "all", "single" or "name", determining whether to look up all entries by date or just one, or
+     *             to look up all entries by name.
      *
      * @return A status message.
      */
-    public String lookupEntry(String type) {
+    public String lookupEntry(String mode) {
         outputArea.setText("Looking up record(s)...");
         try {
-            if (type.equals("all") || type.equals("single")) {
+            // look up by date
+            if (mode.equals("all") || mode.equals("single")) {
                 int m = Integer.parseInt(month.getText());
                 int d = Integer.parseInt(day.getText());
                 int y = Integer.parseInt(year.getText());
-                if (type.equals("all")) {
+                if (mode.equals("all")) {
                     return myAthletes.lookupEntries(d, m, y);
                 } else {
                     return myAthletes.lookupEntry(d, m, y);
                 }
+            // look up by name
             } else {
                 String nameToFind = name.getText();
                 if (nameToFind.length() == 0) {
