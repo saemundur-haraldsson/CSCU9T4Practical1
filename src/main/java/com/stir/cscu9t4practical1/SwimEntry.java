@@ -2,7 +2,7 @@ package com.stir.cscu9t4practical1;
 
 public class SwimEntry extends Entry {
 
-    private String location;
+    private final String location;
 
     /**
      * Constructor for SwimEntry.

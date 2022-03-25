@@ -156,7 +156,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         System.out.println("Attempting to add " + type + " entry to the records...");
         String n = name.getText();
         if (n.length() == 0) {
-            message = "Error: Name cannot be empty.";
+            message = "Error: Name cannot be empty.\n";
         } else {
             try {
                 // get universal values
@@ -174,7 +174,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                         String trn = terr.getText();
                         String tpo = tem.getText();
                         if (trn.length() + tpo.length() == 0) {
-                            message = "Error: Terrain/Tempo cannot be empty.";
+                            message = "Error: Terrain/Tempo cannot be empty.\n";
                         }
                         e = new CycleEntry(n, d, m, y, h, mm, s, km, trn, tpo);
                         break;
@@ -186,7 +186,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                     case "swim":
                         String lcn = loc.getText();
                         if (lcn.length() == 0) {
-                            message = "Error: Location cannot be empty.";
+                            message = "Error: Location cannot be empty.\n";
                         }
                         e = new SwimEntry(n, d, m, y, h, mm, s, km, lcn);
                         break;
@@ -194,10 +194,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                         e = new Entry(n, d, m, y, h, mm, s, km);
                 }
                 if (!myAthletes.addEntry(e)) {
-                    message = "Could not add duplicate record.";
+                    message = "Could not add duplicate record.\n";
                 }
             } catch (NumberFormatException e) {
-                message = "Error: Please provide valid, non-null numbers in the numerical fields.";
+                message = "Error: Please provide valid, non-null numbers in the numerical fields.\n";
             }
         }
         return message;
@@ -213,17 +213,17 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         System.out.println("Attempting to remove entry from the records...");
         String n = name.getText();
         if (n.length() == 0) {
-            message = "Error: Name cannot be empty.";
+            message = "Error: Name cannot be empty.\n";
         } else {
             try {
-                int m = Integer.parseInt(month.getText());
                 int d = Integer.parseInt(day.getText());
+                int m = Integer.parseInt(month.getText());
                 int y = Integer.parseInt(year.getText());
-                if (!myAthletes.removeEntry(n, m, d, y)) {
-                    message = "Could not remove; record may not exist.";
+                if (!myAthletes.removeEntry(n, d, m, y)) {
+                    message = "Could not remove; record may not exist.\n";
                 }
             } catch (NumberFormatException e) {
-                message = "Error: Please provide valid, non-null numbers in the numerical fields.";
+                message = "Error: Please provide valid, non-null numbers in the numerical fields.\n";
             }
         }
         return message;
@@ -254,13 +254,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             } else {
                 String nameToFind = name.getText();
                 if (nameToFind.length() == 0) {
-                    return "Error: Please provide a non-null value for the name.";  // avoid returning all records
+                    return "Error: Please provide a non-null value for the name.\n";  // avoid returning all records
                 } else {
                     return myAthletes.lookupByName(nameToFind);
                 }
             }
         } catch (NumberFormatException e) {
-            return "Error: Please provide valid, non-null numbers in the numerical fields.";
+            return "Error: Please provide valid, non-null numbers in the numerical fields.\n";
         }
     }
 
@@ -284,8 +284,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Fills the input fields on the display; for testing purposes only.
+     * Methods for filling the input fields on the display; for testing purposes only.
      */
+
     public void fillDisplay(Entry ent) {
         name.setText(ent.getName());
         day.setText(String.valueOf(ent.getDay()));
@@ -295,6 +296,44 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText(String.valueOf(ent.getMin()));
         secs.setText(String.valueOf(ent.getSec()));
         dist.setText(String.valueOf(ent.getDistance()));
+    }
+
+    public void fillDisplay(CycleEntry ent) {
+        name.setText(ent.getName());
+        day.setText(String.valueOf(ent.getDay()));
+        month.setText(String.valueOf(ent.getMonth()));
+        year.setText(String.valueOf(ent.getYear()));
+        hours.setText(String.valueOf(ent.getHour()));
+        mins.setText(String.valueOf(ent.getMin()));
+        secs.setText(String.valueOf(ent.getSec()));
+        dist.setText(String.valueOf(ent.getDistance()));
+        terr.setText(String.valueOf(ent.getTerrain()));
+        tem.setText(String.valueOf(ent.getTempo()));
+    }
+
+    public void fillDisplay(SprintEntry ent) {
+        name.setText(ent.getName());
+        day.setText(String.valueOf(ent.getDay()));
+        month.setText(String.valueOf(ent.getMonth()));
+        year.setText(String.valueOf(ent.getYear()));
+        hours.setText(String.valueOf(ent.getHour()));
+        mins.setText(String.valueOf(ent.getMin()));
+        secs.setText(String.valueOf(ent.getSec()));
+        dist.setText(String.valueOf(ent.getDistance()));
+        rep.setText(String.valueOf(ent.getRepetitions()));
+        rec.setText(String.valueOf(ent.getRecovery()));
+    }
+
+    public void fillDisplay(SwimEntry ent) {
+        name.setText(ent.getName());
+        day.setText(String.valueOf(ent.getDay()));
+        month.setText(String.valueOf(ent.getMonth()));
+        year.setText(String.valueOf(ent.getYear()));
+        hours.setText(String.valueOf(ent.getHour()));
+        mins.setText(String.valueOf(ent.getMin()));
+        secs.setText(String.valueOf(ent.getSec()));
+        dist.setText(String.valueOf(ent.getDistance()));
+        loc.setText(String.valueOf(ent.getWhere()));
     }
 }
 

@@ -63,10 +63,7 @@ public class TrainingRecordTest {
         TrainingRecord instance = new TrainingRecord();
         instance.addEntry(a);
         instance.addEntry(b);
-        assertEquals(instance.getNumberOfEntries(),1);
-        // You might also consider using assertThrows() and let
-        // TrainingRecord instance take care of when you're trying to add
-        // a none-unique entry
+        assertEquals(1, instance.getNumberOfEntries());
     }
 
     /**
@@ -105,15 +102,15 @@ public class TrainingRecordTest {
         Entry b = new Entry("Bob", 1, 2, 2003, 0, 14, 15, 3);
         Entry c1 = new Entry("Claire", 7, 3, 2010, 0, 26, 20, 7);
         Entry c2 = new Entry("Claire", 11, 3, 2010, 0, 24, 55, 7);
-        assertEquals(instance.getNumberOfEntries(),0);
+        assertEquals(0, instance.getNumberOfEntries());
         instance.addEntry(a);
-        assertEquals(instance.getNumberOfEntries(),1);
+        assertEquals(1, instance.getNumberOfEntries());
         instance.addEntry(b);
-        assertEquals(instance.getNumberOfEntries(),2);
+        assertEquals(2, instance.getNumberOfEntries());
         instance.addEntry(c1);
-        assertEquals(instance.getNumberOfEntries(),3);
+        assertEquals(3, instance.getNumberOfEntries());
         instance.addEntry(c2);
-        assertEquals(instance.getNumberOfEntries(),4);
+        assertEquals(4, instance.getNumberOfEntries());
     }
     
     /**

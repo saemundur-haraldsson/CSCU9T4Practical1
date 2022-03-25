@@ -2,8 +2,8 @@ package com.stir.cscu9t4practical1;
 
 public class SprintEntry extends Entry {
 
-    private int repetitions;
-    private int recovery;
+    private final int repetitions;
+    private final int recovery;
 
     /**
      * Constructor for SprintEntry.

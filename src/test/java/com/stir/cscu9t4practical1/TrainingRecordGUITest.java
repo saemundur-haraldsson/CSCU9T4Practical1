@@ -81,28 +81,106 @@ public class TrainingRecordGUITest {
     
     /**
      * Test of addEntry method, of class TrainingRecordGUI
-     * 
      */
     @Test
-    public void testAddEntry(){
+    public void testAddEntry() {
         System.out.println("addEntry");
         TrainingRecordGUI instance = new TrainingRecordGUI();
-        Entry entry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
-        instance.fillDisplay(entry);
+
+        Entry genEntry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        instance.fillDisplay(genEntry);
         String message = instance.addEntry("generic");
         System.out.println(message);
-        assertEquals(message,"Record added.\n");
+        assertEquals("Record added.\n", message);
+
+        message = instance.addEntry("generic");
+        System.out.println(message);
+        assertEquals("Could not add duplicate record.\n", message);
+
+        CycleEntry cyEntry = new CycleEntry("Alice", 1, 2, 2004, 0, 16, 7, 3, "asphalt", "moderate");
+        instance.fillDisplay(cyEntry);
+        message = instance.addEntry("cycle");
+        System.out.println(message);
+        assertEquals("Record added.\n", message);
+
+        SprintEntry spEntry = new SprintEntry("Alice", 1, 2, 2005, 0, 16, 7, 3, 5, 3);
+        instance.fillDisplay(spEntry);
+        message = instance.addEntry("sprint");
+        System.out.println(message);
+        assertEquals("Record added.\n", message);
+
+        SwimEntry swEntry = new SwimEntry("Alice", 1, 2, 2006, 0, 16, 7, 3, "outdoors");
+        instance.fillDisplay(swEntry);
+        message = instance.addEntry("swim");
+        System.out.println(message);
+        assertEquals("Record added.\n", message);
+    }
+
+    /**
+     * Test edge cases that should produce errors for addEntry()
+     */
+    @Test
+    public void testAddEntryErrors() {
+        System.out.println("addEntry");
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+
+        Entry genEntry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        instance.fillDisplay(genEntry);
+        instance.addEntry("generic");
+        String message = instance.addEntry("generic");
+        System.out.println(message);
+        assertEquals("Could not add duplicate record.\n", message);
+
+        genEntry = new Entry("", 1, 2, 2007, 0, 16, 7, 3);
+        instance.fillDisplay(genEntry);
+        message = instance.addEntry("generic");
+        System.out.println(message);
+        assertEquals("Error: Name cannot be empty.\n", message);
+
+        CycleEntry cyEntry = new CycleEntry("Alice", 1, 2, 2008, 0, 16, 7, 3, "", "");
+        instance.fillDisplay(cyEntry);
+        message = instance.addEntry("cycle");
+        System.out.println(message);
+        assertEquals("Error: Terrain/Tempo cannot be empty.\n", message);
+
+        SwimEntry swEntry = new SwimEntry("Alice", 1, 2, 2009, 0, 16, 7, 3, "");
+        instance.fillDisplay(swEntry);
+        message = instance.addEntry("swim");
+        System.out.println(message);
+        assertEquals("Error: Location cannot be empty.\n", message);
+    }
+
+    /**
+     * Test of removeEntry method, of class TrainingRecordGUI
+     */
+    @Test
+    public void testRemoveEntry() {
+        System.out.println("removeEntry");
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+
+        Entry genEntry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        instance.fillDisplay(genEntry);
+        instance.addEntry("generic");
+
+        instance.fillDisplay(genEntry);
+        String message = instance.removeEntry();
+        System.out.println(message);
+        assertEquals("Record removed.\n", message);
+
+        message = instance.removeEntry();
+        System.out.println(message);
+        assertEquals("Could not remove; record may not exist.\n", message);
     }
     
     /**
      * Test to see if all display requirements have been met
      */
     @Test
-    public void testButtonsPresentInGUI() throws IllegalAccessException, IllegalArgumentException{
+    public void testButtonsPresentInGUI() throws IllegalAccessException, IllegalArgumentException {
         System.out.println("Check if you have added the buttons"); 
         TrainingRecordGUI instance = new TrainingRecordGUI();
         Class<?> instanceClass = instance.getClass();
-        String[] expectedFields = {"findAllByDate","lookUpByDate"}; // add RemoveEntry when it is ready
+        String[] expectedFields = {"findAllByDate","lookUpByDate","remove"};
         Field[] fields = instanceClass.getDeclaredFields();
         int found = 0;
         for (Field field : fields) {
@@ -112,6 +190,6 @@ public class TrainingRecordGUITest {
                 assertTrue(field.get(instance) instanceof JButton);
             }
         }
-        assertEquals(found,expectedFields.length,"Have you added all required buttons?");
+        assertEquals(expectedFields.length,found,"Have you added all required buttons?");
     }
 }

@@ -2,8 +2,8 @@ package com.stir.cscu9t4practical1;
 
 public class CycleEntry extends Entry {
 
-    private String terrain;
-    private String tempo;
+    private final String terrain;
+    private final String tempo;
 
     /**
      * Constructor for CycleEntry.

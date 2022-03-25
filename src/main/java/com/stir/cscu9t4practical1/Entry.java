@@ -5,9 +5,9 @@ import java.util.Calendar;
 
 public class Entry {
 
-    private String name;
-    private Calendar dateAndTime;
-    private float distance;
+    private final String name;
+    private final Calendar dateAndTime;
+    private final float distance;
 
     /**
      * Constructor for Entry.
@@ -53,8 +53,7 @@ public class Entry {
      * @return The month the activity took place during.
      */
     public int getMonth() {
-        int month = dateAndTime.get(Calendar.MONTH) + 1;
-        return month;
+        return dateAndTime.get(Calendar.MONTH) + 1;
     }
 
     /**
