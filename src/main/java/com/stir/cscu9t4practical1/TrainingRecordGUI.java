@@ -105,12 +105,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         addR.addActionListener(this);
         add(remove);
         remove.addActionListener(this);
+        remove.setEnabled(false);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        lookUpByDate.setEnabled(false);
         add(findAllByDate);
         findAllByDate.addActionListener(this);
+        findAllByDate.setEnabled(false);
         add(findAllByName);
         findAllByName.addActionListener(this);
+        findAllByName.setEnabled(false);
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -139,6 +143,17 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             message = lookupEntry("all");
         } else if (event.getSource() == findAllByName) {
             message = lookupEntry("name");
+        }
+        if (myAthletes.getNumberOfEntries() > 0) {
+            remove.setEnabled(true);
+            lookUpByDate.setEnabled(true);
+            findAllByDate.setEnabled(true);
+            findAllByName.setEnabled(true);
+        } else if (myAthletes.getNumberOfEntries() == 0) {
+            remove.setEnabled(false);
+            lookUpByDate.setEnabled(false);
+            findAllByDate.setEnabled(false);
+            findAllByName.setEnabled(false);
         }
         outputArea.setText(message);
         blankDisplay();
