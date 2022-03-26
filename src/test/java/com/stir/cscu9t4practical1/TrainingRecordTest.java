@@ -48,7 +48,7 @@ public class TrainingRecordTest {
         Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
         TrainingRecord instance = new TrainingRecord();
         instance.addEntry(a);
-        assertEquals(instance.getNumberOfEntries(),1);
+        assertEquals(1, instance.getNumberOfEntries());
     }
     
     /**
@@ -129,7 +129,6 @@ public class TrainingRecordTest {
         Entry b = new Entry("Bob", 1, 2, 2003, 0, 14, 15, 3);
         instance.addEntry(a);
         instance.addEntry(b);
-        //fail("This method cannot be tested as it does not exist yet");
         int d = 1;
         int m = 2;
         int y = 2003;
@@ -139,5 +138,49 @@ public class TrainingRecordTest {
         assertEquals(expectResultsNone,resultNone);
         assertEquals(expectResults,resultSuccess);
     }
-    
+
+    /**
+     * Test lookupByName method of class TrainingRecord
+     */
+    @Test
+    public void testLookupByName() {
+        System.out.println("lookupByName");
+        String expectResultsNone = "Could not find any entries for this name.";
+        String expectResults = "Alice ran 3.0 km in 0:16:7 on 1/2/2003\n" +
+                                "Alice ran 3.0 km in 0:14:15 on 2/2/2003\n";
+        TrainingRecord instance = new TrainingRecord();
+        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        Entry b = new Entry("Alice", 2, 2, 2003, 0, 14, 15, 3);
+        instance.addEntry(a);
+        instance.addEntry(b);
+        String n = "Alice";
+        String resultSuccess = instance.lookupByName(n);
+        String resultNone = instance.lookupByName("Bob");
+        assertEquals(expectResultsNone,resultNone);
+        assertEquals(expectResults,resultSuccess);
+    }
+
+    /**
+     * Test of removeEntry method of class TrainingRecord
+     * Also test if it fails when trying to remove an entry that does not exist
+     */
+    @Test
+    public void testRemoveEntry() {
+        System.out.println("removeEntry");
+        Entry a = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        TrainingRecord instance = new TrainingRecord();
+        instance.addEntry(a);
+
+        String n = "Alice";
+        int d = 1;
+        int m = 2;
+        int y = 2003;
+        boolean result = instance.removeEntry(n, d, m, y);
+        assertTrue(result);  // check correct response is given
+        assertEquals(0, instance.getNumberOfEntries());  // check entry is actually removed
+
+        System.out.println("removeEntry -- fail");
+        result = instance.removeEntry(n, d, m, y);
+        assertFalse(result);  // check correct response is given when there is nothing to remove
+    }
 }
