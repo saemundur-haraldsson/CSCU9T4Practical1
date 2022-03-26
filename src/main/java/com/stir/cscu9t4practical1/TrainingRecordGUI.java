@@ -30,11 +30,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private final JLabel labmm = new JLabel(" Mins:");
     private final JLabel labs = new JLabel(" Secs:");
     private final JLabel labdist = new JLabel("Distance (km):");
-    private final JLabel labterr = new JLabel(" Terrain (if cycle):");
-    private final JLabel labtem = new JLabel(" Tempo (if cycle):");
-    private final JLabel labrep = new JLabel(" Repetitions (if sprint):");
-    private final JLabel labrec = new JLabel(" Recovery time (mins, if sprint):");
-    private final JLabel labloc = new JLabel("Location (if swim):");
+    private final JLabel labterr = new JLabel(" Terrain:");
+    private final JLabel labtem = new JLabel(" Tempo:");
+    private final JLabel labrep = new JLabel(" Repetitions:");
+    private final JLabel labrec = new JLabel(" Recovery time (mins):");
+    private final JLabel labloc = new JLabel("Location:");
     private final JButton addR = new JButton("Add");
     private final JButton remove = new JButton("Remove");
     private final JButton lookUpByDate = new JButton("Look Up");
@@ -87,20 +87,21 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         dist.setEditable(true);
         add(labterr);
         add(terr);
-        terr.setEditable(true);
+        terr.setEditable(false);
         add(labtem);
         add(tem);
-        tem.setEditable(true);
+        tem.setEditable(false);
         add(labrep);
         add(rep);
-        rep.setEditable(true);
+        rep.setEditable(false);
         add(labrec);
         add(rec);
-        rec.setEditable(true);
+        rec.setEditable(false);
         add(labloc);
         add(loc);
-        loc.setEditable(true);
+        loc.setEditable(false);
         add(entryType);
+        entryType.addActionListener(this);
         add(addR);
         addR.addActionListener(this);
         add(remove);
@@ -120,10 +121,6 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         setSize(720, 200);
         setVisible(true);
         blankDisplay();
-
-        // To save typing in new entries while testing, uncomment
-        // the following lines (or add your own test cases)
-
     }
 
     /**
@@ -135,25 +132,52 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String message = "";
         if (event.getSource() == addR) {
             message = addEntry(entryType.getItemAt(entryType.getSelectedIndex()).toLowerCase());
+            // enable remove & lookup buttons if the addition was successful and there were no entries
+            // on record beforehand
+            if (myAthletes.getNumberOfEntries() == 1) {
+                remove.setEnabled(true);
+                lookUpByDate.setEnabled(true);
+                findAllByDate.setEnabled(true);
+                findAllByName.setEnabled(true);
+            }
         } else if (event.getSource() == remove) {
             message = removeEntry();
+            // disable remove & lookup buttons if this removed the last entry on record
+            if (myAthletes.getNumberOfEntries() == 0) {
+                remove.setEnabled(false);
+                lookUpByDate.setEnabled(false);
+                findAllByDate.setEnabled(false);
+                findAllByName.setEnabled(false);
+            }
         } else if (event.getSource() == lookUpByDate) {
             message = lookupEntry("single");
         } else if (event.getSource() == findAllByDate) {
             message = lookupEntry("all");
         } else if (event.getSource() == findAllByName) {
             message = lookupEntry("name");
-        }
-        if (myAthletes.getNumberOfEntries() > 0) {
-            remove.setEnabled(true);
-            lookUpByDate.setEnabled(true);
-            findAllByDate.setEnabled(true);
-            findAllByName.setEnabled(true);
-        } else if (myAthletes.getNumberOfEntries() == 0) {
-            remove.setEnabled(false);
-            lookUpByDate.setEnabled(false);
-            findAllByDate.setEnabled(false);
-            findAllByName.setEnabled(false);
+        } else if (event.getSource() == entryType) {
+            // if the type of entry to be added is changed, this may affect which fields should not be
+            // editable; e.g., "repetitions" should not be editable for a cycle, swim or generic entry
+            String type = entryType.getItemAt(entryType.getSelectedIndex()).toLowerCase();
+            boolean[] settings;
+            switch (type) {
+                case "cycle":
+                    settings = new boolean[]{true, true, false, false, false};
+                    break;
+                case "sprint":
+                    settings = new boolean[]{false, false, true, true, false};
+                    break;
+                case "swim":
+                    settings = new boolean[]{false, false, false, false, true};
+                    break;
+                default:
+                    settings = new boolean[]{false, false, false, false, false};
+            }
+            terr.setEditable(settings[0]);
+            tem.setEditable(settings[1]);
+            rep.setEditable(settings[2]);
+            rec.setEditable(settings[3]);
+            loc.setEditable(settings[4]);
         }
         outputArea.setText(message);
         blankDisplay();
