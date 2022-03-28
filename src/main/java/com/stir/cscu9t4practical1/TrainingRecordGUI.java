@@ -41,7 +41,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
        
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
-    private JButton FindAllByDate  = new JButton("Find All By Date");//1
+  //1
+    private JButton FindAllByDate  = new JButton("Find All By Date");
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -121,14 +122,20 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     // listen for and respond to GUI events 
     public void actionPerformed(ActionEvent event) {
         String message = "";
-        if (event.getSource() == addR) {
+        if (event.getSource() == addR) { 
+        	
             message = addEntry("generic");
+            
         }
         if (event.getSource() == lookUpByDate) {
+        	
             message = lookupEntry();
+            
         }
         if (event.getSource() == FindAllByDate) {//1
+        	
         	message = findAllEntry();
+        	
         }
         outputArea.setText(message);
         blankDisplay();
@@ -136,20 +143,55 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
    
 
+
+
 	public String addEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
         String n = name.getText();
+        if(!isVaildStr(month.getText()))return "add faild";
         int m = Integer.parseInt(month.getText());
+        if(!isVaildStr(day.getText()))return "add faild";   
         int d = Integer.parseInt(day.getText());
+        if(!isVaildStr(year.getText()))return "add faild";
         int y = Integer.parseInt(year.getText());
         float km = java.lang.Float.parseFloat(dist.getText());
         int h = Integer.parseInt(hours.getText());
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
-        Entry e = new Entry(n, d, m, y, h, mm, s, km);
+        
+        
+        //8
+        Entry e = null;
+        if(!rep.getText().isEmpty() &&!rec.getText().isEmpty()) {
+        	int repe=Integer.parseInt(rep.getText());
+        	int reco=Integer.parseInt(rec.getText());
+        	e =new SprintEntry(n, d, m, y, h, mm, s, km,repe,reco);
+        }else if(!ter.getText().isEmpty() &&!tem.getText().isEmpty()) {
+        	String terr=ter.getText();
+        	String temp=tem.getText();
+        	e =new CycleEntry(n, d, m, y, h, mm, s, km,terr,temp);
+        }else if(!whe.getText().isEmpty()) {
+        	e =new SwimEntry(n, d, m, y, h, mm, s, km,whe.getText());
+        }else {
+        	 e = new Entry(n, d, m, y, h, mm, s, km);
+        }
+
         myAthletes.addEntry(e);
         return message;
+    }
+	//2
+	private boolean isVaildStr(String s) {
+    	if(s!=null) {
+    		for(int i=0;i<s.length();i++) {
+    			if(!Character.isDigit(s.charAt(i)))
+    				return false;
+    		}
+    		
+    		return true;
+    	}
+    	return false;
+    	
     }
     
     public String lookupEntry() {
@@ -179,6 +221,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
+        //1
+        rep.setText("");
+        rec.setText("");
+        ter.setText("");
+        tem.setText("");
+        whe.setText("");
 
     }// blankDisplay
     // Fills the input fields on the display for testing purposes only
