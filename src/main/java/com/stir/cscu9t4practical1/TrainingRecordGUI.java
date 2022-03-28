@@ -9,6 +9,11 @@ import java.util.List;
 import javax.swing.*;
 import java.lang.Number;
 
+/**
+*
+* @author 2924912
+*/
+
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
 	private JTextField name = new JTextField(30);

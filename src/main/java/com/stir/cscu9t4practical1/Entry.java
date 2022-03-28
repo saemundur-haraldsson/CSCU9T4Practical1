@@ -2,6 +2,11 @@
 package com.stir.cscu9t4practical1;
 
 import java.util.Calendar;
+
+/**
+*
+* @author 2924912
+*/
 public class Entry {
 	private String name;
 	private Calendar dateAndTime;
