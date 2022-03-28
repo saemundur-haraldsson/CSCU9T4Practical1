@@ -58,7 +58,7 @@ public class TrainingRecord {
 	public void clearAllEntries(){
 		tr.clear();
 	}
-	public List<Entry> getTrainingRecord() { // getter for the list of training records
+	public List<Entry> getTrainingRecord() { // getter method for the list of training records
 		return tr;
 	}
 
