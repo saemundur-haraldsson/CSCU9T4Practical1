@@ -4,6 +4,8 @@ package com.stir.cscu9t4practical1;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
+
 import javax.swing.*;
 import java.lang.Number;
 
@@ -118,21 +120,29 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
         
-        if (what == "Run") {
+        List<Entry> records = myAthletes.getTrainingRecord();
+        ListIterator<Entry> iterator = records.listIterator();
+        
+ 	   	while (iterator.hasNext()) { // while the list has elements that have not been checked yet
+ 	   		Entry current = iterator.next();
+ 	        if (current.getName().compareTo(n) == 0 && current.getDay() == d && current.getMonth() == m && current.getYear() == y) { // if the data entered matches the data of an already existing record
+ 	        	message =  "Record already exists.";
+ 	        	return message; // returns a message without adding the entry to the record
+ 	        }
+ 	   	}
+ 	   	
+ 	   	if (what == "Run") {
         	Entry e = new SprintEntry(n, d, m, y, h, mm, s, km); // creates a SprintEntry object if the activity selected was running
         	myAthletes.addEntry(e);
-        }
-        
-        if (what == "Cycle") {
+ 	   	}
+ 	   	if (what == "Cycle") {
         	Entry e = new CycleEntry(n, d, m, y, h, mm, s, km); // creates a CycleEntry object if the activity selected was cycling
         	myAthletes.addEntry(e);
-        }
-        
-        if (what == "Swim") {
+ 	   	}
+ 	   	if (what == "Swim") {
         	Entry e = new SwimEntry(n, d, m, y, h, mm, s, km); // creates a SwimEntry object if the activity selected was swimming
         	myAthletes.addEntry(e);
-        }
-        
+ 	   	}
         return message;
     }
     

@@ -54,5 +54,8 @@ public class TrainingRecord {
    public void clearAllEntries(){
        tr.clear();
    }
+   public List<Entry> getTrainingRecord() {
+	   return tr;
+   }
    
 } // TrainingRecord
