@@ -17,20 +17,20 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author saemundur
  */
-class TrainingRecordTest {
+public class TrainingRecordTest {
     public TrainingRecordTest() {
     }
     
     @BeforeAll
-    public static void setUpClass() {
+    public void setUpClass() {
     }
     
     @AfterAll
-    public static void tearDownClass() {
+    public void tearDownClass() {
     }
     
     @BeforeEach
-    public  void setUp() {
+    public void setUp() {
     }
     
     @AfterEach

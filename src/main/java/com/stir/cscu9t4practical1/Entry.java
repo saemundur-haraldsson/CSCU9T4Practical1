@@ -7,8 +7,8 @@ public class Entry {
   private Calendar dateAndTime;
   private float distance;
   
-  public Entry ( String name, int d, int m, int y, int h, int min, int s, float dist) {
-    this.name = name;
+  public Entry (String n, int d, int m, int y, int h, int min, int s, float dist) {
+    name = n;
     Calendar inst = Calendar.getInstance();
     inst.set(y,m-1,d,h,min,s);
     dateAndTime = inst;
@@ -49,10 +49,10 @@ public class Entry {
   } //getYear
 
   public String getEntry () {
-	   String result = getName()+" ran " + getDistance() + " km in "
-	             +getHour()+":"+getMin()+":"+ getSec() + " on "
-	             +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
-	   return result;
-	  } //getEntry
+   String result = getName()+" ran " + getDistance() + " km in "
+             +getHour()+":"+getMin()+":"+ getSec() + " on "
+             +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
+   return result;
+  } //getEntry
    
 } // Entry
