@@ -54,5 +54,6 @@ public class Entry {
              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
    return result;
   } //getEntry
+
    
 } // Entry

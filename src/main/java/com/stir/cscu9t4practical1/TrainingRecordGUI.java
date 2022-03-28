@@ -17,6 +17,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField mins = new JTextField(2);
     private JTextField secs = new JTextField(2);
     private JTextField dist = new JTextField(4);
+    //1
+    private JTextField rep = new JTextField(2);
+    private JTextField rec = new JTextField(2);
+    private JTextField ter = new JTextField(10);
+    private JTextField tem = new JTextField(10);
+    private JTextField whe = new JTextField(10);
+       
     private JLabel labn = new JLabel(" Name:");
     private JLabel labd = new JLabel(" Day:");
     private JLabel labm = new JLabel(" Month:");
@@ -25,8 +32,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
     private JLabel labdist = new JLabel(" Distance (km):");
+    //2
+    private JLabel laba = new JLabel(" Repetitions:");
+    private JLabel labb = new JLabel(" Recovery:");
+    private JLabel labc = new JLabel(" Terrain:");
+    private JLabel labe = new JLabel(" Tempo:");
+    private JLabel labf = new JLabel(" Where:");
+       
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    private JButton FindAllByDate  = new JButton("Find All By Date");//1
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -64,10 +79,34 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
+        
+        //1
+        add(laba);
+        add(rep);
+        rep.setEditable(true);
+        //2
+        add(labb);
+        add(rec);
+        rec.setEditable(true);
+        //3
+        add(labc);
+        add(ter);
+        ter.setEditable(true);
+        //4
+        add(labe);
+        add(tem);
+        tem.setEditable(true);
+        //5
+        add(labf);
+        add(whe);
+        whe.setEditable(true);
+        
         add(addR);
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        add(FindAllByDate);
+        FindAllByDate.addActionListener(this);//1
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -88,11 +127,16 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
         }
+        if (event.getSource() == FindAllByDate) {//1
+        	message = findAllEntry();
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
 
-    public String addEntry(String what) {
+   
+
+	public String addEntry(String what) {
         String message = "Record added\n";
         System.out.println("Adding "+what+" entry to the records");
         String n = name.getText();
@@ -114,6 +158,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int y = Integer.parseInt(year.getText());
         outputArea.setText("looking up record ...");
         String message = myAthletes.lookupEntry(d, m, y);
+        return message;
+    }
+    //findAllEntry
+    public String findAllEntry() {
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        outputArea.setText("looking up record ...");
+        String message = myAthletes.findAllEntry(d, m, y);
         return message;
     }
 
