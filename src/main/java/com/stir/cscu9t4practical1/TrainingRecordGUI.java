@@ -28,6 +28,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton FindAllByDate = new JButton("Find all by date"); // a new button for looking up all entries on a certain date
+    
+    private JLabel activity = new JLabel(" Activity: ");
+    private String selectionList[] = {"Run", "Cycle", "Swim"};
+    private JComboBox<String> selection = new JComboBox<String>(selectionList);
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -65,6 +69,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
+        add(activity);
+        add(selection);
+        selection.addActionListener(this);
         add(addR);
         addR.addActionListener(this);
         add(lookUpByDate);
