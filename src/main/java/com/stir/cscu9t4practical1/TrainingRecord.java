@@ -46,6 +46,10 @@ public class TrainingRecord {
 	   return result;
    }
    
+   public void removeEntry (Entry entry) {
+	   tr.remove(entry); // removes the entry from the record
+   }
+   
    // Count the number of entries
    public int getNumberOfEntries(){
        return tr.size();

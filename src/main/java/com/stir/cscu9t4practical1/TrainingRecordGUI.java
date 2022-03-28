@@ -30,10 +30,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton FindAllByDate = new JButton("Find all by date"); // a new button for looking up all entries on a certain date
+    private JButton Remove = new JButton("Remove"); // a button for removing a record
     
-    private JLabel activity = new JLabel(" Activity: ");
+    private JLabel activity = new JLabel(" Activity: "); // a new label for selecting between running, cycling, swimming
     private String selectionList[] = {"Run", "Cycle", "Swim"};
-    private JComboBox<String> selection = new JComboBox<String>(selectionList);
+    private JComboBox<String> selection = new JComboBox<String>(selectionList); // creates a drop down list for selecting the activity
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -80,6 +81,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         lookUpByDate.addActionListener(this);
         add(FindAllByDate); // adds the button to the GUI
         FindAllByDate.addActionListener(this); // adds an action listener to the button
+        add(Remove); // adds the remove button to the GUI
+        Remove.addActionListener(this);
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -102,6 +105,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
         if (event.getSource() == FindAllByDate) {
         	message = lookupAllEntries(); // calls the method that returns all entries on the specified date
+        }
+        
+        if (event.getSource() == Remove) {
+        	message = removeEntry();
         }
         
         outputArea.setText(message);
@@ -162,6 +169,28 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("looking up record ...");
         String message = myAthletes.lookupEntry(d, m, y);
         return message;
+    }
+    
+    public String removeEntry() {
+    	String message = "Record not found.";
+    	String n = name.getText();
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+    	
+        List<Entry> records = myAthletes.getTrainingRecord(); // retrieves the list of training records
+        ListIterator<Entry> iterator = records.listIterator();
+        
+ 	   	while (iterator.hasNext()) { // while the list has elements that have not been checked yet
+ 	   		Entry current = iterator.next();
+ 	        if (current.getName().compareTo(n) == 0 && current.getDay() == d && current.getMonth() == m && current.getYear() == y) { // if the data entered matches the data of an already existing record
+ 	        	message =  "Record removed.";
+ 	        	myAthletes.removeEntry(current); // calls a method to remove the entry from the training record
+ 	        	return message; // returns a message without adding the entry to the record
+ 	        }
+ 	   	}
+    	
+    	return message;
     }
 
     public void blankDisplay() {
