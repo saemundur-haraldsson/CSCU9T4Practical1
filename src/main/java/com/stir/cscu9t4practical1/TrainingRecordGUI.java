@@ -120,7 +120,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
         
-        List<Entry> records = myAthletes.getTrainingRecord();
+        List<Entry> records = myAthletes.getTrainingRecord(); // retrieves the list of training records
         ListIterator<Entry> iterator = records.listIterator();
         
  	   	while (iterator.hasNext()) { // while the list has elements that have not been checked yet
