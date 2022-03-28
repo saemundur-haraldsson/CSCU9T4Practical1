@@ -93,7 +93,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String message = "";
         if (event.getSource() == addR) {
-            message = addEntry("generic");
+        	message = addEntry((String) selection.getSelectedItem());
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
@@ -101,6 +101,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == FindAllByDate) {
         	message = lookupAllEntries(); // calls the method that returns all entries on the specified date
         }
+        
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
@@ -116,6 +117,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int h = Integer.parseInt(hours.getText());
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
+        
         Entry e = new Entry(n, d, m, y, h, mm, s, km);
         myAthletes.addEntry(e);
         return message;
