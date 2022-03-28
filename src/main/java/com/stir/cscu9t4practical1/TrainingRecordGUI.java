@@ -27,6 +27,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labdist = new JLabel(" Distance (km):");
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
+    private JButton FindAllByDate = new JButton("Find all by date"); // a new button for looking up all entries on a certain date
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -68,6 +69,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         addR.addActionListener(this);
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
+        add(FindAllByDate); // adds the button to the GUI
+        FindAllByDate.addActionListener(this); // adds an action listener to the button
         add(outputArea);
         outputArea.setEditable(false);
         setSize(720, 200);
@@ -88,6 +91,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
         }
+        if (event.getSource() == FindAllByDate) {
+        	message = lookupAllEntries(); // calls the method that returns all entries on the specified date
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
@@ -105,6 +111,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int s = Integer.parseInt(secs.getText());
         Entry e = new Entry(n, d, m, y, h, mm, s, km);
         myAthletes.addEntry(e);
+        return message;
+    }
+    
+    public String lookupAllEntries() {
+    	int m = Integer.parseInt(month.getText()); // retrieves the month from user input
+        int d = Integer.parseInt(day.getText()); // retrieves the day from user input
+        int y = Integer.parseInt(year.getText()); // retrieves the year from user input
+        outputArea.setText("looking up records ...");
+        String message = myAthletes.lookupAllEntries(d, m, y); // calls the method that will construct a string of all entries on the date
         return message;
     }
     
