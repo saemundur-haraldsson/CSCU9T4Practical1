@@ -93,7 +93,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String message = "";
         if (event.getSource() == addR) {
-        	message = addEntry((String) selection.getSelectedItem());
+        	message = addEntry((String) selection.getSelectedItem()); // retrieves the type of activity from the selection list
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
@@ -118,8 +118,21 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int mm = Integer.parseInt(mins.getText());
         int s = Integer.parseInt(secs.getText());
         
-        Entry e = new Entry(n, d, m, y, h, mm, s, km);
-        myAthletes.addEntry(e);
+        if (what == "Run") {
+        	Entry e = new SprintEntry(n, d, m, y, h, mm, s, km); // creates a SprintEntry object if the activity selected was running
+        	myAthletes.addEntry(e);
+        }
+        
+        if (what == "Cycle") {
+        	Entry e = new CycleEntry(n, d, m, y, h, mm, s, km); // creates a CycleEntry object if the activity selected was cycling
+        	myAthletes.addEntry(e);
+        }
+        
+        if (what == "Swim") {
+        	Entry e = new SwimEntry(n, d, m, y, h, mm, s, km); // creates a SwimEntry object if the activity selected was swimming
+        	myAthletes.addEntry(e);
+        }
+        
         return message;
     }
     
