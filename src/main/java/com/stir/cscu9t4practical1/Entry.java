@@ -7,12 +7,16 @@ public class Entry {
   private Calendar dateAndTime;
   private float distance;
   
-  public Entry (String n, int d, int m, int y, int h, int min, int s, float dist) {
+  public Entry (String n, int d, int m, int y, int h, int min, int s, float dist,
+               Boolean r, Boolean c, Boolean s) {
     name = n;
     Calendar inst = Calendar.getInstance();
     inst.set(y,m-1,d,h,min,s);
     dateAndTime = inst;
     distance = dist;
+    ran = r;
+    cycled = c;
+    swimmed = s;
   } //constructor
   
   public String getName () {
@@ -47,9 +51,18 @@ public class Entry {
   public float getDistance () {
     return distance;
   } //getYear
+  
+  public String getAction () {
+    if (r = True) {
+      return Ran; }
+    if (c = True) {
+      return Cycled; } 
+    if (s = True) {
+      return Swimmed; }
+  }//get action done by athlete
 
   public String getEntry () {
-   String result = getName()+" ran " + getDistance() + " km in "
+   String result = getName()+" " + getAction() + getDistance() + " km in "
              +getHour()+":"+getMin()+":"+ getSec() + " on "
              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
    return result;
