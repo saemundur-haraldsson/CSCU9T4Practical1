@@ -29,6 +29,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton findAllByDate = new JButton("Find All By Date");
     private JBUtton addAction = new JButton("Add action done by athlete");
+    private JButton remove = new JButton("Remove entry");
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
@@ -96,6 +97,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == addAction) {
             message = addTrain();
         }
+        if (event.getSource() == remove) {
+            message = removeEntry();
+        }
         outputArea.setText(message);
         blankDisplay();
     } // actionPerformed
@@ -132,6 +136,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         outputArea.setText("select action done in train...");
         String message = myAthletes.addTrain(r, c, s);
         
+    }
+    
+    public String removeEntry() {
+        String message = myAthletes.lookupEntry(d, m, y);
+        message.remove();
     }
 
     public void blankDisplay() {
