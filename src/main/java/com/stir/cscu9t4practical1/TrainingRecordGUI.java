@@ -127,8 +127,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     } // actionPerformed
 
     public String addEntry(String what) {
-        String message = "Record added\n";
-        System.out.println("Adding "+what+" entry to the records");
+        String message = "adding...";
         String n = name.getText();
         int m = Integer.parseInt(month.getText());
         int d = Integer.parseInt(day.getText());
@@ -142,23 +141,29 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         String where = whereField.getText();
         String repetitions = repetitionsField.getText();
         String recovery = recoveryField.getText();
-        if (!terrain.isEmpty() && !tempo.isEmpty()){
-            CycleEntry e = new CycleEntry(n, d, m, y, h, mm, s, km,terrain,tempo);
-            myAthletes.addEntry(e);
-            System.out.print("Added as cycle");
-        } else if(!where.isEmpty()){
-            SwimEntry e = new SwimEntry(n, d, m, y, h, mm, s, km,where);
-            myAthletes.addEntry(e);
-            System.out.print("Added as swim");
-        } else if (!repetitions.isEmpty() && !recovery.isEmpty() ){
-            SprintEntry e = new SprintEntry(n, d, m, y, h, mm, s, km,Integer.parseInt(repetitions),Integer.parseInt(recovery));
-            myAthletes.addEntry(e);
-            System.out.print("Added as sprint");
-        } else {
-            Entry e = new Entry(n, d, m, y, h, mm, s, km);
-            myAthletes.addEntry(e);
+        if (myAthletes.CheckIfEntryExists(m,d,y,n) == false) {
+            if (!terrain.isEmpty() && !tempo.isEmpty()) {
+                CycleEntry e = new CycleEntry(n, d, m, y, h, mm, s, km, terrain, tempo);
+                myAthletes.addEntry(e);
+                System.out.print("Added as cycle");
+            } else if (!where.isEmpty()) {
+                SwimEntry e = new SwimEntry(n, d, m, y, h, mm, s, km, where);
+                myAthletes.addEntry(e);
+                System.out.print("Added as swim");
+            } else if (!repetitions.isEmpty() && !recovery.isEmpty()) {
+                SprintEntry e = new SprintEntry(n, d, m, y, h, mm, s, km, Integer.parseInt(repetitions), Integer.parseInt(recovery));
+                myAthletes.addEntry(e);
+                System.out.print("Added as sprint");
+            } else {
+                Entry e = new Entry(n, d, m, y, h, mm, s, km);
+                myAthletes.addEntry(e);
+                message = "Record added as run";
+            }
+            return message;
+        }else {
+            message = "An entry under this name and date already exists";
+            return message;
         }
-        return message;
     }
     
     public String lookupEntry() {
