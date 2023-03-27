@@ -40,6 +40,17 @@ public class TrainingRecord {
         }
         return result;
     }
+    public String lookupAllEntriesByName(String searchTerm){
+        ListIterator<Entry> iter = tr.listIterator();
+        String result = "";
+        while (iter.hasNext()) {
+            Entry current = iter.next();
+            if (current.name.equalsIgnoreCase(searchTerm)){
+                result += current.getEntry();
+            }
+        }
+        return result;
+    }
    // Count the number of entries
    public int getNumberOfEntries(){
        return tr.size();

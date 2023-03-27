@@ -3,6 +3,7 @@ package com.stir.cscu9t4practical1;
 
 import java.util.Calendar;
 public class Entry {
+
   protected String name;
   protected Calendar dateAndTime;
   protected float distance;
@@ -49,10 +50,10 @@ public class Entry {
   } //getYear
 
   public String getEntry () {
-   String result = getName()+" ran " + getDistance() + " km in "
-             +getHour()+":"+getMin()+":"+ getSec() + " on "
-             +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
-   return result;
+      String result = getName()+ " ran "+ getDistance() + " km in "
+              +getHour()+":"+getMin()+":"+ getSec() + " on "
+              +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
+      return result;
   } //getEntry
 
 } // Entry

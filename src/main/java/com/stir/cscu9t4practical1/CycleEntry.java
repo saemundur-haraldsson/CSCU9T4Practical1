@@ -3,6 +3,7 @@ package com.stir.cscu9t4practical1;
 public class CycleEntry extends Entry{
 
 
+
     private String terrain;
 
 
@@ -26,5 +27,12 @@ public class CycleEntry extends Entry{
 
     public void setTempo(String tempo) {
         this.tempo = tempo;
+    }
+    public String getEntry(){
+        String result = getName()+ " did a  " + getTerrain() +" cycle for " +
+                getDistance()+ " km in at a tempo of "+ getTempo() +" for  "
+                +getHour()+":"+getMin()+":"+ getSec() + " on "
+                +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
+        return result;
     }
 }
