@@ -135,7 +135,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         int d = Integer.parseInt(day.getText());
         int y = Integer.parseInt(year.getText());
         outputArea.setText("looking up record ...");
-        String message = myAthletes.lookupEntry(d, m, y);
+        String message = myAthletes.getAllEntriesOnDate(d, m, y);
         return message;
     }
     
@@ -180,4 +180,3 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     }
 
 } // TrainingRecordGUI
-
