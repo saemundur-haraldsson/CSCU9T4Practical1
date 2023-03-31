@@ -26,7 +26,7 @@ public class CycleEntry extends Entry {
 		  } //getTempo
 		  
 
-		  public String getEntry () {
+		  public String getCycleEntry () {
 		   String result = getName()+" ran " + getDistance() + " km in "
 		             +getHour()+":"+getMin()+":"+ getSec() + " on "
 		             +getDay()+"/"+getMonth()+"/"+getYear()+ "on" + getTerrain() + "at" + 

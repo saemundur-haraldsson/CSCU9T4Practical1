@@ -96,10 +96,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             message = lookupEntry();
         }
         if (event.getSource() == FindAllByDate ) { 
-            message = "Not implemented yet"; 
+            message = FindAllByDate();
         }
         if (event.getSource() == RemoveEntry) {
-            message = remove();
+            message = Remove();
         }
         outputArea.setText(message);
         blankDisplay();
@@ -122,37 +122,49 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     }
     
     public String lookupEntry() {
-        int m = Integer.parseInt(month.getText());
-        int d = Integer.parseInt(day.getText());
-        int y = Integer.parseInt(year.getText());
-        outputArea.setText("looking up record ...");
-        String message = myAthletes.lookupEntry(d, m, y);
-        return message;
-    }
-    
-    public String FindAllByDate() {
-        int m = Integer.parseInt(month.getText());
-        int d = Integer.parseInt(day.getText());
-        int y = Integer.parseInt(year.getText());
-        outputArea.setText("looking up record ...");
-        String message = myAthletes.getAllEntriesOnDate(d, m, y);
-        return message;
-    }
-    
-    public String remove() {
-        String s = name.getText();
         String message;
-        try {
+        String n = "";
+        {
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
             int y = Integer.parseInt(year.getText());
-            myAthletes.remove(s, d, m, y);
-            message = "Entry removed";
-        } catch (NumberFormatException nfe) {
-            System.err.println("Wrong input");
-            JOptionPane.showMessageDialog(null, "Wrong number format or empty cells.\nPlease enter data again");
-            message = "Input error. Insert data again";
+            n = name.getText();
+            message = myAthletes.lookupEntry(d, m, y);
+        
+        if (n.isEmpty()) {
+            message = "ERROR MESSEGE! PLEASE INPUT YOUR DATA AGAIN";
         }
+
+        return message;
+        }
+    }
+    
+    public String FindAllByDate() {
+        String message;
+        {
+            int m = Integer.parseInt(month.getText());
+            int d = Integer.parseInt(day.getText());
+            int y = Integer.parseInt(year.getText());
+            outputArea.setText("NOT IMPLEMENTED YET");
+            message = myAthletes.getAllEntriesOnDate(d, m, y);
+        
+        if (message.isEmpty()) {
+            message = "ERROR MESSEGE! PLEASE INPUT YOUR DATA AGAIN";
+        }
+        return message;
+        }
+    }
+    
+    public String Remove() {
+        String s = name.getText();
+        String message;
+      {
+            int m = Integer.parseInt(month.getText());
+            int d = Integer.parseInt(day.getText());
+            int y = Integer.parseInt(year.getText());
+            myAthletes.Remove(s, d, m, y);
+            message = "ENTRY HAS BEEN REMOVED SUCCESSFULLY";
+      }
         return message;
     }
 

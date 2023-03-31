@@ -25,7 +25,7 @@ public class SprintEntry extends Entry {
 		  } //getRecovery
 		  
 
-		  public String getEntry () {
+		  public String getSprintEntry () {
 		   String result = getName()+" ran " + getDistance() + " km in "
 		             +getHour()+":"+getMin()+":"+ getSec() + " on "
 		             +getDay()+"/"+getMonth()+"/"+getYear()+"\n";
