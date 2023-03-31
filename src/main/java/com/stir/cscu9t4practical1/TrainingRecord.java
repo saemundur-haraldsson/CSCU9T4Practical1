@@ -61,6 +61,17 @@ public class TrainingRecord {
         }
         return result;
     }
+    public String removeAllEntries (int d, int m, int y,String n) {
+        ListIterator<Entry> iter = tr.listIterator();
+        String result = "No entries under that name and date";
+        while (iter.hasNext()) {
+            Entry current = iter.next();
+            if (current.getDay()==d && current.getMonth()==m && current.getYear()==y && current.getName().equalsIgnoreCase(n))
+                result = "Entry: "+n+ " on " +d+"/"+m+"/"+y+" was removed successfully";
+                iter.remove();
+        }
+        return result;
+    }
    // Count the number of entries
    public int getNumberOfEntries(){
        return tr.size();

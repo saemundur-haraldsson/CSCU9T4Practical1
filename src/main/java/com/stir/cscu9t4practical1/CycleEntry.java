@@ -29,7 +29,7 @@ public class CycleEntry extends Entry{
         this.tempo = tempo;
     }
     public String getEntry(){
-        String result = getName()+ " did a  " + getTerrain() +" cycle for " +
+        String result = getName()+ " did a " + getTerrain() +" cycle for " +
                 getDistance()+ " km in at a tempo of "+ getTempo() +" for  "
                 +getHour()+":"+getMin()+":"+ getSec() + " on "
                 +getDay()+"/"+getMonth()+"/"+getYear()+"\n";

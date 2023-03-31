@@ -15,16 +15,10 @@ public class SprintEntry extends Entry{
         return repetitions;
     }
 
-    public void setRepetitions(int repetitions) {
-        this.repetitions = repetitions;
-    }
     public int getRecovery() {
         return recoveryIntervals;
     }
 
-    public void setRecovery(int recoveryIntervals) {
-        this.recoveryIntervals = recoveryIntervals;
-    }
 
     public String getEntry(){
         String result = getName()+ " Sprinted " + getRepetitions() +" repetitions of: " +

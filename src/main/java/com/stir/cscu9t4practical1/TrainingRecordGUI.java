@@ -41,6 +41,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField tempoField = new JTextField(3);
     private JTextField terrainField = new JTextField(10);
     private JButton findAllBasedOnName = new JButton("Name Search");
+    private JButton removeButton = new JButton("Remove Entry");
 
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
@@ -95,6 +96,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         lookUpAllByDate.addActionListener(this);
         add(findAllBasedOnName);
         findAllBasedOnName.addActionListener(this);
+        add(removeButton);
+        removeButton.addActionListener(this);
         add(outputArea);
         outputArea.setEditable(false);
 
@@ -121,6 +124,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
         if (event.getSource() == findAllBasedOnName){
             message = lookupAllEntriesByName();
+        } if (event.getSource() ==  removeButton){
+            message = removeAllEntries();
         }
         outputArea.setText(message);
         blankDisplay();
@@ -186,6 +191,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
        String searchTerm = name.getText();
         outputArea.setText("looking up record ...");
         String message = myAthletes.lookupAllEntriesByName(searchTerm);
+        return message;
+    }
+    public String removeAllEntries() {
+        int m = Integer.parseInt(month.getText());
+        int d = Integer.parseInt(day.getText());
+        int y = Integer.parseInt(year.getText());
+        String n = name.getText();
+        outputArea.setText("looking up record ...");
+        String message = myAthletes.removeAllEntries(d, m, y,n);
         return message;
     }
 
