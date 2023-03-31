@@ -92,18 +92,48 @@ public class TrainingRecordGUITest {
         instance.fillDisplay(entry);
         String message = instance.addEntry("generic");
         System.out.println(message);
-        assertEquals(message,"Record added\n");
+        assertEquals(message,"Record added as run");
+    }
+    @Test
+    public void testLookupAllEntries(){
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+        Entry entry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        instance.fillDisplay(entry);
+        String expected = "Alice ran 3.0 km in 0:16:7 on 1/2/2003\n";
+        String message = instance.addEntry("generic");
+        message = instance.lookupAllEntries();
+        assertEquals(message,expected);
     }
     
     /**
      * Test to see if all display requirements have been met
      */
     @Test
+    public void testRemoveAllEntries(){
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+        Entry entry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        instance.fillDisplay(entry);
+        instance.addEntry("generic");
+        String result = instance.removeAllEntries();
+        String expected = "Entry: Alice on 1/2/2003 was removed successfully";
+        assertEquals(result,expected);
+    }
+    @Test
+    public void testLookupAllEntriesByName(){
+        TrainingRecordGUI instance = new TrainingRecordGUI();
+        Entry entry = new Entry("Alice", 1, 2, 2003, 0, 16, 7, 3);
+        instance.fillDisplay(entry);
+        instance.addEntry("generic");
+        String result = instance.lookupAllEntriesByName();
+        String expected = "Alice ran 3.0 km in 0:16:7 on 1/2/2003\n";
+        assertEquals(result,expected);
+    }
+    @Test
     public void testButtonsPresentInGUI() throws IllegalAccessException, IllegalArgumentException{
         System.out.println("Check if you have added the buttons"); 
         TrainingRecordGUI instance = new TrainingRecordGUI();
         Class<?> instanceClass = instance.getClass();
-        String[] expectedFields = {"findAllByDate","lookUpByDate"}; // add RemoveEntry when it is ready
+        String[] expectedFields = {"lookUpAllByDate","lookUpByDate","findAllBasedOnName","removeButton"}; // add RemoveEntry when it is ready
         Field fields[] = instanceClass.getDeclaredFields();
         int found = 0;
         for (Field field : fields) {

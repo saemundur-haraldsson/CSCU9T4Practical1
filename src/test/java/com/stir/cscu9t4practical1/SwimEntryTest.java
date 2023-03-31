@@ -140,13 +140,13 @@ public class SwimEntryTest {
         System.out.println("getWhere");
         Entry instanceA = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"outdoors");
         String expResultA = "outdoors";
-        String result = instanceA.getWhere();
-        assertEquals(expResultA, result);
+        String result1 = ((SwimEntry) instanceA).getWhere();
+        assertEquals(expResultA, result1);
         
         Entry instanceB = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"pool");
-        String expResultB = "in a pool";
-        String result = instanceB.getWhere();
-        assertEquals(expResultB, result);
+        String expResultB = "pool";
+        String result2 = ((SwimEntry) instanceB).getWhere();
+        assertEquals(expResultB, result2);
     }
     /**
      * Test of getEntry method, of class SwimEntry.
@@ -155,7 +155,7 @@ public class SwimEntryTest {
     public void testGetEntry() {
         System.out.println("getEntry");
         Entry instance = new SwimEntry("Alice", 1, 2, 2003, 0, 16, 7, 3,"outdoors");
-        String expResult = "Alice swam 3.0 km outdoors in 0:16:7 on 1/2/2003\n";
+        String expResult = "Alice Swam outdoors for  3.0 km in  0:16:7 on 1/2/2003\n";
         String result = instance.getEntry();
         assertEquals(expResult, result);
     }

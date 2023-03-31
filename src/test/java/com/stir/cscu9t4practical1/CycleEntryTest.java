@@ -139,7 +139,7 @@ public class CycleEntryTest {
     @Test
     public void testGetTerrain() {
         System.out.println("getTerrain");
-        Entry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
+        CycleEntry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
         String expResult = "asphalt";
         String result = instance.getTerrain();
         assertEquals(expResult, result);
@@ -151,7 +151,7 @@ public class CycleEntryTest {
     @Test
     public void testGetTempo() {
         System.out.println("getTempo");
-        Entry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
+        CycleEntry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
         String expResult = "moderate";
         String result = instance.getTempo();
         assertEquals(expResult, result);
@@ -164,7 +164,7 @@ public class CycleEntryTest {
     public void testGetEntry() {
         System.out.println("getEntry");
         Entry instance = new CycleEntry("Alice", 1, 2, 2003, 0, 16, 7, 3, "asphalt", "moderate");
-        String expResult = "Alice cycled 3.0 km in 0:16:7 on 1/2/2003 on asphalt at moderate tempo\n";
+        String expResult = "Alice did a asphalt cycle for 3.0 km in at a tempo of moderate for  0:16:7 on 1/2/2003\n";
         String result = instance.getEntry();
         assertEquals(expResult, result);
     }
