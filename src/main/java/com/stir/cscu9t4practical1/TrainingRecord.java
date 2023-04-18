@@ -1,8 +1,5 @@
-// An implementation of a Training Record as an ArrayList
+//import necessary packages
 package com.stir.cscu9t4practical1;
-
-
-
 
 import java.util.*;
 
@@ -25,7 +22,7 @@ public class TrainingRecord {
        String result = "No entries found";
        while (iter.hasNext()) {
           Entry current = iter.next();
-          if (current.getDay()==d && current.getMonth()==m && current.getYear()==y) 
+          if (current.getDay() == d && current.getMonth() == m && current.getYear() == y) 
              result = current.getEntry();
             }
        return result;
@@ -35,9 +32,32 @@ public class TrainingRecord {
    public int getNumberOfEntries(){
        return tr.size();
    }
+   
    // Clear all entries
    public void clearAllEntries(){
        tr.clear();
+   }
+   
+   // Calculate the total distance run for a given athlete
+   public double getTotalDistanceRun(String name) {
+       double totalDistance = 0.0;
+       for (Entry e : tr) {
+           if (e instanceof RunEntry && e.getName().equals(name)) {
+               totalDistance += ((RunEntry) e).getDistance();
+           }
+       }
+       return totalDistance;
+   }
+   
+   // Calculate the total time taken to run for a given athlete
+   public int getTotalTimeRun(String name) {
+       int totalTime = 0;
+       for (Entry e : tr) {
+           if (e instanceof RunEntry && e.getName().equals(name)) {
+               totalTime += ((RunEntry) e).getDuration();
+           }
+       }
+       return totalTime;
    }
    
 } // TrainingRecord
