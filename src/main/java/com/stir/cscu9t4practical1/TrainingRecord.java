@@ -1,4 +1,4 @@
-// An implementation of a Training Record as an ArrayList
+//import necessary packages
 package com.stir.cscu9t4practical1;
 
 import java.util.*;
