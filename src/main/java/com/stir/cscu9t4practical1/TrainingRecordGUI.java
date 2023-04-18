@@ -28,6 +28,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton addR = new JButton("Add");
     private JButton lookUpByDate = new JButton("Look Up");
     private JButton findAllByDate = new JButton("Find All By Date");
+    private JButton removeEntry = new JButton("Remove");
+    private JLabel labRemove = new JLabel("Enter date and name to remove an entry:");
+    private JTextField removeDay = new JTextField(2);
+    private JTextField removeMonth = new JTextField(2);
+    private JTextField removeYear = new JTextField(4);
+    private JTextField removeName = new JTextField(30);
+    private JLabel labRemoveDay = new JLabel(" Day:");
+    private JLabel labRemoveMonth = new JLabel(" Month:");
+    private JLabel labRemoveYear = new JLabel(" Year:");
 
     // Create an instance of the TrainingRecord class to hold all the entries
     private TrainingRecord myAthletes = new TrainingRecord();
@@ -77,171 +86,97 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         lookUpByDate.addActionListener(this);
         add(findAllByDate);
         findAllByDate.addActionListener(this);
+        add(removeEntry);
+        removeEntry.addActionListener(this);
+        add(labRemove);
+        add(labRemoveDay);
+        add(removeDay);
+        removeDay.setEditable(true);
+        add(labRemoveMonth);
+        add(removeMonth);
+        removeMonth.setEditable(true);
+        add(labRemoveYear);
+        add(removeYear);
+        removeYear.setEditable(true);
+        add(labn);
+        add(removeName);
+        removeName.setEditable(true);
+        // Add the output JTextArea component to the JFrame
         add(outputArea);
         outputArea.setEditable(false);
-        setSize(720, 200);
+
+        // Set the JFrame size and make it visible
+        setSize(600, 400);
         setVisible(true);
-        blankDisplay();
-
-        // To save typing in new entries while testing, uncomment
-        // the following lines (or add your own test cases)
-
     } // constructor
 
-    // listen for and respond to GUI events 
-    public void actionPerformed(ActionEvent event) {
-        String message = "";
-        if (event.getSource() == addR) {
-            // Call the addEntry method to add a new entry to the record
-            String entryType = name.getText();
-            if (entryType.equalsIgnoreCase("cycling")) {
-                message = addEntry("CycleSession");
-            } else if (entryType.equalsIgnoreCase("running")) {
-                message = addEntry("RunSprintSession");
-            } else if (entryType.equalsIgnoreCase("swimming")) {
-                message = addEntry("SwimSession");
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Handle the Add button click
+        if (e.getSource() == addR) {
+            String n = name.getText();
+            int d = Integer.parseInt(day.getText());
+            int m = Integer.parseInt(month.getText());
+            int y = Integer.parseInt(year.getText());
+            int h = Integer.parseInt(hours.getText());
+            int mm = Integer.parseInt(mins.getText());
+            int s = Integer.parseInt(secs.getText());
+            float distf = Float.parseFloat(dist.getText()); // create an instance of the Entry class and add it to the TrainingRecord
+            Entry entry = new Entry(n, d, m, y, h, mm, s, distf);
+            myAthletes.addEntry(entry);
+
+            // display success message
+            outputArea.setText("Entry added successfully.");
+        }
+
+        // Handle the Look Up button click
+        if (e.getSource() == lookUpByDate) {
+            int d = Integer.parseInt(day.getText());
+            int m = Integer.parseInt(month.getText());
+            int y = Integer.parseInt(year.getText());
+
+            // search for the Entry in the TrainingRecord and display it
+            Entry entry = myAthletes.getEntryByDate(d, m, y);
+            if (entry != null) {
+                outputArea.setText(entry.getEntryAsString());
             } else {
-                message = addEntry("TrainingSession");
+                outputArea.setText("No entry found for that date.");
             }
         }
-        if (event.getSource() == lookUpByDate) {
-            // Call the lookupEntry method to find an entry by date
-            String date = getInputDate();
-            message = lookupEntry(date);
-        }
-        if (event.getSource() == findAllByDate) {
-            // Call the findAllEntries method to find all entries on a date
-            String date = getInputDate();
-            message = findAllEntries(date);
-        }
-        // Update the display with the message
-        outputArea.setText(message);
-    }
 
-    // Add a new entry to the training record and return a message to display
-    private String addEntry(String entryType) {
-        // Get the input values from the GUI components
-        String athleteName = name.getText();
-        int dayInt = Integer.parseInt(day.getText());
-        int monthInt = Integer.parseInt(month.getText());
-        int yearInt = Integer.parseInt(year.getText());
-        int hoursInt = Integer.parseInt(hours.getText());
-        int minsInt = Integer.parseInt(mins.getText());
-        int secsInt = Integer.parseInt(secs.getText());
-        double distance = Double.parseDouble(dist.getText());
+        // Handle the Find All By Date button click
+        if (e.getSource() == findAllByDate) {
+            int d = Integer.parseInt(day.getText());
+            int m = Integer.parseInt(month.getText());
+            int y = Integer.parseInt(year.getText());
 
-        // Create a new instance of the appropriate entry type
-        Entry newEntry;
-        switch (entryType) {
-            case "CycleSession":
-                newEntry = new CycleSession(athleteName, dayInt, monthInt, yearInt, hoursInt, minsInt, secsInt, distance);
-                break;
-            case "RunSprintSession":
-                newEntry = new RunSprintSession(athleteName, dayInt, monthInt, yearInt, hoursInt, minsInt, secsInt, distance);
-                break;
-            case "SwimSession":
-                newEntry = new SwimSession(athleteName, dayInt, monthInt, yearInt, hoursInt, minsInt, secsInt, distance);
-                break;
-            default:
-                newEntry = new TrainingSession(athleteName, dayInt, monthInt, yearInt, hoursInt, minsInt, secsInt);
-        }
-
-        // Add the new entry to the training record
-        myAthletes.addEntry(newEntry);
-
-        // Return a message indicating success
-        return "New " + entryType + " added to the record.";
-    }
-
-    // Find an entry by date and return a message to display
-    private String lookupEntry(String date) {
-        // Use the lookupEntry method of the TrainingRecord class to find the entry
-        Entry entry = myAthletes.lookupEntry(date);
-
-        // If the entry is not found, return a message indicating so
-        if (entry == null) {
-            return "No entry found for " + date;
-        }
-
-        // Otherwise, return a string representation of the entry
-        return entry.toString();
-    }
-
-    // Find all entries on a date and return a message to display
-    private String findAllEntries(String date) {
-        // Use the findAllEntries method of the TrainingRecord class to find all entries
-        ArrayList < Entry > entries = myAthletes.findAllEntries(date);
-
-        // If there are no entries found, return a message indicating so
-        if (entries.isEmpty()) {
-            return "No entries found for " + date;
-        }
-
-        // Otherwise, return a string representation of all the entries
-        String message = "";
-        for (Entry entry: entries) {
-            message += entry.toString() + "\n";
-        }
-        return message;
-    }
-
-    // Get the date input from the GUI components and format it as a string
-    private String getInputDate() {
-        String dayStr = day.getText();
-        String monthStr = month.getText();
-        String yearStr = year.getText();
-        return dayStr + "/" + monthStr + "/" + yearStr;
-    }
-
-    // Set all the GUI components to their default values
-    private void blankDisplay() {
-        name.setText("");
-        day.setTest("");
-        //Find all entries on a date and return a message to display
-        private String findAllEntries(String date) {
-            //Create a Date object from the input date string
-            String[] dateParts = date.split("/");
-            int dayInt = Integer.parseInt(dateParts[0]);
-            int monthInt = Integer.parseInt(dateParts[1]);
-            int yearInt = Integer.parseInt(dateParts[2]);
-            Date searchDate = new Date(dayInt, monthInt, yearInt);
-
-            //Use the findEntries method to search for entries on the given date
-            ArrayList < Entry > entries = myAthletes.findEntries(searchDate);
-
-            //If no entries were found, return an appropriate message
-            if (entries.isEmpty()) {
-                return "No entries found on " + searchDate.toString() + ".";
+            // search for all Entries in the TrainingRecord for a specific date and display them
+            ArrayList < Entry > entries = myAthletes.getAllEntriesByDate(d, m, y);
+            if (!entries.isEmpty()) {
+                String output = "";
+                for (Entry entry: entries) {
+                    output += entry.getEntryAsString() + "\n";
+                }
+                outputArea.setText(output);
+            } else {
+                outputArea.setText("No entries found for that date.");
             }
+        }
 
-            //Build a message listing all the entries found on the given date
-            StringBuilder message = new StringBuilder("Entries found on " + searchDate.toString() + ":\n");
-            for (Entry entry: entries) {
-                message.append(entry.toString()).append("\n");
+        // Handle the Remove button click
+        if (e.getSource() == removeEntry) {
+            int d = Integer.parseInt(removeDay.getText());
+            int m = Integer.parseInt(removeMonth.getText());
+            int y = Integer.parseInt(removeYear.getText());
+            String n = removeName.getText();
+
+            // remove the Entry from the TrainingRecord and display success message
+            boolean removed = myAthletes.removeEntry(d, m, y, n);
+            if (removed) {
+                outputArea.setText("Entry removed successfully.");
+            } else {
+                outputArea.setText("No entry found to remove.");
             }
-
-            return message.toString();
         }
-
-        //Get the input date from the day, month, and year fields
-        private String getInputDate() {
-            String dayString = day.getText();
-            String monthString = month.getText();
-            String yearString = year.getText();
-            return dayString + "/" + monthString + "/" + yearString;
-        }
-
-        //Clear the GUI components for entering a new entry
-        private void blankDisplay() {
-            name.setText("");
-            day.setText("");
-            month.setText("");
-            year.setText("");
-            hours.setText("");
-            mins.setText("");
-            secs.setText("");
-            dist.setText("");
-            outputArea.setText("");
-        }
-
-    } // TrainingRecordGUI class
+    } // actionPerformed
+} // TrainingRecordGUI
